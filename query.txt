@@ -1,0 +1,65 @@
+coordinator - collect - required_documents_from_bank
+
+coordinator - create lead - format, details, collected documents
+	   - assigns task to TEs and VEs
+	   - edit assignees
+	   - edit lead details
+TE - CRUD - visit forms
+
+VE - CRUD - valuation report
+	! not mark as "Report Completed"
+
+QNA
+1. Where actually report cancelled lies in flowchart?
+2. Based on the format selected by the coordinator, specific fields will be shown to the TE and VE, and the report template will align with the selected format.
+	- does it means that only spcific fields of lead form is visible differently for VE and TE
+3. Coordinators have access to all report requests initiated by all Coordinators, VEs, and PEs but do not have access to payment details.
+	- access of what (read/write/all), can they see visit details & valuation details by VE
+4. Coordinators, VEs, and PEs can create duplicate entries from existing reports, and existing data should remain intact when assigning visits.
+
+Roles and actions
+
+Bank manager - 1. Report request for site (w/ some details)
+			   2. Approves final report or reject 
+			   Q. rejects then what (in flowchart)
+
+coordinator - 1. All report request, Lead details
+			  2. Edit assignees
+			  3. not view payment details
+
+TE - site visit notification
+	 submit visit form
+
+VE - accept/reject visit form
+	 submit valuation form 
+	 generate report
+	 mark for review
+
+PE - review marked reports (accept / reject)
+
+	 
+
+
+
+1. Bank Contact Person Name (CHAR)
+2. Bank Contact Person Number (char ['+91 95103-34322'])
+3. Property Contact Person Name (CHAR)
+4. Property Contact Person Number (CHAR)
+5. Documents (Attachments)
+6. Additional Comments
+7. Due Date for Visit
+8. Name Field Title & Name 
+9. Name of Intended Purchaser 
+10. Location of the Property
+11. Name & Address of Branch
+12. Name of Customer (s)/ Borrowal unit 
+13 .1 Customer Details
+      Name 
+      Application No. 
+14. 2 Property Details
+    Address
+
+	 "Report Request Submitted, Visit Assigned, Visit Completed, Visit Approved,
+Visit Reassigned, Report Generated, Report in Progress, Report Completed,
+Report Submitted, Report Approved, Complete, Report Reassigned."
+payment status as one of, "Pending, Received, Delayed, Cancelled."

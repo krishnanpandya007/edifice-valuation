@@ -1,0 +1,549 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<div class=" bg-gray-50 dark:bg-gray-900 ">
+
+    <div class="flex pt-[10vh] mb-10 items-center w-full justify-center">
+        <div class="flex-col">
+            <p id="status">Checking network status...</p>
+            <h2 class=" mb-10 text-xl font-bold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-3xl dark:text-white">Register site</h2>
+            <ol class="flex items-center mb-5 p-3 space-x-2 text-sm font-medium text-center text-gray-500 bg-white border border-gray-200 rounded-lg shadow-xs dark:text-gray-400 sm:text-base dark:bg-gray-800 dark:border-gray-700 sm:p-4 sm:space-x-4 rtl:space-x-reverse">
+                <li class="flex items-center text-blue-600 dark:text-blue-500">
+                    <span class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-blue-600 rounded-full shrink-0 dark:border-blue-500">
+                        1
+                    </span>
+                    Base <span class="hidden sm:inline-flex sm:ms-2">Info</span>
+                    <svg class="w-3 h-3 ms-2 sm:ms-4 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 9 4-4-4-4M1 9l4-4-4-4"/>
+                    </svg>
+                </li>
+                <li class="flex items-center">
+                    <span class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-gray-500 rounded-full shrink-0 dark:border-gray-400">
+                        2
+                    </span>
+                    Attachments
+                    <svg class="w-3 h-3 ms-2 sm:ms-4 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 9 4-4-4-4M1 9l4-4-4-4"/>
+                    </svg>
+                </li>
+                <li class="flex items-center">
+                    <span class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-gray-500 rounded-full shrink-0 dark:border-gray-400">
+                        3
+                    </span>
+                    Notes
+                </li>
+            </ol>
+            
+<form name="site_info" method="post" action="{% url 'register_site_form' %}">
+    <div class="form_basic_info">
+
+    <div >
+        <div class="mb-6">
+            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Site name</label>
+            <input type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ranuja apartments" required />
+        </div>
+        <div class="mb-6">
+            <label for="bank_contact_person_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bank Contact Person Name</label>
+            <input type="text" id="bank_contact_person_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required />
+        </div>
+        <div class="mb-6">
+            <label for="bank_contact_person_number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bank Contact Person Number</label>
+
+            <div class="flex items-center">
+                
+                <div class="relative w-full">
+                    
+                    <input type="text" id="bank_contact_person_number" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border-s-0 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890" required />
+                </div>
+            </div>
+            <!-- <label for="bank_contact_person_number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bank Contact Person Number</label>
+            <input type="text" id="bank_contact_person_number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required /> -->
+        </div>
+        <div class="mb-6">
+
+            <label for="property_location" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Property location</label>
+            <textarea id="property_location" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Type legal property address..."></textarea>
+            
+        </div>
+        <div class="mb-6">
+
+            <label for="branch_name_address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Branch name & location</label>
+            <textarea id="branch_name_address" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Type legal property address..."></textarea>
+            
+        </div>
+        <div class="mb-6">
+            <label for="property_contact_person_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Property Contact Person Name</label>
+            <input type="text" id="property_contact_person_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required />
+        </div>
+        <div class="mb-6">
+            <label for="property_contact_person_number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Property Contact Person Number</label>
+
+            <div class="flex items-center">
+                
+                
+                <div class="relative w-full">
+                    
+                    <input type="text" id="property_contact_person_number" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border-s-0 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890" required />
+                </div>
+            </div>
+        </div>
+        <label for="visit_due_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Due date for visit</label>
+        <div class="relative mb-6">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+              <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+              </svg>
+            </div>
+
+            <input datepicker id="visit_due_date" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
+          </div>
+        <div class="mb-6">
+            <label for="name_field_title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name field title</label>
+            <!-- <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select your country</label> -->
+            <select id="name_field_title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          
+              <option value="OWNER">Name of owner</option>
+              <option value="OWNERS">Name of owners</option>
+              <option value="PROPOSED_OWNER">Name of proposed owner</option>
+              <option value="PROPOSED_OWNERS">Name of proposed owners</option>
+            </select>        
+        </div>
+        <div class="mb-6">
+            <label for="name_field_value" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name field value</label>
+            <input type="text" id="name_field_value" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required />
+        </div>
+        <div class="mb-6">
+            <label for="intended_purchaser_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Intended purchaser name</label>
+            <input type="text" id="intended_purchaser_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required />
+        </div>
+        
+        <div class="mb-6">
+
+            <label for="borrowal_unit" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name of customer(s)/Borrowal unit</label>
+            <textarea id="borrowal_unit" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Comma seperated names..."></textarea>
+            
+        </div> 
+        <h6 class="text-lg font-bold dark:text-white">Customer details</h6>
+        <div class="mb-6 border-dashed border-2 border-gray-600 p-2">
+
+            <label for="customer_details_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+            <input id="customer_details_name" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" ></textarea>
+            <div class="mt-3">
+    
+                <label for="customer_details_application_number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Application No.</label>
+                <input id="customer_details_application_number" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" ></textarea>
+                
+            </div>
+            
+        </div>
+        <h6 class="text-lg font-bold dark:text-white">Property details</h6>
+        <div class="mb-6 border-dashed border-2 border-gray-600 p-2">
+
+            <label for="property_details_address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Property location</label>
+            <textarea id="property_details_address" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Type legal property address..."></textarea>
+             
+        </div>
+    </div>
+    </div>
+    <div class="form_attachments" class="text-white">
+        
+        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="small_size">Add attachments</label>
+<input id="attach_input" style="display: none;"class="block w-full mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="small_size" type="file">
+<button id="attach_button" type="file" class=" flex justify-center text-white bg-blue-600/70 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-blue-600/30 me-2 mb-2 w-full ">
+    <svg class="w-4 h-4 me-2" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.81825 1.18188C7.64251 1.00615 7.35759 1.00615 7.18185 1.18188L4.18185 4.18188C4.00611 4.35762 4.00611 4.64254 4.18185 4.81828C4.35759 4.99401 4.64251 4.99401 4.81825 4.81828L7.05005 2.58648V9.49996C7.05005 9.74849 7.25152 9.94996 7.50005 9.94996C7.74858 9.94996 7.95005 9.74849 7.95005 9.49996V2.58648L10.1819 4.81828C10.3576 4.99401 10.6425 4.99401 10.8182 4.81828C10.994 4.64254 10.994 4.35762 10.8182 4.18188L7.81825 1.18188ZM2.5 9.99997C2.77614 9.99997 3 10.2238 3 10.5V12C3 12.5538 3.44565 13 3.99635 13H11.0012C11.5529 13 12 12.5528 12 12V10.5C12 10.2238 12.2239 9.99997 12.5 9.99997C12.7761 9.99997 13 10.2238 13 10.5V12C13 13.104 12.1062 14 11.0012 14H3.99635C2.89019 14 2 13.103 2 12V10.5C2 10.2238 2.22386 9.99997 2.5 9.99997Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+    Upload file
+    </button>
+    
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-4 mb-4">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            Uploaded files
+                        </th>
+                        
+                        <th scope="col" class="px-6 py-3">
+                            <span class="sr-only">Delete</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="attachment_display">
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 ">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            Apple MacBook Pro 17"
+                        </th>
+                        
+                        <td class="px-6 py-4 text-right">
+                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</a>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="form_review">
+        <!-- <h6 class="text-lg font-bold dark:text-white">Additional notes</h6> -->
+        <div class="mb-6">
+
+            <label for="comment" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Additional notes</label>
+            <textarea id="comment" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Add comments here..."></textarea>
+             
+        </div>
+    </div>
+
+    <!-- <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button> -->
+</form>
+
+            <div class="inline-flex rounded-md shadow-xs flex-wrap">
+                <button id="form_prev_button" type="button" class="text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 me-2 mb-2">
+                    <svg class="w-6 h-5 me-2 -ms-1" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.85355 3.14645C7.04882 3.34171 7.04882 3.65829 6.85355 3.85355L3.70711 7H12.5C12.7761 7 13 7.22386 13 7.5C13 7.77614 12.7761 8 12.5 8H3.70711L6.85355 11.1464C7.04882 11.3417 7.04882 11.6583 6.85355 11.8536C6.65829 12.0488 6.34171 12.0488 6.14645 11.8536L2.14645 7.85355C1.95118 7.65829 1.95118 7.34171 2.14645 7.14645L6.14645 3.14645C6.34171 2.95118 6.65829 2.95118 6.85355 3.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                    Prev
+                    </button>
+                    <button id="form_next_button" type="button" class="text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 me-2 mb-2">
+                        Next
+                        <svg class="w-6 h-5 ml-2 -ms-1" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                    </button>
+                    <button  id="form_submit_button" type="submit" class="text-white bg-blue hover:bg-blue-100 border border-blue-200 focus:ring-4 focus:outline-none focus:ring-blue-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-blue-600 dark:bg-blue-800 dark:border-blue-700 dark:text-white dark:hover:bg-blue-700 me-2 mb-2" >
+                        Register
+                        <svg class="w-6 h-5 ml-2 -ms-1" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                    </button>
+                    
+                </div>
+                <div id="save-draft-section">
+                <br/>
+                <div class="flex w-full text-xs text-center justify-center text-gray-900 dark:text-white"><p>OR</p></div>
+                <br/>
+
+                <div class="inline-flex rounded-md shadow-xs flex-wrap w-full">
+                    <button  id="save_draft_offline" type="submit" class="w-full justify-center text-white bg-blue hover:bg-blue-100 border border-blue-200 focus:ring-4 focus:outline-none focus:ring-blue-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-blue-600 dark:bg-blue-800 dark:border-blue-700 dark:text-white dark:hover:bg-blue-700 me-2 mb-2" >
+                        Save draft offline 
+                        <svg class="w-6 h-5 ml-2 -ms-1" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.50005 1.04999C7.74858 1.04999 7.95005 1.25146 7.95005 1.49999V8.41359L10.1819 6.18179C10.3576 6.00605 10.6425 6.00605 10.8182 6.18179C10.994 6.35753 10.994 6.64245 10.8182 6.81819L7.81825 9.81819C7.64251 9.99392 7.35759 9.99392 7.18185 9.81819L4.18185 6.81819C4.00611 6.64245 4.00611 6.35753 4.18185 6.18179C4.35759 6.00605 4.64251 6.00605 4.81825 6.18179L7.05005 8.41359V1.49999C7.05005 1.25146 7.25152 1.04999 7.50005 1.04999ZM2.5 10C2.77614 10 3 10.2239 3 10.5V12C3 12.5539 3.44565 13 3.99635 13H11.0012C11.5529 13 12 12.5528 12 12V10.5C12 10.2239 12.2239 10 12.5 10C12.7761 10 13 10.2239 13 10.5V12C13 13.1041 12.1062 14 11.0012 14H3.99635C2.89019 14 2 13.103 2 12V10.5C2 10.2239 2.22386 10 2.5 10Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>                    </button>
+                    </div>
+                </div>
+              <div id="toast-success" class="flex items-center mt-3 w-full p-4 mb-4 text-gray-500 bg-white rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800" role="alert" style="display: none;">
+                <div class="inline-flex items-center justify-center shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                    </svg>
+                    <span class="sr-only">Check icon</span>
+                </div>
+                <div class="ms-3 text-sm font-normal">Form saved successfully.</div>
+                <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close">
+                    <span class="sr-only">Close</span>
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                </button>
+            </div>
+            <div id="toast-danger" class="flex mt-3 items-center w-full p-4 mb-4 text-gray-500 bg-white rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800" role="alert" style="display: none;">
+                <div class="inline-flex items-center justify-center shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z"/>
+                    </svg>
+                    <span class="sr-only">Error icon</span>
+                </div>
+                <div class="ms-3 text-sm font-normal">Error, Try again.</div>
+                <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-danger" aria-label="Close">
+                    <span class="sr-only">Close</span>
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+
+
+    let first_section = document.getElementsByClassName("form_basic_info")[0]
+    let second_section = document.getElementsByClassName("form_attachments")[0]
+    let final_section = document.getElementsByClassName("form_review")[0]
+
+    let active_section = 1;
+
+    let prev_button = document.getElementById("form_prev_button");
+    let next_button = document.getElementById("form_next_button");
+    let submit_button = document.getElementById("form_submit_button");
+    let save_draft_section = document.getElementById("save-draft-section");
+    let form_submit_button = document.getElementById("save_draft_offline");
+
+    let attach_input = document.getElementById("attach_input");
+    let attach_button = document.getElementById("attach_button");
+    let attachment_display = document.getElementById("attachment_display");
+
+    let attachments = [];
+
+    attach_button.addEventListener('click', (e) => {
+
+        attach_input.click();
+
+    })
+
+    attach_input.addEventListener('change', (e) => {
+        // console.log(e)
+        attachments.push(e.srcElement.files[0]);
+        refresh_attachment_display();
+
+    })
+
+    document.addEventListener('DOMContentLoaded', (e) => {
+        prev_button.style.display = "none";
+        // submit_button.setAttribute("hidden", true);
+        submit_button.style.display = "none";
+        save_draft_section.style.display = "none";
+        
+
+        second_section.style.display = "none";
+        final_section.style.display = "none";
+        refresh_attachment_display();
+
+    })
+
+    prev_button.addEventListener('click', (e) => {
+
+        if(active_section === 2){
+            active_section = 1;
+            // prev_button.setAttribute("disabled", true);
+            prev_button.style.display = "none";
+            submit_button.style.display = "none";
+            save_draft_section.style.display = "none";
+            second_section.style.display = "none";
+            first_section.style.display = "block";
+
+
+
+        } else if (active_section === 3){
+            active_section = 2;
+            // next_button.setAttribute("disabled", false);
+            next_button.style.display = "inline-flex"
+            submit_button.style.display = "none";
+            save_draft_section.style.display = "none";
+            second_section.style.display = "block";
+            final_section.style.display = "none";
+
+
+        } else {
+            alert('hehe');
+        }
+
+    })
+
+    next_button.addEventListener('click', (e) => {
+
+        if(active_section === 1){
+            try{
+
+                active_section = 2;
+                // prev_button.setAttribute("disabled", false);
+                prev_button.style.display = "inline-flex";
+                console.log(second_section)
+                second_section.style.display = "block";
+                first_section.style.display = "none";
+            } catch (e) {
+                console.log(e)
+            }
+
+
+            // prev_button.style.disabled = "true";
+
+        } else if (active_section === 2){
+            active_section = 3;
+            next_button.style.display = "none";
+            final_section.style.display = "block";
+            second_section.style.display = "none";
+
+            // next_button.style.disabled = "true";
+            submit_button.style.display = "inline-flex";
+            save_draft_section.style.display = "block";
+
+        }
+
+    })
+
+    submit_button.addEventListener('click', async (e) => {
+
+        submit_button.classList.add('cursor-not-allowed');
+        submit_button.setAttribute('disabled', true);
+        submit_button.innerHTML = `<svg aria-hidden="true" class="inline mr-2 w-4 h-4 text-white-200 animate-spin dark:text-white-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+    </svg>
+    Creating...`
+
+        await sleep(5000);
+
+        let form_data = new FormData();
+
+       [...document.querySelectorAll("input:not(#attach_input), textarea, select")].map((val, idx) => {
+
+            form_data.append(val.id, val.value);
+            console.log("appending");
+            console.log(`${val.id}: ${val.value}`);
+
+        });
+        attachments.map((file, idx) => {
+
+            form_data.append("file", file);
+        })
+
+        console.log(form_data);
+
+        $.ajax({
+        url: "{% url 'register_site_form' %}",
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: form_data,
+        headers: {
+            "X-Requested-With": "XMLHttpRequest",
+            "X-CSRFToken": getCookie("csrftoken"),  // don't forget to include the 'getCookie' function
+        },
+        type: 'POST',
+        success: function(response) {
+            console.log(response);
+            document.getElementById('toast-success').style.display = "flex";
+            setTimeout(() => {
+                document.getElementById('toast-success').style.display = "none";
+                window.location.replace("{% url 'home' %}");
+            }, 3000)
+        },
+        error: function(error) {
+            console.log(error);
+            document.getElementById('toast-danger').style.display = "flex";
+            setTimeout(() => {
+                document.getElementById('toast-danger').style.display = "none";
+
+            }, 3000)
+        }
+    });
+
+        submit_button.classList.remove('cursor-not-allowed');
+        submit_button.removeAttribute('disabled');
+        submit_button.innerHTML = `Register
+                        <svg class="w-6 h-5 ml-2 -ms-1" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                        `
+
+    })
+    
+    form_submit_button.addEventListener('click', async (e) => {
+
+        let draft_form_data = {};
+
+        [...document.querySelectorAll("input:not(#attach_input), textarea, select")].map((val, idx) => {
+
+        draft_form_data[val.id] = val.value;
+        console.log("appending");
+        console.log(`${val.id}: ${val.value}`);
+
+        });
+
+        draft_form_data["drafted_on"] = new Date(Date.now()).toLocaleString();
+
+        // localStorage.setItem()
+        let draft_forms = localStorage.getItem("draft_forms")
+        if(draft_forms){
+            // need to update it
+            draft_forms = JSON.parse(draft_forms);
+            draft_forms.push(draft_form_data)
+            localStorage.setItem("draft_forms", JSON.stringify(draft_forms))
+
+        }else {
+            localStorage.setItem("draft_forms", JSON.stringify([draft_form_data]))
+        }
+
+        document.getElementById('toast-success').style.display = "flex";
+        setTimeout(() => {
+            document.getElementById('toast-success').style.display = "none";
+            // window.location.replace("{% url 'home' %}");
+        }, 3000)
+
+    })
+
+    function refresh_attachment_display() {
+
+        if(attachments.length === 0){
+            // alert('asd')
+            attachment_display.innerHTML = `<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 ">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <small><i> No files attached</i></small>
+                        </th><th></th>
+                        
+                    </tr>`
+        }else{
+            attachment_display.innerHTML = "";
+        }
+        console.log(attachments);
+        attachments.map((val, idx) => {
+            attachment_display.innerHTML += `<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 ">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        ${val.name}
+                        </th><th>
+                            <a onclick="delete_attachment(${idx})" class=" cursor-pointer font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
+
+                            </th>
+                        
+                    </tr>`;
+        })
+
+
+    }
+
+    function delete_attachment(index) {
+
+        attachments = attachments.filter((_, i) => i !== index);;
+        refresh_attachment_display();
+
+    }
+
+    function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== "") {
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      // Does this cookie string begin with the name we want?
+      if (cookie.substring(0, name.length + 1) === (name + "=")) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+const sleep = ms => new Promise(
+  resolve => setTimeout(resolve, ms));
+
+//   if ("serviceWorker" in navigator) {
+//     console.log("HI")
+//     navigator.serviceWorker.register("/static/serviceWorker.js")
+//         .then(() => console.log("Service Worker Registered"))
+//         .catch((err) => console.log("Service Worker Failed", err));
+// }else{
+//     console.log("NOO")
+
+// }
+function updateStatus() {
+    const statusElement = document.getElementById("status");
+    if (navigator.onLine) {
+        statusElement.innerText = "🟢 Online";
+        statusElement.style.color = "green";
+    } else {
+        statusElement.innerText = "🔴 Offline";
+        statusElement.style.color = "red";
+    }
+}
+
+// Check status when the page loads
+window.addEventListener("load", updateStatus);
+
+// Update status when connectivity changes
+window.addEventListener("online", updateStatus);
+window.addEventListener("offline", updateStatus);
+</script>
+{% endblock %}

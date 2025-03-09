@@ -1,0 +1,49 @@
+
+{% load compress %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" class="light">
+    {% load pwa %}
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% progressive_web_app_meta %}
+    <link rel="manifest" href="/static/manifest.json">
+    <meta name="viewport" content=
+        "width=device-width, initial-scale=1.0">
+    <title>Edifice valuation</title>
+    <style>
+        *{margin: 0;padding: 0;box-sizing: border-box;}
+
+:root {
+        color-scheme: light;
+        }
+
+    </style>
+    {% block include_custom %}
+    {% endblock include_custom %}
+    {% compress css %}
+    <link rel="stylesheet"
+        href="{% static 'src/output.css' %}">
+    {% endcompress %}
+ 
+</head>
+ 
+<body class="bg-green bg-gray-50 dark:bg-gray-900">
+    
+    {% if user.is_authenticated %}
+
+    {% include "navbar.html" %}
+
+    {% endif %}
+
+    <div class="container ">
+        {% block content %}
+        {% endblock content %}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+</body>
+ 
+</html>
