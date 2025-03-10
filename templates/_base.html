@@ -33,11 +33,7 @@
  
 <body class="bg-green bg-gray-50 dark:bg-gray-900">
     
-    {% if user.is_authenticated %}
-
     {% include "navbar.html" %}
-
-    {% endif %}
 
     <div class="container ">
         {% block content %}

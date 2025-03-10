@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from .models import CustomUser, Site, Document, Comment
 from datetime import datetime
+from django.core.signing import Signer
 
 @login_required
 def home(request):
@@ -147,3 +148,47 @@ def register_site_form(request):
     #     print(e)
     #     return Response(status=400,data={"message": "Something went wrong!", "error": True})
         
+@api_view(['GET',  'POST'])
+def password_reset(request, *args, **kwargs):
+
+    if request.method == 'GET':
+
+        return render(request, 'reset_password.html')
+
+    else:
+
+        try:
+
+            token = kwargs.get("token", None)
+            password = request.data.get("password", None)
+            confirm_password = request.data.get("password-confirm", None)
+
+            if (not (token and password and confirm_password)):
+                return Response(status=400)
+            
+            signer = Signer()
+
+            data = signer.unsign_object(token)
+
+            user_id = data["user_id"]
+
+            if(password != confirm_password):
+
+                messages.error(request, "Passwords do not match.")
+
+            else:
+
+                target_user = CustomUser.objects.get(pk=user_id)
+
+                target_user.set_password(password)
+
+                target_user.save()
+
+                messages.success(request, "Password updated! Login to continue...")
+
+
+            return render(request, 'reset_password.html')
+
+        except Exception as e:
+
+            return Response(status=400)
