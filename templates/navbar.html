@@ -85,7 +85,33 @@
 
             localStorage.setItem("draft_forms", JSON.stringify(draft_forms))
 
-            renderDraftForms();
+            // renderDraftForms();
+            document.getElementById("draft_forms_counter").innerHTML = `You have ${draft_forms.length} offline saved draft form.`
+
+            document.getElementById("draft_form_list").innerHTML = draft_forms.map((val, idx)=> `
+               <li class="py-3 sm:py-4">
+                  <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                     <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                           ${val.name}
+                        </p>
+                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                           ${val.drafted_on}
+                        </p>
+                     </div>
+                     <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                        <div class="inline-flex rounded-md shadow-xs" role="group">
+                           <button onclick="handleDelete(${idx})" type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+                           Delete
+                           </button>
+                           <button id="draft-form-submit-button-${idx}" onclick="handleSubmit(${idx})" type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+                           Submit
+                           </button>
+                        </div>
+                     </div>
+                  </div>
+               </li>
+               `)
 
         }
 
@@ -166,16 +192,32 @@
 
         draft_forms = JSON.parse(draft_forms)
 
+        let draft_form_banner = document.getElementById("offline-form-banner");
+
         if(draft_forms.length === 0){
+         
+    //         draft_form_banner.innerHTML = `
+    //         <div tabindex="-1" class="flex  justify-between w-full p-4 border-b border-gray-200 bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+	// <div class="flex items-center shrink-0 w-full mx-auto sm:w-auto">
+	// 	<label for="email" class="shrink-0 mb-2 me-auto text-sm font-medium text-gray-500 md:mb-0 md:me-4 dark:text-gray-400 md:m-0">You have ${draft_forms.length} offline saved draft form. </label>
+	// 	<div class="flex justify-center">
+	// 		<button id="updateProductButton" data-modal-target="updateProductModal" data-modal-toggle="updateProductModal" type="button" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+    //      View
+    //      </button>
+	// 	</div>
+	// 	<div id="updateProductModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
+	// 		<div class="relative p-4 w-full max-w-2xl md:h-auto">
+	// 			<!-- Modal content -->
+	// 			<div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5"></div></div></div></div></div>
+    //         `
+
             return;
         }
-
-        let draft_form_banner = document.getElementById("offline-form-banner");
 
         draft_form_banner.innerHTML = `
   <div tabindex="-1" class="flex  justify-between w-full p-4 border-b border-gray-200 bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
    <div class="flex items-center shrink-0 w-full mx-auto sm:w-auto">
-      <label for="email" class="shrink-0 mb-2 me-auto text-sm font-medium text-gray-500 md:mb-0 md:me-4 dark:text-gray-400 md:m-0">You have ${draft_forms.length} offline saved draft form. </label>
+      <label id="draft_forms_counter" for="email" class="shrink-0 mb-2 me-auto text-sm font-medium text-gray-500 md:mb-0 md:me-4 dark:text-gray-400 md:m-0">You have ${draft_forms.length} offline saved draft form. </label>
       <div class="flex justify-center">
          <button id="updateProductButton" data-modal-target="updateProductModal" data-modal-toggle="updateProductModal" type="button" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
          View
@@ -228,7 +270,7 @@
                      </svg>
                   </button>
                </div>
-            <ul class="divide-y divide-gray-200 dark:divide-gray-700 w-full">
+            <ul id="draft_form_list" class="divide-y divide-gray-200 dark:divide-gray-700 w-full">
                ${draft_forms.map((val, idx)=> `
                <li class="py-3 sm:py-4">
                   <div class="flex items-center space-x-4 rtl:space-x-reverse">
