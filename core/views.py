@@ -46,6 +46,12 @@ def home(request):
         if((not request.GET.get("filter_search_query", False)) and (not request.GET.get("filter_status", False))):
             sites = Site.objects.all()
 
+        if(request.GET.get("newest", False)):
+            if(len(sites) > 0):
+                sites = sites.order_by('-created_on')
+            
+         
+
         return render(request, 'home.html', context={"sites": sites})
 
     else:

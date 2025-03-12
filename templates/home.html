@@ -25,12 +25,33 @@
                         </div>
                     </div>
                     <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                        <a href="{% url 'register_site' %}"><button type="button" class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
-                            <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
-                            </svg>
-                            Create site
-                        </button></a>
+                        <div class="flex items-center space-x-3 w-full md:w-auto">
+                            <button id="timeFilterDropdownButton" data-dropdown-toggle="timeFilterDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+                                <svg class="h-4 w-4 mr-2 text-gray-400" width="20" height="20" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.50009 0.877014C3.84241 0.877014 0.877258 3.84216 0.877258 7.49984C0.877258 11.1575 3.8424 14.1227 7.50009 14.1227C11.1578 14.1227 14.1229 11.1575 14.1229 7.49984C14.1229 3.84216 11.1577 0.877014 7.50009 0.877014ZM1.82726 7.49984C1.82726 4.36683 4.36708 1.82701 7.50009 1.82701C10.6331 1.82701 13.1729 4.36683 13.1729 7.49984C13.1729 10.6328 10.6331 13.1727 7.50009 13.1727C4.36708 13.1727 1.82726 10.6328 1.82726 7.49984ZM8 4.50001C8 4.22387 7.77614 4.00001 7.5 4.00001C7.22386 4.00001 7 4.22387 7 4.50001V7.50001C7 7.63262 7.05268 7.7598 7.14645 7.85357L9.14645 9.85357C9.34171 10.0488 9.65829 10.0488 9.85355 9.85357C10.0488 9.65831 10.0488 9.34172 9.85355 9.14646L8 7.29291V4.50001Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                                <div id="display-sort-timing-type">
+
+                                    Oldest
+                                </div>
+                                    <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                    </svg>
+                                </button>
+                                <div id="timeFilterDropdown" class="z-10 hidden w-48 p-3 bg-white rounded-lg shadow dark:bg-gray-700 ">
+                                    <!-- <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">Choose brand</h6> -->
+                                    <ul class="space-y-1 text-sm  w-full" aria-labelledby="timeFilterDropdownButton">
+                                            <li class="flex items-center w-full">
+                                                <button id="site-filter-oldest" type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-md text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-900 dark:focus:ring-gray-700 dark:border-gray-700 w-full">Oldest</button>             
+                                            </li>
+                                            <li class="flex items-center w-full">
+                                                <button id="site-filter-newest" type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-md text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-900 dark:focus:ring-gray-700 dark:border-gray-700 w-full">Newest</button>             
+                                            </li>                                                
+                                                
+                                                                                                    
+                                    </ul>
+                                    
+                                </div>
+                        
+                    </div>
                         <div class="flex items-center space-x-3 w-full md:w-auto">
                                 <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
                                         <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4 mr-2 text-gray-400" viewbox="0 0 20 20" fill="currentColor">
@@ -41,7 +62,7 @@
                                             <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
                                         </svg>
                                     </button>
-                                    <div id="filterDropdown" class="z-10 hidden w-48 p-3 bg-white rounded-lg shadow dark:bg-gray-700 ">
+                                    <div id="filterDropdown" class="z-200 hidden w-48 p-3 bg-white rounded-lg shadow dark:bg-gray-700 ">
                                         <!-- <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">Choose brand</h6> -->
                                         <ul class="space-y-2 text-sm h-40 overflow-auto" aria-labelledby="filterDropdownButton">
                                                 <li class="flex items-center">
@@ -158,13 +179,13 @@
                                 <td class="px-4 py-3"><span class="bg-{{ site.get_report_status_color }}-100 text-{{ site.get_report_status_color }}-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-{{ site.get_report_status_color }}-900 dark:text-{{ site.get_report_status_color }}-300">{{ site.report_status.title }}</span></td>
                                 <td class="px-4 py-3"><span class="bg-{{ site.get_payment_status_color }}-100 text-{{ site.get_payment_status_color }}-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-{{ site.get_payment_status_color }}-900 dark:text-{{ site.get_payment_status_color }}-300">{{ site.payment_status.title }}</span></td>
                                 <td class="px-4 py-3 flex items-center justify-end">
-                                    <button id="apple-imac-27-dropdown-button" data-dropdown-toggle="apple-imac-27-dropdown" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
+                                    <button id="site-{{ site.pk }}-button" data-dropdown-toggle="site-{{ site.pk }}" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
                                         <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
                                         </svg>
                                     </button>
-                                    <div id="apple-imac-27-dropdown" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                        <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="apple-imac-27-dropdown-button">
+                                    <div id="site-{{ site.pk }}" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                                        <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="site-{{ site.pk }}-button">
                                             <li>
                                                 <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show comments</a>
                                             </li>
@@ -217,10 +238,60 @@
             // Do something
             let input = document.getElementById('simple-search');
         const url = new URL(window.location.href);
+        if(input.value === "" && url.searchParams.has("filter_search_query")){
+            url.searchParams.delete('filter_search_query');
+
+        }else{
+
             url.searchParams.append('filter_search_query', input.value);
+        }
             window.location.replace(url);
         }
     });
+    document.getElementById("site-filter-newest").addEventListener('click', function (e) {
+
+        const url = new URL(window.location.href);
+            url.searchParams.append('newest', "true");
+            window.location.replace(url);
+
+    })
+    document.getElementById("site-filter-oldest").addEventListener('click', function (e) {
+
+    const url = new URL(window.location.href);
+        url.searchParams.delete('newest');
+        window.location.replace(url);
+
+    })
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const url = new URL(window.location.href);
+        const params = url.searchParams;
+
+        if(params.has("filter_search_query")){
+            let input = document.getElementById('simple-search');
+            input.value = params.get("filter_search_query");
+
+        }
+
+        if(params.has("filter_status")){
+
+            const statuses = params.get("filter_status").split(",");
+            statuses.map((status) => {
+                document.getElementById(status).checked = true;
+            })
+
+        }
+
+        if(params.has("newest")){
+            let filter_display = document.getElementById('display-sort-timing-type');
+            filter_display.innerText = "Newest";
+
+        }
+        
+
+    })
+    
 // Example usage
 // console.log(getCheckedCheckboxIds());
 </script>

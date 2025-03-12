@@ -63,3 +63,7 @@ PE - review marked reports (accept / reject)
 Visit Reassigned, Report Generated, Report in Progress, Report Completed,
 Report Submitted, Report Approved, Complete, Report Reassigned."
 payment status as one of, "Pending, Received, Delayed, Cancelled."
+
+Filters:
+Newest|Oldest
+status

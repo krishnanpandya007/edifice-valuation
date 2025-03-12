@@ -45,6 +45,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []  # No additional required fields
 
+    @property
+    def is_coordinator(self):
+        return self.role == self.Roles.COORDINATOR
+
     def __str__(self):
         return self.email
 
