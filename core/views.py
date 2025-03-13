@@ -198,3 +198,64 @@ def password_reset(request, *args, **kwargs):
         except Exception as e:
 
             return Response(status=400)
+
+@api_view([ 'GET', 'POST' ])
+def edit_assignees(request, *args, **kwargs):
+
+    # if(request.method == 'GET'):      
+
+    site_id = kwargs.get("site_id")
+
+    try:
+
+        site = Site.objects.filter(pk=site_id)
+
+        # assert site.exists() 
+        # and site.first().assignees.filter(pk=request.user.pk).exists()
+
+        site = site.first()
+
+    except Exception as e:
+
+        print("Error retrieving site: ", e)
+
+        messages.error(request, "Provided site does not exists or not in your access scope.")
+
+        return render(request, "message_display.html")
+
+    if request.method == "POST":
+
+        # time to update
+        assignee_id = request.data.get("assignee_id")
+        action_type = request.data.get("action_type")
+
+        target_user = CustomUser.objects.get(pk=int(assignee_id))
+
+        if(action_type == "add"):
+
+            site.assignees.add(target_user)
+
+        else:
+
+            site.assignees.remove(target_user)
+    
+        site.save()
+
+        messages.success(request, f"{target_user.email} is added to site successfully!")
+
+
+    search_query = request.GET.get("search_query", False)
+
+    context = {"site": site}
+
+    already_assignees = site.assignees.all()
+    context["already_assignees"] = already_assignees
+
+    if(search_query):
+
+        filtered_users = CustomUser.objects.filter(email__contains=search_query).exclude(id__in=[a.pk for a in list(already_assignees)])
+        context["filtered_users"] = filtered_users
+
+
+    return render(request, "edit_assignees.html", context=context)
+

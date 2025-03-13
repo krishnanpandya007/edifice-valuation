@@ -1,0 +1,169 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<section class="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
+    <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Assignees</h2>
+        <p class="text-gray-500 dark:text-gray-400">Site: <a href="#" class="font-semibold text-gray-900 underline dark:text-white decoration-indigo-500 text-sm">{{ site.name }}</a></p>
+        <div class="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
+            <div class="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
+                <div class="space-y-6">
+                    <div
+                        class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
+
+                        <table class="w-full text-left font-medium text-gray-900 dark:text-white md:table-fixed">
+                            <tbody class="divide-y divide-gray-200 dark:divide-gray-800">
+                                {% if already_assignees %}
+                                {% for assignee in already_assignees %}
+                                <tr style="border-bottom: 1px solid #ffffff10;" >
+                                    <td class="whitespace-nowrap py-4 md:w-[384px] flex-wrap">
+                                        <div class="flex items-center gap-4 flex-wrap">
+                                            
+                                            <div class="ms-3 text-sm font-normal">
+                                                <div class="text-sm font-semibold text-gray-900 dark:text-white">
+                                                    {{ assignee.email }}</div>
+                                                <span
+                                                    class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-md dark:bg-blue-900 dark:text-blue-300">
+                                                    {{ assignee.role }}</span>
+
+                                            </div>
+                                            <!-- <a href="#" class="hover:underline">krishnanpandya0001@gmail.com</a> -->
+                                        </div>
+                                    </td>
+
+
+                                    <td class="p-4 text-right text-base font-bold text-gray-900 dark:text-white">
+                                        <form action="{% url 'edit_assignees' site.id %}" method="post">
+                                            {% csrf_token %}
+
+                                            <input hidden type="text" name="assignee_id" value="{{ assignee.pk }}">
+                                            <input hidden type="text" name="action_type" value="remove">
+                                        <button
+                                            type="submit"
+                                            class="text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:focus:ring-red-800 dark:hover:bg-red-500">
+                                            <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M12.8536 2.85355C13.0488 2.65829 13.0488 2.34171 12.8536 2.14645C12.6583 1.95118 12.3417 1.95118 12.1464 2.14645L7.5 6.79289L2.85355 2.14645C2.65829 1.95118 2.34171 1.95118 2.14645 2.14645C1.95118 2.34171 1.95118 2.65829 2.14645 2.85355L6.79289 7.5L2.14645 12.1464C1.95118 12.3417 1.95118 12.6583 2.14645 12.8536C2.34171 13.0488 2.65829 13.0488 2.85355 12.8536L7.5 8.20711L12.1464 12.8536C12.3417 13.0488 12.6583 13.0488 12.8536 12.8536C13.0488 12.6583 13.0488 12.3417 12.8536 12.1464L8.20711 7.5L12.8536 2.85355Z"
+                                                    fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
+                                            </svg> </button></form></td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <p class="text-sm font-thin text-gray-900 dark:text-white">No assignees</p>
+                                {% endif %}
+
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <div class="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
+                <div
+                    class="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6">
+                    <p class="text-xl font-semibold text-gray-900 dark:text-white">Add assignee</p>
+
+                    <div class="space-y-4">
+                        <input type="text" id="search-assignee-search"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-5 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="User email" required="">
+
+                    </div>
+                    <div class="submit-section pb-5 border-b border-gray-200 pt-2 dark:border-gray-700">
+                        
+                        <button id="search-assignee-button"
+                            class="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Search</button>
+                    </div>
+
+                        <div class="space-y-2">
+                            {% if filtered_users %}
+                            {% for assignee in filtered_users %}
+                            <dl class="flex items-center justify-between gap-4 ">
+                              <dt class="text-base font-normal text-gray-500 dark:text-gray-400"><div class="flex items-center gap-4">
+                                
+                                <div class=" text-sm font-normal">
+                                    <div class="text-sm font-semibold text-gray-900 dark:text-white mb-1">
+                                        {{ assignee.email }}</div>
+                                    <span
+                                        class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-md dark:bg-blue-900 dark:text-blue-300">
+                                        {{ assignee.role }}</span>
+
+                                </div>
+                                <!-- <a href="#" class="hover:underline">krishnanpandya0001@gmail.com</a> -->
+                            </div></dt>
+                              <dd class="text-base font-medium text-gray-900 dark:text-white"><form action="{% url 'edit_assignees' site.id %}" method="post">
+                                {% csrf_token %}
+                                <input hidden type="text" name="assignee_id" value="{{ assignee.pk }}">
+                                <input hidden type="text" name="action_type" value="add">
+                            <button
+                                type="submit"
+                                class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500">
+                                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 2.75C8 2.47386 7.77614 2.25 7.5 2.25C7.22386 2.25 7 2.47386 7 2.75V7H2.75C2.47386 7 2.25 7.22386 2.25 7.5C2.25 7.77614 2.47386 8 2.75 8H7V12.25C7 12.5261 7.22386 12.75 7.5 12.75C7.77614 12.75 8 12.5261 8 12.25V8H12.25C12.5261 8 12.75 7.77614 12.75 7.5C12.75 7.22386 12.5261 7 12.25 7H8V2.75Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg> </button></form></dd>
+                            </dl>
+                            {% endfor %}
+                            {% endif %}
+                            
+                        </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+
+    document.getElementById("search-assignee-button").addEventListener("click", (e) => {
+
+        handleSearch(document.getElementById("search-assignee-search").value)
+
+    })
+
+    document.getElementById("search-assignee-search").addEventListener('keyup', function (e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+
+            handleSearch(document.getElementById("search-assignee-search").value)
+
+        }
+    })
+
+    function handleSearch(query) {
+        // alert("Hello")
+        const url = new URL(window.location.href);
+        if (query === "" && url.searchParams.has("search_query")) {
+            url.searchParams.delete('search_query');
+
+        } else {
+            if(url.searchParams.has("search_query")){
+
+                url.searchParams.delete('search_query');
+            }
+            url.searchParams.append('search_query', query);
+        }
+        window.location.replace(url);
+
+
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const url = new URL(window.location.href);
+        const params = url.searchParams;
+
+        if(params.has("search_query")){
+            let input = document.getElementById('search-assignee-search');
+            input.value = params.get("search_query");
+
+        }
+    })
+
+</script>
+{% endblock content %}

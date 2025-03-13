@@ -99,6 +99,7 @@ class Site(models.Model):
     customer_details_name = models.CharField(max_length=70)
     customer_details_application_number = models.CharField(max_length=20)
     property_details_address = models.TextField(max_length=300)
+    assignees = models.ManyToManyField(CustomUser, related_name='assigned_sites')
     created_on = models.DateTimeField(auto_now_add=True)
 
     @property
