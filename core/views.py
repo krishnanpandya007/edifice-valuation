@@ -10,6 +10,7 @@ from django.db import transaction
 from .models import CustomUser, Site, Document, Comment
 from datetime import datetime
 from django.core.signing import Signer
+from django.core.paginator import Paginator
 
 @login_required
 def home(request):
@@ -50,9 +51,11 @@ def home(request):
             if(len(sites) > 0):
                 sites = sites.order_by('-created_on')
             
-         
+        paginator = Paginator(sites, 10)
+        page_number = request.GET.get("page", 1)
+        page_obj = paginator.get_page(page_number)
 
-        return render(request, 'home.html', context={"sites": sites})
+        return render(request, 'home.html', context={"sites": page_obj })
 
     else:
 
