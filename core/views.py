@@ -7,10 +7,12 @@ from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from .models import CustomUser, Site, Document, Comment
+from .models import CustomUser, Site, Document, Comment, ReportFormat
 from datetime import datetime
 from django.core.signing import Signer
 from django.core.paginator import Paginator
+from django.core.mail import send_mail
+from django.conf import settings
 
 @login_required
 def home(request):
@@ -157,7 +159,7 @@ def register_site_form(request):
     #     print(e)
     #     return Response(status=400,data={"message": "Something went wrong!", "error": True})
         
-@api_view(['GET',  'POST'])
+# @api_view(['GET',  'POST'])
 def password_reset(request, *args, **kwargs):
 
     if request.method == 'GET':
@@ -202,7 +204,7 @@ def password_reset(request, *args, **kwargs):
 
             return Response(status=400)
 
-@api_view([ 'GET', 'POST' ])
+# @api_view([ 'GET', 'POST' ])
 def edit_assignees(request, *args, **kwargs):
 
     # if(request.method == 'GET'):      
@@ -237,7 +239,8 @@ def edit_assignees(request, *args, **kwargs):
         if(action_type == "add"):
 
             site.assignees.add(target_user)
-
+            site._notify = True
+            site._assignee_email = target_user.email
         else:
 
             site.assignees.remove(target_user)
@@ -262,3 +265,74 @@ def edit_assignees(request, *args, **kwargs):
 
     return render(request, "edit_assignees.html", context=context)
 
+# SECTIONS = { 'application_details': "Application Details", 'documents': "Documents" }
+SECTIONS = {
+    'application_details': "Application Details",
+    'documents': "Documents",
+    'property_details': "Property Details",
+    'site_details': "Site Details",
+    'ndma_parameters': "NDMA Parameters",
+    'no_approved_plan_details': "NO Approved Plan Details",
+    'building_details': "Building Details",
+    'technical_details': "Technical Details",
+    'valuation_details': "Valuation Details",
+    'valuation_extra_items': "Valuation Extra Items",
+    'valuation_amenities': "Valuation Amenities",
+    'valuation_miscellaneous': "Valuation Miscellaneous",
+    'valuation_services': "Valuation Services",
+    'property_photographs': "Property Photographs",
+    'invoice_details': "Invoice Details",
+    'assumptions_remarks': "Assumptions / Remarks",
+    'marketability': "Marketability",
+    'unit_details': "Unit Details"
+}
+
+@login_required
+def view_site(request, *args, **kwargs):
+
+    context = {}
+
+    # context = {
+    #     'application_details': {
+    #         "id": 1,
+    #         "fields": [
+    #             {
+    #                 "name": "purpose_of_report", # from FieldManager instance
+    #                 "label": "Purpose of report", # from FieldManager instance
+    #                 "value": "", # from XYZ section instance
+    #                 "access_level": "NA" # from FieldManager instance
+    #             }
+    #         ]
+    #     }
+    # }
+
+    site_id = kwargs.get("site_id")
+
+    target_site = Site.objects.get(pk=site_id)
+
+    report_format = ReportFormat.objects.get(format_name=target_site.application_details.report_format)
+
+    section_obj_memcache = {}
+
+    for section, section_display in SECTIONS.items():
+        context[section] = {
+            "id": getattr(target_site, section).pk,
+            "display_name": section_display,
+            'fields': []
+        }
+        section_obj_memcache[section] = getattr(target_site, section)
+
+    for field in list(report_format.supported_fields.all()):
+        if(field.get_access_level(request.user).lower() != "na"):
+            context[field.section_name]["fields"].append({
+                        "name": field.field_name, # from FieldManager instance
+                        "label": field.display_name, # from FieldManager instance
+                        "value": getattr(section_obj_memcache[field.section_name], field.field_name), # from XYZ section instance
+                        "field_type": field.field_type,
+                        "default_value": field.default_value,
+                        "choices": getattr(getattr(getattr(getattr(section_obj_memcache[field.section_name],"__class__"), field.field_name), "field"), "choices") if field.field_type == "radio" or field.field_type == "dropdown" or field.field_type == "multiselect-checkbox"  else [],
+                        "access_level": field.get_access_level(request.user), # from FieldManager instance
+                        "model": section_obj_memcache[field.section_name]
+                    })
+    print(context["valuation_details"])
+    return render(request, "view_site.html", context={"context": context})

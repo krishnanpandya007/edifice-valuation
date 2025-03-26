@@ -1,0 +1,300 @@
+Section Title,Field Name,Field Type,Field Options,Default Value,Co-Ordinator,Technical Engineer,Valuation Engineer,Principal Engineer,Land & Building,Composite Method,Land & Building 2.0,Composite Method 2.0
+Application Details,Purpose of Report,Dropdown,"Private Purpose, For Bank, Visa Purpose, Education Loan",,Edit,View,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Application Details,Bank Name,Dropdown,"State Bank of India, Bank of India, The Rander People's Co-Operative Bank Ltd., UCO Bank, The Mehsana Urban Co-operative Bank Ltd.",,Edit,View,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Application Details,Property Type,Dropdown,"N.A. Residential Plot, Residential Bunglow, Residential Tenament, N.A Land with Allied Civil Construction, Residential Row House, Commercial Shop / Godown Premises, Industrial Shed Premises, N.A. Industrial Plot",,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Application Details,Report Format,Dropdown,"NBFC (Bajaj Finance), SIDBI, Form O1, NBFC (Ujjivan), ARKA, Land & Building, Composite Method, Land & Building 2.0, Composite Method 2.0",,Edit,View,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Application Details,Visit Required?,Radio Button,"Yes, No",,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Application Details,Technical Engineer,Dropdown,Name of technical engineers on platform,,Edit,View,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Application Details,Valuation Engineer,Dropdown,Name of valuation engineers on platform,,Edit,View,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Application Details,Branch Name,Textbox,,,Edit,View,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Application Details,Bank Contact Person Name,Textbox,,,Edit,View,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Application Details,Bank Contact Person Number,Textbox,,,Edit,View,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Application Details,File No./LAN No./System No.,Textbox,,,Edit,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Application Details,Name Field Title,Dropdown,"Name of Owner, Name of Owners, Name of Proposed Owner, Name of Proposed Owners",,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Application Details,Name of Applicant,Textbox,,,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Application Details,Loan Type,Radio Button,"HL, LAP, BT",,Edit,View,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Application Details,Name of Property Owner as per Legal Document,Textbox,,,Edit,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Application Details,Person Met at Site,Textbox,,,Edit,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Application Details,Name of Owner / Proposed Seller,Textbox,,,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Application Details,Site Contact Person Name,Textbox,,,Edit,View,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Application Details,Site Contact Person Number,Textbox,,,Edit,View,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Application Details,Name of Developer of the Property (in case of developer built properties),Textbox,,,Edit,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Application Details,"If the property is under joint ownership / co-ownership, share of each such owner. Are the shares undivided?",Textbox,,,Edit,Edit,Edit,Edit,TRUE,TRUE,FALSE,FALSE
+Application Details,Date of Visit,Date Picker,,Today,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Application Details,Date of Valuation,Date Picker,,Today,Edit,NA,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Application Details,Due Date for Visit,Date Picker,,,Edit,View,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Application Details,Purpose of Valuation,Textbox,,,Edit,NA,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Application Details,Brief Description of the Property,Textbox,,,Edit,Edit,Edit,Edit,TRUE,TRUE,FALSE,FALSE
+Documents,Layout Plan - Name of Approving Authority,Textbox,,,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Documents,Layout Plan - Approval No.,Textbox,,,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Documents,Layout Plan - Document Copy,File Upload,,,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Documents,Layout Plan - Page No. to joint with reports,Textbox,,,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Documents,Building Plan - Name of Approving Authority,Textbox,,,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Documents,Building Plan - Approval No.,Textbox,,,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Documents,Building Plan - Document Copy,File Upload,,,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Documents,Building Plan - Page No. to joint with reports,Textbox,,,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Documents,Construction Permission - Name of Approving Authority,Textbox,,,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Documents,Construction Permission - Approval No.,Textbox,,,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Documents,Construction Permission - Document Copy,File Upload,,,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Documents,Construction Permission - Page No. to joint with reports,Textbox,,,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Documents,BU Permission - Name of Approving Authority,Textbox,,,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Documents,BU Permission - Approval No.,Textbox,,,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Documents,BU Permission - Document Copy,File Upload,,,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Documents,BU Permission - Page No. to joint with reports,Textbox,,,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Documents,Legal Documents - Name of Approving Authority,Textbox,,,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Documents,Legal Documents - Approval No.,Textbox,,,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Documents,Legal Documents - Document Copy,File Upload,,,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Documents,Legal Documents - Page No. to joint with reports,Textbox,,,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Documents,Date of issue and validity of layout of approved map / plan,Date Picker,,,NA,NA,Edit,Edit,TRUE,TRUE,FALSE,FALSE
+Documents,Approved map / planning issuing authority,,,,NA,NA,Edit,Edit,TRUE,TRUE,FALSE,FALSE
+Documents,Whether genuineness or authenticity of approved map/ plan is verified,Radio Button,"Yes, No",,NA,NA,Edit,Edit,TRUE,TRUE,FALSE,FALSE
+Documents,Whether covered under any state / central Govt. enactments (e.g. Urban Land Ceiling Act) or notified under agency area/ scheduled area/ cantonment area,Radio Button,"Yes, No",,NA,NA,Edit,Edit,TRUE,TRUE,FALSE,FALSE
+Documents,"In case it is an agricultural land, any conversion to house site plots is contemplated",Textbox,,No,NA,NA,Edit,Edit,TRUE,TRUE,FALSE,FALSE
+Documents,Any other comments by our empaneled Valuers on authentic of approved plan,Textbox,,No,NA,NA,Edit,Edit,TRUE,TRUE,FALSE,FALSE
+Property Location,Postal Address,Textbox,,,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Property Location,Legal Address,Textbox,,,Edit,Edit,Edit,Edit,FALSE,FALSE,TRUE,TRUE
+Property Location,Plot No. / Survey No. / F.P. No.,Textbox,,"F.P. No. 80, , Old Survey No. 47 ( Survey No. 141 )",Edit,Edit,Edit,Edit,TRUE,TRUE,FALSE,FALSE
+Property Location,Unit No.,Textbox,,,Edit,Edit,Edit,Edit,TRUE,TRUE,FALSE,FALSE
+Property Location,T.P.S. No. / village,Textbox,,T.P.S. No. 4 / Jodhpur,Edit,Edit,Edit,Edit,TRUE,TRUE,FALSE,FALSE
+Property Location,City / Town,Textbox,,,Edit,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Property Location,Ward / Taluka,Textbox,,,Edit,Edit,Edit,Edit,TRUE,TRUE,FALSE,FALSE
+Property Location,Mandal / District,Textbox,,,Edit,Edit,Edit,Edit,TRUE,TRUE,FALSE,FALSE
+Property Location,Property Pin code (As oer Initiation),Textbox,,,Edit,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Property Location,Latitude,Textbox,,,NA,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Property Location,Longitude,Textbox,,,NA,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Property Location,Locality Name (As per Site),Textbox,,,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Property Location,Distance from City Centre (As per Site),Textbox,,,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Property Location,Landmark Near By (As per Site),Textbox,,,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Property Location,Address of Property (As oer Initiation),Textbox,,,Edit,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Property Location,Property State (As oer Initiation),Textbox,,,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Property Location,Property City (As oer Initiation),Textbox,,,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Property Location,Address Matching (Yes/No),Radio Button,"Yes, No",,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Property Location,Jurisdiction/Local Municipal Body,Textbox,,,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Site Details,"Boundaries of the Property (North, South, East, West) (As per Document & As per Visit)",Textbox,,,NA,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Site Details,"Boundaries of the Property (North East, North West, South West, South East) (As per Document & As per Visit)",Textbox,,,NA,Edit,Edit,Edit,FALSE,FALSE,TRUE,TRUE
+Site Details,Property Identified?,Radio Button,"Yes, No",,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Site Details,Matching Boundaries?,Radio Button,"Yes, No",,NA,Edit,Edit,Edit,FALSE,FALSE,TRUE,TRUE
+Site Details,Plot demarcated,Radio Button,"Yes, No",,NA,Edit,Edit,Edit,FALSE,FALSE,TRUE,FALSE
+Site Details,Property Occupied by,Radio Button,"Self, Tenant, Vacant, Under Construction",,NA,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Site Details,Occupancy Status,Radio Button,"SORP, SOCP, Rented, Vacant",,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Site Details,"If rented, what is the monthly rent?",Textbox,,,NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Site Details,No of years of Occupancy,Textbox,,NA,NA,Edit,Edit,Edit,FALSE,FALSE,TRUE,TRUE
+Site Details,Relationship of tenant or owner,Textbox,,NA,NA,Edit,Edit,Edit,FALSE,FALSE,TRUE,TRUE
+Site Details,Floor No. of Property (As oer Initiation),Textbox,,,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Site Details,Property Holding Type,Radio Button,"Freehold, Lease Hold",,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Site Details,"If leasehold, details of lease",Textbox,,,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Site Details,Marketability,Radio Button,"Good, Fair, Poor",,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Site Details,Type of Area,Radio Button,"Residential Area, Commercial Area, Industrial Area",,NA,Edit,Edit,Edit,TRUE,TRUE,FALSE,FALSE
+Site Details,Property Class,Radio Button,"High, Middle, Poor",,NA,Edit,Edit,Edit,TRUE,TRUE,FALSE,FALSE
+Site Details,Locality Class,Radio Button,"Urban, Semi Urban, Rural",,NA,Edit,Edit,Edit,TRUE,TRUE,FALSE,FALSE
+Site Details,Approach Road Size,Radio Button,"<5 ft, 5-10 ft, 10-15 ft, >15 ft",,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Site Details,Visited with & identified by representative of the owner,Textbox,,No,NA,Edit,Edit,Edit,TRUE,TRUE,FALSE,FALSE
+Site Details,Classification of locality,Radio Button,"High Class, Upper Middle Class, Middle Class, Poor Class",,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Site Details,Development of surrounding areas,Radio Button,"Excellent, Good, Average, Poor",,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Site Details,Possibility of frequent flooding / sub - mergin,Radio Button,"Yes, No, NA",,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Site Details,"Feasibility to civic amenities like school, hospital, bus stop, market, etc.",Radio Button,"Nearby, Average Distance, Far",,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Site Details,Level of land with topographical conditions,Textbox,,,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Site Details,Shape of land,Textbox,,,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Site Details,Type of use to which it can be put,Radio Button,"Residential, Commercial, Industrial, Agricultural, Residential & Commercial Area (Mixed)",,NA,Edit,Edit,Edit,TRUE,FALSE,TRUE,TRUE
+Site Details,Any usage restriction,Textbox,,,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Site Details,Is plot in town planning approved layout?,Radio Button,"Yes, No, NA",,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Site Details,Corner plot or intermittent plot?,Radio Button,"Corner Plot, Internittent Plot",,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Site Details,Type of road available at present,Radio Button,"CC Road, Bituminous Road, Kachcha Road, Not Available",,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Site Details,Width of road - is it below 20 ft. or more than 20 ft,Radio Button,"Less than 20 feet, More than 20 ft, Not Applicable",,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Site Details,Is it a land - locked land?,Radio Button,"Yes, No, NA",,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Site Details,Water potentiality,Radio Button,"Yes, No, NA",,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Site Details,Underground sewage system,Radio Button,"Yes, No, NA",,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Site Details,Is power supply available at the site?,Radio Button,"Yes, No, NA",,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Site Details,Advantage of the site / What are the factors favouring for an extra Potential Value?,Textbox,,"Regular shape, Marketable size
+Located at a developed residential / commercial area, Jahangirpura area, Near to Iscon Cross Road, Olpad Road, Hazira-Sayan Road etc.
+Located within a compounded residential society with common amenities & facilities etc.
+Neighbourhood surrounding residential & commercial development, Locality etc.",NA,Edit,Edit,Edit,TRUE,TRUE,FALSE,FALSE
+Site Details,"Special remarks, if any, like threat of acquisition of land for public service purposes, road widening or applicability of CRZ provisions etc. (Distance from sea-coast / tidal level must be incorporated)",,,NA,NA,Edit,Edit,Edit,TRUE,TRUE,FALSE,FALSE
+NDMA Parameters,Nature of Building/Wing,Radio Button,"Residential, Industrial, Commercial, Residential + Commercial",,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+NDMA Parameters,Projected Parts Available,Radio Button,"Yes, No",,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+NDMA Parameters,Roof Type,Radio Button,,,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+NDMA Parameters,Concrete Grade,Radio Button,,,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+NDMA Parameters,Sesmic Zone,Radio Button,,,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+NDMA Parameters,Soil Slope Vulnerable to Landslide,Radio Button,"Yes, No",,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+NDMA Parameters,Fire Exit,Radio Button,"Yes, No",,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+NDMA Parameters,Plan Aspect Ratio,Radio Button,"Yes, No",,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+NDMA Parameters,Type of Masonry,Radio Button,,,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+NDMA Parameters,Steel Grade,Radio Button,,,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+NDMA Parameters,Environment Exposure Condition,Radio Button,,,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+NDMA Parameters,Soil Liquefiable,Radio Button,"Yes, No",,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+NDMA Parameters,Flood Prone Area,Radio Button,"Yes, No",,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+NDMA Parameters,Structure Type,Radio Button,"Load Bearing, RCC, Composite Structure, Others",,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+NDMA Parameters,Expansion Joints Available,Radio Button,"Yes, No",,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+NDMA Parameters,Mortar Type,Radio Button,,,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+NDMA Parameters,Footing Type,Radio Button,,,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+NDMA Parameters,Coastal Regulatory Zone,Radio Button,"Yes, No",,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+NDMA Parameters,Ground Slope More than 20%,Radio Button,"Yes, No",,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+NOApproved Plan Details,Sanctioned Plan Provided (Yes/No),Radio Button,"Yes, No, NA",,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+NOApproved Plan Details,Layout Plan Details: Sanctioned No./Permit No.,,,,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+NOApproved Plan Details,Construction Plan Details: Sanctioned No/Permit No.,,,,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+NOApproved Plan Details,Date of Sanction,,,,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+NOApproved Plan Details,Plan Validity,,,,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+NOApproved Plan Details,Approving Authority,,,,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+NOApproved Plan Details,Approved Usages (Residential/Industrial/Commercial/Mixed Usages),,,,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+NOApproved Plan Details,Number of Floor in Building,,,,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Building Details,Type of building,Radio Button,"Residential, Industrial, Commercial, Residential + Commercial",,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,Type of construction,Radio Button,"Load Bearing Structure, RCC Frame Structure, Steel Framed, Brick Masonry",,NA,Edit,Edit,Edit,TRUE,FALSE,TRUE,TRUE
+Building Details,Stage of Construction,Radio Button,"Completed, Under Construction",,NA,Edit,Edit,Edit,FALSE,FALSE,TRUE,TRUE
+Building Details,"If under construction, extent of completion",Textbox,,NA,NA,Edit,Edit,Edit,FALSE,FALSE,TRUE,TRUE
+Building Details,Nature and extent of violations,Textbox,,NA,NA,Edit,Edit,Edit,FALSE,FALSE,TRUE,TRUE
+Building Details,Year of Construction,Textbox,,,NA,Edit,Edit,Edit,TRUE,TRUE,FALSE,FALSE
+Building Details,Age of the building,Textbox,,,NA,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Building Details,Residual age of building,Textbox,,50 Years subjected to proper Maintenance,NA,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Building Details,"Number of floors & height of each floor including basement, if any",Textbox,,"Ground + First + / second floor , Avg 3.2 meter",NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,Number of rooms - Living/Dining,Textbox,,,NA,Edit,Edit,Edit,FALSE,FALSE,TRUE,TRUE
+Building Details,Number of rooms - Bed Rooms,Textbox,,,NA,Edit,Edit,Edit,FALSE,FALSE,TRUE,TRUE
+Building Details,Number of rooms - Toilets,Textbox,,,NA,Edit,Edit,Edit,FALSE,FALSE,TRUE,TRUE
+Building Details,Number of rooms - Kitchen,Textbox,,,NA,Edit,Edit,Edit,FALSE,FALSE,TRUE,TRUE
+Building Details,Plinth area floor-wise,Textbox,,,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,Condition of the building - Exterior,Radio Button,"Excellent, Good, Normal, Poor",,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,Condition of the building - Interior,Radio Button,"Excellent, Good, Normal, Poor",,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,Foundation,Radio Button,"RCC Footing, NA",,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,Basement,Radio Button,"RCC, NA",,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,Superstructure,Radio Button,"RCC Frame, Steel Frame, NA",,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,"Joinery / Doors & Windows (Please furnish details about size of frames, shutters, glazing, fitting, etc. and specify the species of timber)",Textbox,,"Door - Wooden, Windows - Wooden / MS grill, Alu. Section glazed / MS grill",NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,RCC work,Radio Button,"Brick Masonry, NA",,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,Plastering,Radio Button,"Cement Plaster, NA",,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,"Flooring, Skirting, dadoing",Radio Button,"Vitrified, Marble, Kota, RCC Trimix, NA",,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,"Special finish as marble, granite, wooden paneling, grills, etc.",Textbox,,NA,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,Roofing including weather proof course,Textbox,,NA,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,Drainage,Radio Button,"Yes, No, NA, ---",,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,Compound Wall,Radio Button,"Yes, No, NA, ---",,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,Type of wiring,Radio Button,"Concealed, Open, NA",,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,Class of fittings (superior / ordinary / poor),Radio Button,"Superior, Ordinary, Poor, Standard, NA",,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,Number of light points,Textbox,,----,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,Fan points,Textbox,,----,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,Spare plug points,Textbox,,----,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,Any other item - Electrical Installation,Textbox,,----,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,No. of water closets and their type,Textbox,,----,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,No. of wash basins,Textbox,,----,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,No. of urinals,Textbox,,----,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,"Water meter, taps, etc.",Textbox,,----,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,"Any other fixtures	 - Plumbing Installation",Textbox,,----,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,Roof Height (building),Textbox,,Average 3 mtr,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,Particular of item (building),Textbox,,Average 3 mtr,NA,Edit,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Building Details,Nature of the Apartment ,Radio Button,"Residential, Industrial, Commercial, Residential + Commercial",,NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Building Details,Street or Road ,Radio Button,,,NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Building Details,Description of the locality residential / Commercial / Mixed,Textbox,,"The site benefits from well-developed surrounding areas for both residential and commercial purposes, with easy access to a range of nearby amenities.",NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Building Details,Number of Floors,Textbox - Number,,,NA,Edit,Edit,Edit,FALSE,TRUE,TRUE,TRUE
+Building Details,Type of Structure,Radio Button,"RCC Frame Structure, Load Bearing Structure, RCC Frame / Load Bearing Composite Structure",,NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Building Details,Number of Dwelling units in the building,Textbox,,As per plan,NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Building Details,Quality of Construction,Radio Button,"Excellent, Good, Average, Poor",,NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Building Details,Appearance of the building,Radio Button,"Excellent, Good, Average, Poor",,NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Building Details,Maintenance of the building,Radio Button,"Excellent, Good, Average, Poor",,NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Building Details,Facilities Available,Multiselect Checkbox,"Lift, Protected Water Supply, Underground Sewerage, Car Parking, Is compound wall existing?, Is pavement laid around the building",,NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Building Details,The floor on which the unit is situated,Textbox,,,NA,Edit,Edit,Edit,FALSE,TRUE,TRUE,TRUE
+Unit Details,Roof,Radio Button,RCC Slab,,NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Unit Details,Flooring,Multiselect Checkbox,"Vitrified, Marble, Kota, Mosaic",,NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Unit Details,Doors,Multiselect Checkbox,"Wooden, Aluminium section glazed, MS Shutter, MS Gate, Toughened Glass Door",,NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Unit Details,Windows,Multiselect Checkbox,"Wooden, Aluminium section glazed, Glass Window",,NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Unit Details,Fittings,Multiselect Checkbox,"Concealed, Open",,NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Unit Details,Finishing,Textbox,,Cement plaster with wall putty,NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Unit Details,House Tax,Textbox,,NA,NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Unit Details,Assessment No.,Textbox,,NA,NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Unit Details,Tax. paid in the name of,Textbox,,NA,NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Unit Details,Tax Amount,Textbox,,NA,NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Unit Details,Electricity Service Connection No.,Textbox,,NA,NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Unit Details,Meter Card maintenance of the unit?,Textbox,,NA,NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Unit Details,How is the maintenance of the unit?,Radio Button,"Excellent, Good, Average, Poor",,NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Unit Details,What is the undivided area of land as master tie up report/ sale agreement?,Textbox,,,NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Unit Details,What is the floor space index (app.) ?,Textbox,,,NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Unit Details,Is it Posh/ I class / Medium / Ordinary? ,Textbox,"Posh, I class, Medium, Ordinary",,NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Unit Details,Is it being used for residential or Commercial purpose?,Radio Button,"Commercial, Residential",,NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Marketability,How is the marketability?,Textbox,,"Good, as the developed area",NA,Edit,Edit,Edit,FALSE,TRUE,FALSE,FALSE
+Assumptions/Remarks,"Qualifications in TIR/Mitigation suggested, if any",Textbox,,NA,NA,Edit,Edit,Edit,FALSE,FALSE,TRUE,TRUE
+Assumptions/Remarks,Property is SARFAESI compliant,Radio Button,"Yes, No",,NA,Edit,Edit,Edit,FALSE,FALSE,TRUE,TRUE
+Assumptions/Remarks,"Whether property belongs to social infrastructure like hospital, school, old age home etc.",Radio Button,"Yes, No",,NA,Edit,Edit,Edit,FALSE,FALSE,TRUE,TRUE
+Assumptions/Remarks,Whether the entire piece of land on which the unit is set up / property is situated has been mortgaged or to be mortgaged,Textbox,,NA,NA,Edit,Edit,Edit,FALSE,FALSE,TRUE,TRUE
+Assumptions/Remarks,"Details of last two transactions in the locality/area to be provided, if available",Textbox,,,NA,Edit,Edit,Edit,FALSE,FALSE,TRUE,TRUE
+Assumptions/Remarks,Any other aspect which has relevance on the value or marketability of the property,Textbox,,,NA,Edit,Edit,Edit,FALSE,FALSE,TRUE,TRUE
+Technical Details,Construction Quality,Radio Button,"Good, Average, Poor",,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Technical Details,Current Occupant of Property,Radio Button,"Owner, Tenant, Vacant",,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Technical Details,Lift Available,Radio Button,"Yes, No, NA",,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Technical Details,No. of Lifts,Textbox,,,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Technical Details,Separate Independent Access,Radio Button,"Yes, No, NA",,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Technical Details,Floor wise and Occupancy,Textbox,,,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Valuation Details,Land Area (In Sq. Ft.) (As per Documents),Textbox,,,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Valuation Details,Land Area (In Sq. Ft.) (As per Plan),Textbox,,,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Valuation Details,Land Area (In Sq. Ft.) (As per Site Visit),Textbox,,,NA,Edit,Edit,Edit,FALSE,FALSE,FALSE,FALSE
+Valuation Details,Land (Square Meter),Textbox - Number,,,NA,Edit,Edit,Edit,TRUE,FALSE,TRUE,FALSE
+Valuation Details,Land (Square Yard),Textbox - Number,,,NA,Edit,Edit,Edit,TRUE,FALSE,TRUE,FALSE
+Valuation Details,Land (Square Feet),Textbox - Number,,,NA,Edit,Edit,Edit,TRUE,FALSE,TRUE,FALSE
+Valuation Details,Super Land (Square Meter),Textbox - Number,,,NA,Edit,Edit,Edit,TRUE,FALSE,TRUE,FALSE
+Valuation Details,Super Land (Square Yard),Textbox - Number,,,NA,Edit,Edit,Edit,TRUE,FALSE,TRUE,FALSE
+Valuation Details,Super Land (Square Feet),Textbox - Number,,,NA,Edit,Edit,Edit,TRUE,FALSE,TRUE,FALSE
+Valuation Details,Carpet Area (Square Meter),Textbox - Number,,,NA,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Valuation Details,Carpet Area (Square Yard),Textbox - Number,,,NA,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Valuation Details,Carpet Area (Square Feet),Textbox - Number,,,NA,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Valuation Details,Built-up Area (Square Meter),Textbox - Number,,,NA,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Valuation Details,Built-up Area (Square Yard),Textbox - Number,,,NA,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Valuation Details,Built-up Area (Square Feet),Textbox - Number,,,NA,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Valuation Details,Super Built-up Area (Square Meter),Textbox - Number,,,NA,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Valuation Details,Super Built-up Area (Square Yard),Textbox - Number,,,NA,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Valuation Details,Super Built-up Area (Square Feet),Textbox - Number,,,NA,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Valuation Details,Guideline Land Rate provided for ?,Radio Button,"Land, Super Land",,NA,NA,Edit,Edit,TRUE,FALSE,TRUE,FALSE
+Valuation Details,Guideline Rate - Land (Square Meter),Textbox - Number,,,NA,NA,Edit,Edit,TRUE,FALSE,TRUE,FALSE
+Valuation Details,Market Land Rate provided for ?,Radio Button,"Land, Super Land",,NA,NA,Edit,Edit,TRUE,FALSE,TRUE,FALSE
+Valuation Details,Market Rate - Land (Square Meter),Textbox - Number,,,NA,NA,Edit,Edit,TRUE,FALSE,TRUE,FALSE
+Valuation Details,Market Rate - Land (Square Yard),Textbox - Number,,,NA,NA,Edit,Edit,TRUE,FALSE,TRUE,FALSE
+Valuation Details,Market Rate - Land (Square Feet),Textbox - Number,,,NA,NA,Edit,Edit,TRUE,FALSE,TRUE,FALSE
+Valuation Details,Guideline Construction Rate (Square Meter),Textbox - Number,,14500,NA,NA,Edit,Edit,FALSE,TRUE,FALSE,TRUE
+Valuation Details,Guideline Rate provided for ?,Radio Button,"Carpet, Built Up, Super Built Up",,NA,NA,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Valuation Details,Guideline Rate (Square Meter),Textbox - Number,,,NA,NA,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Valuation Details,Market Construction Rate provided for ?,Radio Button,"Carpet, Built Up, Super Built Up",,NA,NA,Edit,Edit,TRUE,FALSE,TRUE,FALSE
+Valuation Details,Construction Rate (Square Meter),Textbox - Number,,,NA,NA,Edit,Edit,TRUE,FALSE,TRUE,FALSE
+Valuation Details,Construction Rate (Square Yard),Textbox - Number,,,NA,NA,Edit,Edit,TRUE,FALSE,TRUE,FALSE
+Valuation Details,Construction Rate (Square Feet),Textbox - Number,,,NA,NA,Edit,Edit,TRUE,FALSE,TRUE,FALSE
+Valuation Details,Composite Rate provided for ?,Radio Button,"Carpet, Built Up, Super Built Up",,NA,NA,Edit,Edit,FALSE,TRUE,FALSE,TRUE
+Valuation Details,Composite Rate (Square Meter),Textbox - Number,,,NA,NA,Edit,Edit,FALSE,TRUE,FALSE,TRUE
+Valuation Details,Composite Rate (Square Yard),Textbox - Number,,,NA,NA,Edit,Edit,FALSE,TRUE,FALSE,TRUE
+Valuation Details,Composite Rate (Square Feet),Textbox - Number,,,NA,NA,Edit,Edit,FALSE,TRUE,FALSE,TRUE
+Valuation Details,Realizable Value %,Textbox - percentage,,90%,NA,NA,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Valuation Details,Distress Value %,Textbox - percentage,,75%,NA,NA,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Valuation Details,Depreciation Value %,Textbox - percentage,,0%,NA,NA,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Valuation Details,Combined Additional Value,,,,NA,NA,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Valuation Details,Book Value,,,,NA,NA,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Valuation Details - Extra Items,Portico,Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Valuation Details - Extra Items,Ornamental front door,Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Valuation Details - Extra Items,Sit out / verandah with steel grill,Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Valuation Details - Extra Items,Overhead water tank,Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Valuation Details - Extra Items,Extra steel / collapsible gates,Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Valuation Details - Extra Items,Combined Value - Extra Items,Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Valuation Details - Amenities,Wardrobes,Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Valuation Details - Amenities,Glazed tiles,Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Valuation Details - Amenities,Extra sinks with bath tub,Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Valuation Details - Amenities,Marble / ceramic tiles flooring,Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Valuation Details - Amenities,Interior decorations,Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Valuation Details - Amenities,Architectural elevation works,Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Valuation Details - Amenities,Panelling works,Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Valuation Details - Amenities,Aluminium works,Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Valuation Details - Amenities,Aluminium hand rails,Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Valuation Details - Amenities,False ceiling,Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Valuation Details - Amenities,Combined Value - Amenities,Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Valuation Details - Miscellaneous,Separate toilet room,Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Valuation Details - Miscellaneous,Separate lumber room,Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Valuation Details - Miscellaneous,Separate water tank / sump,Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Valuation Details - Miscellaneous,"Trees, gerdening",Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Valuation Details - Miscellaneous,Combined Value - Miscellaneous,Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Valuation Details - Services,Water supply arrangements,Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Valuation Details - Services,Compound wall,Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Valuation Details - Services,"C. B. deposits, fittings etc.",Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Valuation Details - Services,"C. B. deposits, fittings etc.",Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Valuation Details - Services,Pavement,Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Valuation Details - Services,Combined Value - Services,Textbox,,----,NA,NA,Edit,Edit,TRUE,FALSE,FALSE,FALSE
+Property Photographs,Property Front View,Image Upload,,,NA,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Property Photographs,Google Earth Photograph,Image Upload,,,NA,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Property Photographs,Property Photographs,Multiple Image Upload,,,NA,Edit,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Invoice Details,Date of Invoice,Date Picker,,,NA,NA,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Invoice Details,Charges Amount,Textbox,,,NA,NA,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Invoice Details,Other Expenses,Textbox,,,NA,NA,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Invoice Details,GST Included?,Radio Button,"Yes, No",,NA,NA,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Invoice Details,CGST,Auto Calculate,,,NA,NA,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Invoice Details,SGST,Auto Calculate,,,NA,NA,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Invoice Details,Total Invoice Amount,Auto Calculate,,,NA,NA,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Invoice Details,Payment Status,Dropdown,"Pending, Received, Delayed, Cancelled",,NA,NA,Edit,Edit,TRUE,TRUE,TRUE,TRUE
+Invoice Details,Payment Mode,Dropdown,"Cash, Bank Transfer, Cheque, UPI",,NA,NA,Edit,Edit,TRUE,TRUE,TRUE,TRUE

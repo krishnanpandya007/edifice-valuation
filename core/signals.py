@@ -1,6 +1,6 @@
 from django.dispatch import receiver
 from django.db.models.signals import post_save
-from .models import CustomUser
+from .models import CustomUser, Site
 from django.core.mail import send_mail
 from django.core.signing import Signer
 from django.conf import settings
@@ -38,4 +38,11 @@ def create_profile(sender, instance, created, **kwargs):
         except Exception as e:
 
             print("[ERR]: ", e)
+
+
+@receiver(post_save, sender=Site) 
+def notify_assignment(sender, instance, created, **kwargs):
+
+    if hasattr(instance, "_notify") and hasattr(instance, "_assignee_email"):
+        send_mail("New site assigned", "", settings.EMAIL_HOST_USER, [instance._assignee_email], html_message=f'''You are assigned to,<br/> Site: <b>{instance.name}</b><br/>Visit due date: <b>{instance.visit_due_date}</b><br/><br/><a href="{"http" if settings.DEBUG else "https"}://{settings.ALLOWED_HOSTS[-1]}/">Click here</a> to know more.''')
 

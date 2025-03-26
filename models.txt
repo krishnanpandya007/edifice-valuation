@@ -1,0 +1,173 @@
+  
+class UnitDetails(models.Model):
+    site = models.OneToOneField('Site', on_delete=models.CASCADE, related_name='unit_details')
+    roof = models.CharField(max_length=20, choices=[('RCC Slab', 'RCC Slab')])
+    flooring = models.CharField(max_length=255)
+    doors = models.CharField(max_length=255)
+    windows = models.CharField(max_length=255)
+    fittings = models.CharField(max_length=255)
+    finishing = models.CharField(max_length=255, default='Cement plaster with wall putty')
+    house_tax = models.CharField(max_length=255, default='NA')
+    assessment_no = models.CharField(max_length=255, default='NA')
+    tax_paid_in_name = models.CharField(max_length=255, default='NA')
+    tax_amount = models.CharField(max_length=255, default='NA')
+    electricity_service_no = models.CharField(max_length=255, default='NA')
+    meter_card_maintenance = models.CharField(max_length=255, default='NA')
+    maintenance_of_unit = models.CharField(max_length=20, choices=[('Excellent', 'Excellent'), ('Good', 'Good'), ('Average', 'Average'), ('Poor', 'Poor')])
+    undivided_area = models.CharField(max_length=255)
+    floor_space_index = models.CharField(max_length=255)
+    posh_classification = models.CharField(max_length=255, choices=[('Posh', 'Posh'), ('I class', 'I class'), ('Medium', 'Medium'), ('Ordinary', 'Ordinary')])
+    usage_purpose = models.CharField(max_length=20, choices=[('Commercial', 'Commercial'), ('Residential', 'Residential')])
+
+    def __str__(self):
+        return f"Unit Details for Site {self.site.id}"
+    
+class Marketability(models.Model):
+    site = models.OneToOneField('Site', on_delete=models.CASCADE, related_name='marketability')
+    marketability_status = models.TextField(default='Good, as the developed area')
+
+    def __str__(self):
+        return f"Marketability for Site {self.site.id}"
+    
+class AssumptionsRemarks(models.Model):
+    site = models.OneToOneField('Site', on_delete=models.CASCADE, related_name='assumptions_remarks')
+    qualifications_tir_mitigation = models.CharField(max_length=255, default='NA')
+    property_sarfaesi_compliant = models.CharField(max_length=10, choices=[('Yes', 'Yes'), ('No', 'No')])
+    belongs_to_social_infrastructure = models.CharField(max_length=10, choices=[('Yes', 'Yes'), ('No', 'No')])
+    land_mortgaged_status = models.CharField(max_length=255, default='NA')
+    last_two_transactions = models.CharField(max_length=255, blank=True, null=True)
+    relevant_aspects_on_value = models.CharField(max_length=255, blank=True, null=True)
+
+    def __str__(self):
+        return f"Assumptions/Remarks for Site {self.site.id}"
+    
+class TechnicalDetails(models.Model):
+    site = models.OneToOneField('Site', on_delete=models.CASCADE, related_name='technical_details')
+    construction_quality = models.CharField(max_length=20, choices=[('Good', 'Good'), ('Average', 'Average'), ('Poor', 'Poor')])
+    current_occupant = models.CharField(max_length=20, choices=[('Owner', 'Owner'), ('Tenant', 'Tenant'), ('Vacant', 'Vacant')])
+    lift_available = models.CharField(max_length=10, choices=[('Yes', 'Yes'), ('No', 'No'), ('NA', 'NA')])
+    number_of_lifts = models.CharField(max_length=10)
+    separate_independent_access = models.CharField(max_length=10, choices=[('Yes', 'Yes'), ('No', 'No'), ('NA', 'NA')])
+    floor_wise_occupancy = models.TextField()
+
+    def __str__(self):
+        return f"Technical Details for Site {self.site.id}"
+    
+class ValuationDetails(models.Model):
+    site = models.OneToOneField('Site', on_delete=models.CASCADE, related_name='valuation_details')
+    land_area_documents = models.CharField(max_length=255)
+    land_area_plan = models.CharField(max_length=255)
+    land_area_site_visit = models.CharField(max_length=255)
+    land_square_meter = models.CharField(max_length=255)
+    land_square_yard = models.CharField(max_length=255)
+    land_square_feet = models.CharField(max_length=255)
+    super_land_square_meter = models.CharField(max_length=255)
+    super_land_square_yard = models.CharField(max_length=255)
+    super_land_square_feet = models.CharField(max_length=255)
+    carpet_area_square_meter = models.CharField(max_length=255)
+    carpet_area_square_yard = models.CharField(max_length=255)
+    carpet_area_square_feet = models.CharField(max_length=255)
+    built_up_area_square_meter = models.CharField(max_length=255)
+    built_up_area_square_yard = models.CharField(max_length=255)
+    built_up_area_square_feet = models.CharField(max_length=255)
+    super_built_up_area_square_meter = models.CharField(max_length=255)
+    super_built_up_area_square_yard = models.CharField(max_length=255)
+    super_built_up_area_square_feet = models.CharField(max_length=255)
+    guideline_land_rate_provided_for = models.CharField(max_length=20, choices=[('Land', 'Land'), ('Super Land', 'Super Land')])
+    guideline_rate_land_square_meter = models.CharField(max_length=255)
+    market_land_rate_provided_for = models.CharField(max_length=20, choices=[('Land', 'Land'), ('Super Land', 'Super Land')])
+    market_rate_land_square_meter = models.CharField(max_length=255)
+    market_rate_land_square_yard = models.CharField(max_length=255)
+    market_rate_land_square_feet = models.CharField(max_length=255)
+    guideline_construction_rate_square_meter = models.CharField(max_length=255, default='14500')
+    guideline_rate_provided_for = models.CharField(max_length=20, choices=[('Carpet', 'Carpet'), ('Built Up', 'Built Up'), ('Super Built Up', 'Super Built Up')])
+    guideline_rate_square_meter = models.CharField(max_length=255)
+    market_construction_rate_provided_for = models.CharField(max_length=20, choices=[('Carpet', 'Carpet'), ('Built Up', 'Built Up'), ('Super Built Up', 'Super Built Up')])
+    construction_rate_square_meter = models.CharField(max_length=255)
+    construction_rate_square_yard = models.CharField(max_length=255)
+    construction_rate_square_feet = models.CharField(max_length=255)
+    composite_rate_provided_for = models.CharField(max_length=20, choices=[('Carpet', 'Carpet'), ('Built Up', 'Built Up'), ('Super Built Up', 'Super Built Up')])
+    composite_rate_square_meter = models.CharField(max_length=255)
+    composite_rate_square_yard = models.CharField(max_length=255)
+    composite_rate_square_feet = models.CharField(max_length=255)
+    realizable_value_percentage = models.CharField(max_length=255, default='90')
+    distress_value_percentage = models.CharField(max_length=255, default='75')
+    depreciation_value_percentage = models.CharField(max_length=255, default='0')
+    combined_additional_value = models.CharField(max_length=255, blank=True, null=True)
+    book_value = models.CharField(max_length=255, blank=True, null=True)
+
+    def __str__(self):
+        return f"Valuation Details for Site {self.site.id}"
+    
+class ValuationExtraItems(models.Model):
+    site = models.OneToOneField('Site', on_delete=models.CASCADE, related_name='valuation_extra_items')
+    portico = models.CharField(max_length=255, default='----')
+    ornamental_front_door = models.CharField(max_length=255, default='----')
+    sit_out_verandah = models.CharField(max_length=255, default='----')
+    overhead_water_tank = models.CharField(max_length=255, default='----')
+    extra_steel_gates = models.CharField(max_length=255, default='----')
+    combined_value_extra_items = models.CharField(max_length=255, default='----')
+
+    def __str__(self):
+        return f"Valuation Extra Items for Site {self.site.id}"
+    
+class ValuationAmenities(models.Model):
+    site = models.OneToOneField('Site', on_delete=models.CASCADE, related_name='valuation_amenities')
+    wardrobes = models.CharField(max_length=255, default='----')
+    glazed_tiles = models.CharField(max_length=255, default='----')
+    extra_sinks_bath_tub = models.CharField(max_length=255, default='----')
+    marble_ceramic_flooring = models.CharField(max_length=255, default='----')
+    interior_decorations = models.CharField(max_length=255, default='----')
+    architectural_elevation = models.CharField(max_length=255, default='----')
+    panelling_works = models.CharField(max_length=255, default='----')
+    aluminium_works = models.CharField(max_length=255, default='----')
+    aluminium_hand_rails = models.CharField(max_length=255, default='----')
+    false_ceiling = models.CharField(max_length=255, default='----')
+    combined_value_amenities = models.CharField(max_length=255, default='----')
+
+    def __str__(self):
+        return f"Valuation Amenities for Site {self.site.id}"
+    
+class ValuationMiscellaneous(models.Model):
+    site = models.OneToOneField('Site', on_delete=models.CASCADE, related_name='valuation_miscellaneous')
+    separate_toilet_room = models.CharField(max_length=255, default='----')
+    separate_lumber_room = models.CharField(max_length=255, default='----')
+    separate_water_tank_sump = models.CharField(max_length=255, default='----')
+    trees_gardening = models.CharField(max_length=255, default='----')
+    combined_value_miscellaneous = models.CharField(max_length=255, default='----')
+
+    def __str__(self):
+        return f"Valuation Miscellaneous for Site {self.site.id}"
+    
+class ValuationServices(models.Model):
+    site = models.OneToOneField('Site', on_delete=models.CASCADE, related_name='valuation_services')
+    water_supply_arrangements = models.CharField(max_length=255, default='----')
+    compound_wall = models.CharField(max_length=255, default='----')
+    cb_deposits_fittings = models.CharField(max_length=255, default='----')
+    pavement = models.CharField(max_length=255, default='----')
+    combined_value_services = models.CharField(max_length=255, default='----')
+
+    def __str__(self):
+        return f"Valuation Services for Site {self.site.id}"
+
+class PropertyPhotographs(models.Model):
+    site = models.OneToOneField('Site', on_delete=models.CASCADE, related_name='property_photographs')
+    property_front_view = models.FileField(upload_to='uploads/images/property_front_view/')
+    google_earth_photograph = models.FileField(upload_to='uploads/images/google_earth_photograph/')
+    property_photographs = models.ManyToManyField(ImageAttachment)
+
+class InvoiceDetails(models.Model):
+    site = models.OneToOneField('Site', on_delete=models.CASCADE, related_name='invoice_details')
+    date_of_invoice = models.DateField()
+    charges_amount = models.CharField(max_length=255)
+    other_expenses = models.CharField(max_length=255)
+    gst_included = models.CharField(max_length=10, choices=[('Yes', 'Yes'), ('No', 'No')])
+    cgst = models.CharField(max_length=255)
+    sgst = models.CharField(max_length=255)
+    total_invoice_amount = models.CharField(max_length=255)
+    # payment_status = models.CharField(max_length=20, choices=[('Pending', 'Pending'), ('Received', 'Received'), ('Delayed', 'Delayed'), ('Cancelled', 'Cancelled')])
+    payment_mode = models.CharField(max_length=20, choices=[('Cash', 'Cash'), ('Bank Transfer', 'Bank Transfer'), ('Cheque', 'Cheque'), ('UPI', 'UPI')])
+
+    def __str__(self):
+        return f"Invoice Details for Site {self.site.id}"
+
