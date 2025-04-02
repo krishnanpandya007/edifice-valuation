@@ -332,6 +332,7 @@ def view_site(request, *args, **kwargs):
                         "default_value": field.default_value,
                         "choices": getattr(getattr(getattr(getattr(section_obj_memcache[field.section_name],"__class__"), field.field_name), "field"), "choices") if field.field_type == "radio" or field.field_type == "dropdown" or field.field_type == "multiselect-checkbox"  else [],
                         "access_level": field.get_access_level(request.user), # from FieldManager instance
+                        "all": getattr(section_obj_memcache[field.section_name], field.field_name).all() if field.field_type == "multiple-image-upload" else [],
                         "model": section_obj_memcache[field.section_name]
                     })
     print(context["valuation_details"])

@@ -163,18 +163,23 @@
                                                             {% endif %}
                                                         {% endfor %}
                                                     </ul>
-                                                {% elif field.field_type == "file-upload" %}
+                                                {% elif field.field_type == "file-upload" or field.field_type == "image-upload" %}
                                                     
                                                     <div class="inline-flex rounded-md shadow-xs mb-5 mt-1">
-                                                        <input onchange="handleFileUpload(this)" hidden type="file" id="{{ field.name }}">
-                                                        {% if field.value %}
-                                                            <button  class="dark:hover:text-white dark:hover:bg-gray-700 hover:bg-gray-100 hover:text-blue-700 px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:focus:ring-blue-500 dark:focus:text-white" >
+                                                        {% if field.field_type == "file-upload" %}
+                                                            <input onchange="handleFileUpload(this)" hidden type="file" name="{{ field.name }}" id="{{ field.name }}">
+                                                        {% else %}
+                                                            <input onchange="handleFileUpload(this)" hidden type="file" accept="image/*" name="{{ field.name }}" id="{{ field.name }}">
+                                                        {% endif %}
+                                                        <input type="text" name="__include__@{{ field.name }}" value="true" hidden id="__include__@{{ field.name }}">
+                                                        {% if not field.value %}
+                                                            <button id="{{ field.name }}-remove" onclick="removeAttachment('{{ field.name }}')" class="dark:hover:text-white dark:hover:bg-gray-700 hover:bg-gray-100 hover:text-blue-700 px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:focus:ring-blue-500 dark:focus:text-white" >
                                                                 <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.8536 2.85355C13.0488 2.65829 13.0488 2.34171 12.8536 2.14645C12.6583 1.95118 12.3417 1.95118 12.1464 2.14645L7.5 6.79289L2.85355 2.14645C2.65829 1.95118 2.34171 1.95118 2.14645 2.14645C1.95118 2.34171 1.95118 2.65829 2.14645 2.85355L6.79289 7.5L2.14645 12.1464C1.95118 12.3417 1.95118 12.6583 2.14645 12.8536C2.34171 13.0488 2.65829 13.0488 2.85355 12.8536L7.5 8.20711L12.1464 12.8536C12.3417 13.0488 12.6583 13.0488 12.8536 12.8536C13.0488 12.6583 13.0488 12.3417 12.8536 12.1464L8.20711 7.5L12.8536 2.85355Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>                                                        
                                                             </button>
                                                             <div id="{{ field.name }}-display"  aria-current="page" class="px-4 py-2 text-sm font-medium text-blue-700 bg-white border border-gray-200 rounded-s-lg focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white  dark:focus:ring-blue-500 dark:focus:text-white" style="border-left: none; border-radius: 0;">
                                                                 Goverment RPG.pdf
                                                             </div>
-                                                            <button  class="dark:hover:text-white dark:hover:bg-gray-700 hover:bg-gray-100 hover:text-blue-700 px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:focus:ring-blue-500 dark:focus:text-white" style="border-left: none; border-radius: 0;">
+                                                            <button id="{{ field.name }}-view" class="dark:hover:text-white dark:hover:bg-gray-700 hover:bg-gray-100 hover:text-blue-700 px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:focus:ring-blue-500 dark:focus:text-white" style="border-left: none; border-radius: 0;">
                                                                 <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 11C4.80285 11 2.52952 9.62184 1.09622 7.50001C2.52952 5.37816 4.80285 4 7.5 4C10.1971 4 12.4705 5.37816 13.9038 7.50001C12.4705 9.62183 10.1971 11 7.5 11ZM7.5 3C4.30786 3 1.65639 4.70638 0.0760002 7.23501C-0.0253338 7.39715 -0.0253334 7.60288 0.0760014 7.76501C1.65639 10.2936 4.30786 12 7.5 12C10.6921 12 13.3436 10.2936 14.924 7.76501C15.0253 7.60288 15.0253 7.39715 14.924 7.23501C13.3436 4.70638 10.6921 3 7.5 3ZM7.5 9.5C8.60457 9.5 9.5 8.60457 9.5 7.5C9.5 6.39543 8.60457 5.5 7.5 5.5C6.39543 5.5 5.5 6.39543 5.5 7.5C5.5 8.60457 6.39543 9.5 7.5 9.5Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
                                                             </button>
                                                         {% else %}
@@ -189,14 +194,151 @@
                                                     </div>
                                                 {% elif field.field_type == "textbox-number" %}
                                                 <input type="number" value="{{ field.value }}" name="{{ field.name }}" id="{{ field.name }}"  class="bg-gray-50 mb-5 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
-                                                    
+                                                {% elif field.field_type == "multiple-image-upload" %} 
+                                                <input type="text" name="{{ field.name }}-remove-list" hidden id="{{ field.name }}-remove-list"> 
+                                                <div class="flex flex-wrap" id="{{ field.name }}-container">
+                                                    <div data-modal-target="add-image-{{ field.name }}" data-modal-toggle="add-image-{{ field.name }}" style="width: min-content; min-width: 150px;display: flex;align-items: center;justify-content: center;flex-direction: column;text-align: center;gap: 1rem;" class="p-2 cursor-pointer max-w-sm bg-white border border-dashed mr-2 mb-2  border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+                                                        <svg width="25" height="25" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.49991 0.876892C3.84222 0.876892 0.877075 3.84204 0.877075 7.49972C0.877075 11.1574 3.84222 14.1226 7.49991 14.1226C11.1576 14.1226 14.1227 11.1574 14.1227 7.49972C14.1227 3.84204 11.1576 0.876892 7.49991 0.876892ZM1.82707 7.49972C1.82707 4.36671 4.36689 1.82689 7.49991 1.82689C10.6329 1.82689 13.1727 4.36671 13.1727 7.49972C13.1727 10.6327 10.6329 13.1726 7.49991 13.1726C4.36689 13.1726 1.82707 10.6327 1.82707 7.49972ZM7.50003 4C7.77617 4 8.00003 4.22386 8.00003 4.5V7H10.5C10.7762 7 11 7.22386 11 7.5C11 7.77614 10.7762 8 10.5 8H8.00003V10.5C8.00003 10.7761 7.77617 11 7.50003 11C7.22389 11 7.00003 10.7761 7.00003 10.5V8H4.50003C4.22389 8 4.00003 7.77614 4.00003 7.5C4.00003 7.22386 4.22389 7 4.50003 7H7.00003V4.5C7.00003 4.22386 7.22389 4 7.50003 4Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                                                        Add new
+                                                    </div>
+                                                    <div id="add-image-{{ field.name }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                        <div class="relative p-4 max-w-md w-full  max-h-full">
+                                                            <!-- Modal content -->
+                                                            <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
+                                                                <!-- Modal header -->
+                                                                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
+                                                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                                                        Add new image
+                                                                    </h3>
+                                                                    <button id="add-image-modal-close-button" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="add-image-{{ field.name }}">
+                                                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                                        </svg>
+                                                                        <span class="sr-only">Close modal</span>
+                                                                    </button>
+                                                                </div>
+                                                                <!-- Modal body -->
+                                                                <div class="p-4 md:p-5">
+                                                                    <label for="image_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image Name</label>
+                                                                    <input type="text" id="image_name" class="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Name" required />
+
+                                                                    <!-- <label for="image_upload" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload</label> -->
+                                                                    <label  for="image_upload" style="display: flex;flex-direction: column;align-items: center;justify-content: center;gap:0.5rem;height: 8rem;" class="mb-2 bg-gray-50 border border-dashed border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Name" required >
+                                                                        <svg width="20" height="20" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.81825 1.18188C7.64251 1.00615 7.35759 1.00615 7.18185 1.18188L4.18185 4.18188C4.00611 4.35762 4.00611 4.64254 4.18185 4.81828C4.35759 4.99401 4.64251 4.99401 4.81825 4.81828L7.05005 2.58648V9.49996C7.05005 9.74849 7.25152 9.94996 7.50005 9.94996C7.74858 9.94996 7.95005 9.74849 7.95005 9.49996V2.58648L10.1819 4.81828C10.3576 4.99401 10.6425 4.99401 10.8182 4.81828C10.994 4.64254 10.994 4.35762 10.8182 4.18188L7.81825 1.18188ZM2.5 9.99997C2.77614 9.99997 3 10.2238 3 10.5V12C3 12.5538 3.44565 13 3.99635 13H11.0012C11.5529 13 12 12.5528 12 12V10.5C12 10.2238 12.2239 9.99997 12.5 9.99997C12.7761 9.99997 13 10.2238 13 10.5V12C13 13.104 12.1062 14 11.0012 14H3.99635C2.89019 14 2 13.103 2 12V10.5C2 10.2238 2.22386 9.99997 2.5 9.99997Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                                                                        Click to upload
+                                                                    </label>
+                                                                    <input onchange="showModalUploadedImage(this)" hidden type="file" accept="image/*"  id="image_upload" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white hidden">
+                                                                     <div id="image-upload-modal-label">
+
+                                                                     </div>
+
+                                                                    <button type="button" onclick="handleAddImage(this)" data-field-name="{{ field.name }}" class="cursor-pointer text-white inline-flex w-full justify-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                                        Add Image
+                                                                    </button>
+                                                                    <button onclick="clearImageModal()" type="button" class="mt-2 w-full focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Clear</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div> 
+                                                    <div style="width: min-content; min-width: 150px;" class="max-w-sm bg-white border mr-2 mb-2  border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+                                                        <a href="#">
+                                                            <img class="rounded-t-lg"  src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+                                                        </a>
+                                                        <div class="p-2">
+                                                            <p class="text-xs font-bold text-gray-900 dark:text-white mb-2">FRONT VIEW</p>
+                                                            <div class="flex justify-start">
+
+                                                                <button onclick="deleteImageFromPool(this)" data-field-name="{{ field.name }}" data-attachment-id="2" type="button" class=" justify-center text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm  p-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 me-2 ">
+                                                                    <svg role="img" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" aria-labelledby="binIconTitle" stroke="red" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" fill="none" color="#2329D6"> <title id="binIconTitle">Bin</title> <path d="M19 6L5 6M14 5L10 5M6 10L6 20C6 20.6666667 6.33333333 21 7 21 7.66666667 21 11 21 17 21 17.6666667 21 18 20.6666667 18 20 18 19.3333333 18 16 18 10"/> </svg>
+                                                                </button>
+                                                                <button type="button" class="justify-center text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm  p-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 ">
+                                                                    <svg class="stroke-black dark:stroke-white" role="img" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" aria-labelledby="maximiseIconTitle" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" fill="none" color="#2329D6"> <title id="maximiseIconTitle">Maximise View</title> <polyline points="21 16 21 21 16 21"/> <polyline points="8 21 3 21 3 16"/> <polyline points="16 3 21 3 21 8"/> <polyline points="3 8 3 3 8 3"/> </svg>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {% for image in field.all %}
+                                                        <div style="width: min-content; min-width: 150px;" class="max-w-sm bg-white border mr-2 mb-2  border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+                                                            <a href="#">
+                                                                <img class="rounded-t-lg"  src="{{ image.attachment.url }}" alt="" />
+                                                            </a>
+                                                            <div class="p-2">
+                                                                <p class="text-xs font-bold text-gray-900 dark:text-white mb-2">{{ image.name }}</p>
+                                                                <div class="flex justify-start">
+
+                                                                    <button onclick="deleteImageFromPool(this)" data-field-name="{{ field.name }}" data-attachment-id="{{ image.id }}" type="button" class=" justify-center text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm  p-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 me-2 ">
+                                                                        <svg role="img" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" aria-labelledby="binIconTitle" stroke="red" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" fill="none" color="#2329D6"> <title id="binIconTitle">Bin</title> <path d="M19 6L5 6M14 5L10 5M6 10L6 20C6 20.6666667 6.33333333 21 7 21 7.66666667 21 11 21 17 21 17.6666667 21 18 20.6666667 18 20 18 19.3333333 18 16 18 10"/> </svg>
+                                                                    </button>
+                                                                    <button type="button" class="justify-center text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm  p-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 ">
+                                                                        <a href="{{ image.attachment.url }}">
+                                                                            <svg class="stroke-black dark:stroke-white" role="img" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" aria-labelledby="maximiseIconTitle" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" fill="none" color="#2329D6"> <title id="maximiseIconTitle">Maximise View</title> <polyline points="21 16 21 21 16 21"/> <polyline points="8 21 3 21 3 16"/> <polyline points="16 3 21 3 21 8"/> <polyline points="3 8 3 3 8 3"/> </svg>
+
+                                                                        </a>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                    <div style="width: min-content; min-width: 150px;" class=" max-w-sm bg-white border mr-2 mb-2  border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+                                                        <a href="#">
+                                                            <img class="rounded-t-lg"  src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+                                                        </a>
+                                                        <div class="p-2">
+                                                            <p class="text-xs font-bold text-gray-900 dark:text-white mb-2">REAR VIEW</p>
+                                                            <div class="flex justify-start">
+
+                                                                <button onclick="deleteImageFromPool(this)" data-field-name="{{ field.name }}" data-attachment-id="null" type="button" class=" justify-center text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm  p-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 me-2 ">
+                                                                    <svg role="img" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" aria-labelledby="binIconTitle" stroke="red" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" fill="none" color="#2329D6"> <title id="binIconTitle">Bin</title> <path d="M19 6L5 6M14 5L10 5M6 10L6 20C6 20.6666667 6.33333333 21 7 21 7.66666667 21 11 21 17 21 17.6666667 21 18 20.6666667 18 20 18 19.3333333 18 16 18 10"/> </svg>
+                                                                </button>
+                                                                <a href="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" type="button" class="justify-center text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm  p-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 ">
+                                                                    <svg class="stroke-black dark:stroke-white" role="img" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" aria-labelledby="maximiseIconTitle" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" fill="none" color="#2329D6"> <title id="maximiseIconTitle">Maximise View</title> <polyline points="21 16 21 21 16 21"/> <polyline points="8 21 3 21 3 16"/> <polyline points="16 3 21 3 21 8"/> <polyline points="3 8 3 3 8 3"/> </svg>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 {% endif %}
                                             {% elif 'view' == field.access_level %}
-                                                <span class="flex mb-5" style="align-items: center;">
-                                                    <!-- <svg class="mr-1" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 1.5C11 1.22386 10.7761 1 10.5 1C10.2239 1 10 1.22386 10 1.5V4H5V1.5C5 1.22386 4.77614 1 4.5 1C4.22386 1 4 1.22386 4 1.5V4H1.5C1.22386 4 1 4.22386 1 4.5C1 4.77614 1.22386 5 1.5 5H4V10H1.5C1.22386 10 1 10.2239 1 10.5C1 10.7761 1.22386 11 1.5 11H4V13.5C4 13.7761 4.22386 14 4.5 14C4.77614 14 5 13.7761 5 13.5V11H10V13.5C10 13.7761 10.2239 14 10.5 14C10.7761 14 11 13.7761 11 13.5V11H13.5C13.7761 11 14 10.7761 14 10.5C14 10.2239 13.7761 10 13.5 10H11V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H11V1.5ZM10 10V5H5V10H10Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg> -->
-                                                    <svg class="mr-1" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 11L6 4L10.5 7.5L6 11Z" fill="currentColor"></path></svg>
-                                                    <span>{{ field.value }}</span>
-                                                </span>
+                                                {% if field.field_type == "file-upload" %}
+                                                    <span class="flex mb-5" style="align-items: center;">
+                                                        <!-- <svg class="mr-1" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 1.5C11 1.22386 10.7761 1 10.5 1C10.2239 1 10 1.22386 10 1.5V4H5V1.5C5 1.22386 4.77614 1 4.5 1C4.22386 1 4 1.22386 4 1.5V4H1.5C1.22386 4 1 4.22386 1 4.5C1 4.77614 1.22386 5 1.5 5H4V10H1.5C1.22386 10 1 10.2239 1 10.5C1 10.7761 1.22386 11 1.5 11H4V13.5C4 13.7761 4.22386 14 4.5 14C4.77614 14 5 13.7761 5 13.5V11H10V13.5C10 13.7761 10.2239 14 10.5 14C10.7761 14 11 13.7761 11 13.5V11H13.5C13.7761 11 14 10.7761 14 10.5C14 10.2239 13.7761 10 13.5 10H11V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H11V1.5ZM10 10V5H5V10H10Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg> -->
+                                                        <svg class="mr-1" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 11L6 4L10.5 7.5L6 11Z" fill="currentColor"></path></svg>
+                                                        {% if field.value %}
+                                                            <a href="{{ field.value.url }}">Click to open</a>
+                                                        {% else %}
+                                                            <i>No Attachment</i>
+                                                        {% endif %}
+                                                    </span>
+                                                {% elif field.field_type == "image-upload" %}
+                                                    <span class="flex mb-5" style="align-items: center;">
+                                                        <!-- <svg class="mr-1" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 1.5C11 1.22386 10.7761 1 10.5 1C10.2239 1 10 1.22386 10 1.5V4H5V1.5C5 1.22386 4.77614 1 4.5 1C4.22386 1 4 1.22386 4 1.5V4H1.5C1.22386 4 1 4.22386 1 4.5C1 4.77614 1.22386 5 1.5 5H4V10H1.5C1.22386 10 1 10.2239 1 10.5C1 10.7761 1.22386 11 1.5 11H4V13.5C4 13.7761 4.22386 14 4.5 14C4.77614 14 5 13.7761 5 13.5V11H10V13.5C10 13.7761 10.2239 14 10.5 14C10.7761 14 11 13.7761 11 13.5V11H13.5C13.7761 11 14 10.7761 14 10.5C14 10.2239 13.7761 10 13.5 10H11V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H11V1.5ZM10 10V5H5V10H10Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg> -->
+                                                        <svg class="mr-1" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 11L6 4L10.5 7.5L6 11Z" fill="currentColor"></path></svg>
+                                                        {% if field.value %}
+                                                            <a href="{{ field.value.url }}">
+                                                                <img class="rounded-md" style="height: 100px;" src="{{ field.value.url }}" />
+                                                            </a>
+                                                        {% else %}
+                                                            <i>No Attachment</i>
+                                                        {% endif %}
+                                                    </span>
+                                                {% elif field.field_type == "multiple-image-upload" %}
+                                                    <span class="flex mb-5" style="align-items: center;">
+                                                        <!-- <svg class="mr-1" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 1.5C11 1.22386 10.7761 1 10.5 1C10.2239 1 10 1.22386 10 1.5V4H5V1.5C5 1.22386 4.77614 1 4.5 1C4.22386 1 4 1.22386 4 1.5V4H1.5C1.22386 4 1 4.22386 1 4.5C1 4.77614 1.22386 5 1.5 5H4V10H1.5C1.22386 10 1 10.2239 1 10.5C1 10.7761 1.22386 11 1.5 11H4V13.5C4 13.7761 4.22386 14 4.5 14C4.77614 14 5 13.7761 5 13.5V11H10V13.5C10 13.7761 10.2239 14 10.5 14C10.7761 14 11 13.7761 11 13.5V11H13.5C13.7761 11 14 10.7761 14 10.5C14 10.2239 13.7761 10 13.5 10H11V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H11V1.5ZM10 10V5H5V10H10Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg> -->
+                                                        <svg class="mr-1" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 11L6 4L10.5 7.5L6 11Z" fill="currentColor"></path></svg>
+                                                        {% for image in field.all %}
+                                                            <a class="mb-2 mr-2" href="{{ image.url }}">
+                                                                <img class="rounded-md" style="height: 100px;" src="{{ image.url }}" />
+                                                                <b class="text-xs">{{ image.name }}</b>
+                                                            </a>
+                                                        {% endfor %}
+                                                    </span>
+                                                {% else %}
+                                                    <span class="flex mb-5" style="align-items: center;">
+                                                        <!-- <svg class="mr-1" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 1.5C11 1.22386 10.7761 1 10.5 1C10.2239 1 10 1.22386 10 1.5V4H5V1.5C5 1.22386 4.77614 1 4.5 1C4.22386 1 4 1.22386 4 1.5V4H1.5C1.22386 4 1 4.22386 1 4.5C1 4.77614 1.22386 5 1.5 5H4V10H1.5C1.22386 10 1 10.2239 1 10.5C1 10.7761 1.22386 11 1.5 11H4V13.5C4 13.7761 4.22386 14 4.5 14C4.77614 14 5 13.7761 5 13.5V11H10V13.5C10 13.7761 10.2239 14 10.5 14C10.7761 14 11 13.7761 11 13.5V11H13.5C13.7761 11 14 10.7761 14 10.5C14 10.2239 13.7761 10 13.5 10H11V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H11V1.5ZM10 10V5H5V10H10Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg> -->
+                                                        <svg class="mr-1" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 11L6 4L10.5 7.5L6 11Z" fill="currentColor"></path></svg>
+                                                        <span>{{ field.value }}</span>
+                                                    </span>
+                                                {% endif %}
                                             {% endif %}
                                         </div>
                                     {% endfor %}
@@ -284,7 +426,6 @@
     }
 
     function handleFileUpload(e) {
-        alert("CALLED")
 
         let display_elem =  document.getElementById(`${e.id}-display`)
 
@@ -293,9 +434,136 @@
         if (uploaded_file){
             // console.log(uplo)
             display_elem.innerText = uploaded_file.name;
-        }else{
-            alert("NO")
         }
+
+        let handler_input = document.getElementById(`__include__@${e.id}`)
+
+        handler_input.value = "add"
+
+    }
+    function removeAttachment(field_name) {
+
+        let handler = document.getElementById(`__include__@${field_name}`);
+
+        handler.value = "remove"
+
+        let remove_btn = document.getElementById(`${field_name}-remove`)
+        let view_btn = document.getElementById(`${field_name}-view`)
+        let display_elem = document.getElementById(`${field_name}-display`)
+
+        remove_btn.style.display = "none";
+        view_btn.style.display = "none";
+        display_elem.innerHTML = "<i>No attachment</i>"
+
+    }
+    function deleteImageFromPool(e){
+        const parentContainer = e.parentElement.parentElement.parentElement;
+        const fieldName = e.getAttribute("data-field-name")
+        const attachmentId = e.getAttribute("data-attachment-id")
+
+        parentContainer.style.display = "none";
+
+        if (attachmentId != "null"){
+            
+            let removeListElem = document.getElementById(`${fieldName}-remove-list`)
+            let removeList = removeListElem.value
+
+            if(removeList){
+
+                removeList = removeList.split(",")
+            } else {
+                removeList = []
+            }
+
+            removeList.push(attachmentId)
+
+            removeListElem.value = removeList.toString()
+
+
+        }
+
+    }
+    let uploadFileCounter = 0;
+    function handleAddImage(e){
+        const nameElem = document.getElementById("image_name")
+        const fileElem = document.getElementById("image_upload")
+
+        const fieldName = e.getAttribute("data-field-name")
+        const container = document.getElementById(`${fieldName}-container`)
+        const display_container = document.getElementById("image-upload-modal-label")
+
+        const reader = new FileReader()
+        const file = fileElem.files[0]
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+        document.getElementById("add-image-modal-close-button").click()
+        const fileName = nameElem.value ? nameElem.value : `Untitled-${uploadFileCounter}`
+        reader.addEventListener("load", function () {
+            let new_child = document.createElement("div")
+            new_child.style = "width: min-content; min-width: 150px;"
+            new_child.className="max-w-sm bg-white border mr-2 mb-2  border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
+            let file_input = document.createElement("input")
+            file_input.type = "file"
+            file_input.name = `${fieldName}@file@${uploadFileCounter}`
+            file_input.style.display = "none"
+            let dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            file_input.files = dataTransfer.files;
+            new_child.append(file_input)
+            new_child.innerHTML += `
+                                    <input type="text" name="${fieldName}@name@${uploadFileCounter}" value="${fileName}" hidden />
+                                                            <a href="#">
+                                                                <img class="rounded-t-lg"  src="${reader.result}" alt="" />
+                                                            </a>
+                                                            <div class="p-2">
+                                                                <p class="text-xs font-bold text-gray-900 dark:text-white mb-2">${fileName}</p>
+                                                                <div class="flex justify-start">
+
+                                                                    <button onclick="deleteImageFromPool(this)" data-field-name="${fieldName}" data-attachment-id="null" type="button" class=" justify-center text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm  p-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 me-2 ">
+                                                                        <svg role="img" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" aria-labelledby="binIconTitle" stroke="red" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" fill="none" color="#2329D6"> <title id="binIconTitle">Bin</title> <path d="M19 6L5 6M14 5L10 5M6 10L6 20C6 20.6666667 6.33333333 21 7 21 7.66666667 21 11 21 17 21 17.6666667 21 18 20.6666667 18 20 18 19.3333333 18 16 18 10"/> </svg>
+                                                                    </button>
+                                                                    <button type="button" class="justify-center text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm  p-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 ">
+                                                                        <svg class="stroke-black dark:stroke-white" role="img" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" aria-labelledby="maximiseIconTitle" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" fill="none" color="#2329D6"> <title id="maximiseIconTitle">Maximise View</title> <polyline points="21 16 21 21 16 21"/> <polyline points="8 21 3 21 3 16"/> <polyline points="16 3 21 3 21 8"/> <polyline points="3 8 3 3 8 3"/> </svg>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                      
+            `
+            container.appendChild(new_child)
+            
+            // container.innerHTML +=
+             
+        })
+        uploadFileCounter++;
+
+    }
+
+    function showModalUploadedImage(e){
+        const display_container = document.getElementById("image-upload-modal-label")
+        const name_container = document.getElementById("image_name")
+
+        const file = e.files[0]
+        name_container.value = file.name;
+        const reader = new FileReader()
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+        document.querySelector("label[for='image_upload']").style.display = "none"
+        reader.addEventListener("load", function () {
+            display_container.innerHTML = `
+            <img height="100" src="${reader.result}" class="rounded-md mb-2" />
+            `
+        })
+    }
+
+    function clearImageModal() {
+        const display_container = document.getElementById("image-upload-modal-label")
+        const name_container = document.getElementById("image_name")
+
+        display_container.innerHTML = ``
+        name_container.value = ""
+        document.querySelector("label[for='image_upload']").style.display = "flex"
 
     }
 
