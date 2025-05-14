@@ -25,16 +25,16 @@ SECRET_KEY = 'django-insecure-5%ue7)0&=5d%q5(b1$r3=)ff21=axftm$$_)0rj$-r$^6zn6m$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', 'edifice-valuation.onrender.com']
 
 CORS_ORIGIN_ALLOW_ALL = True # <-------- this
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8000",    # React (FrontEnd Url) # <-------- this
     "http://192.168.73.153:8000",
-    "https://20b0-2409-40c1-3002-3772-287f-3bd6-8ce2-d8bb.ngrok-free.app"
+    "https://edifice-valuation.onrender.com"
 ]
 CORS_ALLOW_HEADERS = '*' # <-------- this
-CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8000/", "http://192.168.73.153:8000/","https://20b0-2409-40c1-3002-3772-287f-3bd6-8ce2-d8bb.ngrok-free.app"]
+CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8000/", "http://192.168.73.153:8000/","https://edifice-valuation.onrender.com"]
 # Application definition
 
 INSTALLED_APPS = [
