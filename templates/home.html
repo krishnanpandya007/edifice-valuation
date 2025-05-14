@@ -6,8 +6,8 @@
 {% endblock include_custom %}
 {% block content %}
 <section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
-        <h3 class="mt-8 mb-4 text-3xl font-semibold dark:text-white px-4 lg:px-12 mx-auto max-w-screen-xl ">Dashboard</h3>
-        <div class="mx-auto max-w-screen-xl px-4 lg:px-12 ">
+        <h3 class="mt-8 mb-4 text-3xl font-semibold dark:text-white px-4 mx-auto  ">Dashboard</h3>
+        <div class="mx-auto  px-4 ">
             <!-- Start coding here -->
             <div class="bg-white dark:bg-gray-800 relative  shadow-md sm:rounded-lg overflow-hidden">
                 <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
@@ -25,7 +25,56 @@
                         </div>
                     </div>
                     <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                        {% if user.role == "COORDINATOR" %}
+                            <div class="flex items-center space-x-3 w-full md:w-auto">
+                                <button id="createSiteModalButton" data-modal-target="createSiteModal" data-modal-toggle="createSiteModal" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+                                    <svg class="mr-1" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 2.75C8 2.47386 7.77614 2.25 7.5 2.25C7.22386 2.25 7 2.47386 7 2.75V7H2.75C2.47386 7 2.25 7.22386 2.25 7.5C2.25 7.77614 2.47386 8 2.75 8H7V12.25C7 12.5261 7.22386 12.75 7.5 12.75C7.77614 12.75 8 12.5261 8 12.25V8H12.25C12.5261 8 12.75 7.77614 12.75 7.5C12.75 7.22386 12.5261 7 12.25 7H8V2.75Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+
+                                        Create site
+                                </button>
+                                <div id="createSiteModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                    <div class="relative p-4 max-w-md w-full  max-h-full">
+                                        <!-- Modal content -->
+                                        <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
+                                            <!-- Modal header -->
+                                            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
+                                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                                    Create site
+                                                </h3>
+                                                <button  type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="createSiteModal">
+                                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                    </svg>
+                                                    <span class="sr-only">Close modal</span>
+                                                </button>
+                                            </div>
+                                            <!-- Modal body -->
+                                            <form method="post" action="{% url 'create_site' %}" id="createSiteModal-body" class="p-4 md:p-5">
+                                                {% csrf_token %}
+                                                <label for="report_format" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choose Report Format</label>
+                                                <select id="report_format" name="report_format" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+                                                    {% for choice in create_site_helpers.report_formats %}
+
+                                                        <option value="{{ choice | first }}" selected>{{ choice | first }}</option>
+                                                    {% endfor %}
+                                                </select>
+
+                                                <label for="branch_name" class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">Branch Name</label>
+                                                <input type="text" name="branch_name" id="branch_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+                                                <button class="text-white inline-flex w-full mt-4 justify-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                    Create and fill details
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        {% endif %}
                         <div class="flex items-center space-x-3 w-full md:w-auto">
+                            
                             <button id="timeFilterDropdownButton" data-dropdown-toggle="timeFilterDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
                                 <svg class="h-4 w-4 mr-2 text-gray-400" width="20" height="20" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.50009 0.877014C3.84241 0.877014 0.877258 3.84216 0.877258 7.49984C0.877258 11.1575 3.8424 14.1227 7.50009 14.1227C11.1578 14.1227 14.1229 11.1575 14.1229 7.49984C14.1229 3.84216 11.1577 0.877014 7.50009 0.877014ZM1.82726 7.49984C1.82726 4.36683 4.36708 1.82701 7.50009 1.82701C10.6331 1.82701 13.1729 4.36683 13.1729 7.49984C13.1729 10.6328 10.6331 13.1727 7.50009 13.1727C4.36708 13.1727 1.82726 10.6328 1.82726 7.49984ZM8 4.50001C8 4.22387 7.77614 4.00001 7.5 4.00001C7.22386 4.00001 7 4.22387 7 4.50001V7.50001C7 7.63262 7.05268 7.7598 7.14645 7.85357L9.14645 9.85357C9.34171 10.0488 9.65829 10.0488 9.85355 9.85357C10.0488 9.65831 10.0488 9.34172 9.85355 9.14646L8 7.29291V4.50001Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
                                 <div id="display-sort-timing-type">
@@ -160,13 +209,24 @@
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th scope="col" class="px-4 py-3">Site name</th>
-                                <th scope="col" class="px-4 py-3">Visit Due</th>
-                                <th scope="col" class="px-4 py-3">XYZ</th>
+                                <th scope="col" class="px-4 py-3">Report Id</th>
+                                <th scope="col" class="px-4 py-3">Bank name</th>
+                                <th scope="col" class="px-4 py-3">Applicant name</th>
+                                <th scope="col" class="px-4 py-3">Property type</th>
                                 <th scope="col" class="px-4 py-3">Report status</th>
-                                <th scope="col" class="px-4 py-3">Payment status</th>
+                                {% if user.role == "TECHNICAL_ENGINEER" or user.role == "VALUATION_ENGINEER" or user.role == "PRINCIPLE_ENGINEER" %}
+                                    <th scope="col" class="px-4 py-3">Visit due date</th>
+                                {% endif %}
+                                {% if user.role == "VALUATION_ENGINEER" or user.role == "PRINCIPLE_ENGINEER" %}
+                                    <th scope="col" class="px-4 py-3">Fair market value</th>
+                                    <th scope="col" class="px-4 py-3">Report document</th>
+                                    <th scope="col" class="px-4 py-3">Date of invoice</th>
+                                    <th scope="col" class="px-4 py-3">Total invoice amount</th>
+                                    <th scope="col" class="px-4 py-3">Invoice document</th>
+                                    <th scope="col" class="px-4 py-3">Payment status</th>
+                                {% endif %}
                                 <th scope="col" class="px-4 py-3">
-                                    <span class="sr-only">Actions</span>
+                                    <span class="sr-only">Actions
                                 </th>
                             </tr>
                         </thead>
@@ -174,11 +234,33 @@
                             {% if sites %}
                             {% for site in sites %}
                             <tr class="border-b dark:border-gray-700">
-                                <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ site.name }}</th>
-                                <td class="px-4 py-3">{{ site.visit_due_date }}</td>
-                                <td class="px-4 py-3">$2999</td>
+                                <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ site.pk }}</th>
+                                <td class="px-4 py-3">{{ site.application_details.bank_name }}</td>
+                                <td class="px-4 py-3">{{ site.application_details.name_of_applicant }}</td>
+                                <td class="px-4 py-3">{{ site.application_details.property_type }}</td>
                                 <td class="px-4 py-3"><span class="bg-{{ site.get_report_status_color }}-100 text-{{ site.get_report_status_color }}-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-{{ site.get_report_status_color }}-900 dark:text-{{ site.get_report_status_color }}-300">{{ site.report_status.title }}</span></td>
-                                <td class="px-4 py-3"><span class="bg-{{ site.get_payment_status_color }}-100 text-{{ site.get_payment_status_color }}-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-{{ site.get_payment_status_color }}-900 dark:text-{{ site.get_payment_status_color }}-300">{{ site.payment_status.title }}</span></td>
+                                {% if user.role == "TECHNICAL_ENGINEER" or user.role == "VALUATION_ENGINEER" or user.role == "PRINCIPLE_ENGINEER" %}
+                                    <td class="px-4 py-3">{{ site.application_details.due_date_for_visit }}</td>
+                                {% endif %}
+                                {% if user.role == "VALUATION_ENGINEER" or user.role == "PRINCIPLE_ENGINEER" %}
+
+                                    <td class="px-4 py-3">{{ site.site_details.marketability }}</td>
+                                    <td class="px-4 py-3">
+                                        <div class="inline-flex rounded-md shadow-xs">
+                                            <button onclick="download('pdf', '{{ site.pk }}')" aria-current="page" class="px-4 py-2 text-sm font-medium text-blue-700 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+                                              PDF
+                                            </button>
+                                            <button onclick="download('docx', '{{ site.pk }}')" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+                                              DOCX
+                                            </buutton>
+                                          </div>
+                                    </td>
+                                    <td class="px-4 py-3">{{ site.invoice_details.date_of_invoice }}</td>
+                                    <td class="px-4 py-3">{{ site.invoice_details.total_invoice_amount }}</td>
+                                    <td class="px-4 py-3">-</td>
+                                    <td class="px-4 py-3"><span class="bg-{{ site.invoice_details.get_payment_status_color }}-100 text-{{ site.invoice_details.get_payment_status_color }}-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-{{ site.invoice_details.get_payment_status_color }}-900 dark:text-{{ site.invoice_details.get_payment_status_color }}-300">{{ site.invoice_details.payment_status }}</span></td>
+
+                                {% endif %}
                                 <td class="px-4 py-3 flex items-center justify-end">
                                     <button id="site-{{ site.pk }}-button" data-dropdown-toggle="site-{{ site.pk }}" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
                                         <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -191,10 +273,7 @@
                                                 <a href="{% url 'edit_assignees' site.pk %}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit assignees</a>
                                             </li>
                                             <li>
-                                                <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show comments</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">View/Edit</a>
+                                                <a href="{% url 'view_site' site.pk %}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">View/Edit</a>
                                             </li>
                                         </ul>
                                         <div class="py-1">
@@ -391,6 +470,23 @@
 
         })
     {% endif %}
+    function download(format, site_id) {
+            fetch(`/export/${format}/${site_id}/`)
+                .then(response => {
+                    console.log(response)
+                    if (!response.ok) throw new Error("Failed to download");
+                    return response.blob();
+                })
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `export.${format}`;
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(err => alert("Download failed: " + err.message));
+        }
 // Example usage
 // console.log(getCheckedCheckboxIds());
 </script>

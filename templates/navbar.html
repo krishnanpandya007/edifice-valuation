@@ -38,6 +38,13 @@
                             <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">{{ user.role }}</span>
                         </div>
 
+                        {% if user.is_staff %}
+                            <ul class="py-1 text-gray-500 dark:text-gray-400" aria-labelledby="dropdown">
+                                <li>
+                                    <a href="/admin" target="_blank" class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Admin Panel</a>
+                                </li>
+                            </ul>
+                        {% endif %}
                         {% if user.is_coordinator %}
                             <ul class="py-1 text-gray-500 dark:text-gray-400" aria-labelledby="dropdown">
                                 <li>

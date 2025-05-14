@@ -67,18 +67,14 @@ class Site(models.Model):
         REPORT_APPROVED = "REPORT_APPROVED", "Report approved"
         COMPLETE = "COMPLETE", "Complete"
         REPORT_REASSIGNED = "REPORT_REASSIGNED", "Report reassigned"
-
-    class PaymentStatus(models.TextChoices):
-        PENDING = "PENDING", "Payment pending"
-        DELAYED = "DELAYED", "Payment delayed"
-        CANCELLED = "CANCELLED", "Payment cancelled"
-        RECEIVED = "RECEIVED", "Payment received" 
     
     
     report_status = models.CharField(max_length=25, choices=ReportStatus.choices, default=ReportStatus.REPORT_REQUEST_SUBMITTED)
-    payment_status = models.CharField(max_length=20, choices=PaymentStatus.choices, default=PaymentStatus.PENDING)
     
     creator = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name='created_sites', null=True, blank=True)
+
+    # valuation_report_pdf = models.FileField(upload_to='uploads/valuation_reports/pdf/', null=True)
+    # valuation_report_docx = models.FileField(upload_to='uploads/valuation_reports/docx/', null=True)
 
     assignees = models.ManyToManyField(CustomUser, related_name='assigned_sites')
     created_on = models.DateTimeField(auto_now_add=True)
@@ -86,7 +82,7 @@ class Site(models.Model):
     @property
     def get_report_status_color(self):
         report_status_colors = {
-            "REPORT_REQUEST_SUBMITTED": "blue",
+            "REPORT_REQUEST_SUBMITTED": "blue", 
             "VISIT_ASSIGNED": "yellow",
             "VISIT_COMPLETED": "green",
             "VISIT_APPROVED": "green",
@@ -101,15 +97,6 @@ class Site(models.Model):
         }
         return report_status_colors[self.report_status]
     
-    @property
-    def get_payment_status_color(self):
-        payment_status_colors = {
-            "PENDING": "yellow",
-            "DELAYED": "orange",
-            "CANCELLED": "red",
-            "RECEIVED": "green"
-        }
-        return payment_status_colors[self.payment_status]
 
 class Document(models.Model):
 
@@ -175,6 +162,8 @@ class FieldManager(models.Model):
 
         return "NA" #for admin/other non-mentioned roles
 
+    def __str__(self):
+        return f"{self.display_name} | {self.section_name} | {self.field_type}"
 #     '''
 #     fields = ReportFormat.objects.get(pk="land_and_building").supported_fields
 #     => gives all fieldManager objects which its linked
@@ -186,6 +175,9 @@ class ReportFormat(models.Model):
 
     # field = models.ForeignKey(FieldManager, related_name='supported_formats')
     format_name = models.TextField(max_length=50, unique=True)
+
+    def __str__(self):
+        return f"{self.format_name}"
     
 
 class ApplicationDetails(models.Model):
@@ -295,7 +287,7 @@ class Documents(models.Model):
     legal_documents_approval_no = models.CharField(max_length=100)
     legal_documents_document_copy = models.FileField(upload_to='media/uploads/documents/legal_documents/')
     legal_documents_page_no = models.CharField(max_length=50)
-    date_of_issue_validity = models.DateField()
+    date_of_issue_validity = models.DateField(null=True)
     approved_map_issuing_authority = models.CharField(max_length=255)
     genuineness_verified = models.CharField(max_length=10, default="Yes", choices=[('Yes', 'Yes'), ('No', 'No')])
     covered_under_govt_enactments = models.CharField(max_length=10, default="No", choices=[('Yes', 'Yes'), ('No', 'No')])
@@ -334,8 +326,16 @@ class PropertyDetails(models.Model):
     
 class SiteDetails(models.Model):
     site = models.OneToOneField('Site', on_delete=models.CASCADE, related_name='site_details')
-    boundaries = models.TextField()
-    boundaries_extended = models.TextField()
+    # boundaries = models.TextField()
+    # boundaries_extended = models.TextField()
+    boundaries_east = models.CharField(max_length=20, blank=True, null=True)
+    boundaries_west = models.CharField(max_length=20, blank=True, null=True)
+    boundaries_north = models.CharField(max_length=20, blank=True, null=True)
+    boundaries_south = models.CharField(max_length=20, blank=True, null=True)
+    boundaries_north_east = models.CharField(max_length=20, blank=True, null=True)
+    boundaries_north_west = models.CharField(max_length=20, blank=True, null=True)
+    boundaries_south_west = models.CharField(max_length=20, blank=True, null=True)
+    boundaries_south_east = models.CharField(max_length=20, blank=True, null=True)
     property_identified = models.CharField(max_length=10, choices=[('Yes', 'Yes'), ('No', 'No')])
     matching_boundaries = models.CharField(max_length=10, choices=[('Yes', 'Yes'), ('No', 'No')])
     plot_demarcated = models.CharField(max_length=10, choices=[('Yes', 'Yes'), ('No', 'No')])
@@ -405,7 +405,7 @@ class NOApprovedPlanDetails(models.Model):
     sanctioned_plan_provided = models.CharField(max_length=10, choices=[('Yes', 'Yes'), ('No', 'No'), ('NA', 'NA')])
     layout_plan_details = models.CharField(max_length=255)
     construction_plan_details = models.CharField(max_length=255)
-    date_of_sanction = models.DateField()
+    date_of_sanction = models.DateField(null=True)
     plan_validity = models.CharField(max_length=255)
     approving_authority = models.CharField(max_length=255)
     approved_usages = models.CharField(max_length=255)
@@ -659,16 +659,25 @@ class PropertyPhotographs(models.Model):
 
 class InvoiceDetails(models.Model):
     site = models.OneToOneField('Site', on_delete=models.CASCADE, related_name='invoice_details')
-    date_of_invoice = models.DateField()
+    date_of_invoice = models.DateField(null=True)
     charges_amount = models.CharField(max_length=255)
     other_expenses = models.CharField(max_length=255)
     gst_included = models.CharField(max_length=10, choices=[('Yes', 'Yes'), ('No', 'No')])
     cgst = models.CharField(max_length=255)
     sgst = models.CharField(max_length=255)
     total_invoice_amount = models.CharField(max_length=255)
-    # payment_status = models.CharField(max_length=20, choices=[('Pending', 'Pending'), ('Received', 'Received'), ('Delayed', 'Delayed'), ('Cancelled', 'Cancelled')])
+    payment_status = models.CharField(max_length=20, choices=[('Pending', 'Pending'), ('Received', 'Received'), ('Delayed', 'Delayed'), ('Cancelled', 'Cancelled')])
     payment_mode = models.CharField(max_length=20, choices=[('Cash', 'Cash'), ('Bank Transfer', 'Bank Transfer'), ('Cheque', 'Cheque'), ('UPI', 'UPI')])
 
     def __str__(self):
         return f"Invoice Details for Site {self.site.id}"
 
+    @property
+    def get_payment_status_color(self):
+            payment_status_colors = {
+                "Pending": "yellow",
+                "Delayed": "orange",
+                "Cancelled": "red",
+                "Received": "green"
+            }
+            return payment_status_colors[self.payment_status]

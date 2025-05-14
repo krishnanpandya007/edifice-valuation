@@ -6,20 +6,41 @@ import django
 django.setup()
 from core.models import FieldManager, Site, ApplicationDetails, Documents, CustomUser, ReportFormat, PropertyDetails, SiteDetails, NDMAParameters, NOApprovedPlanDetails, BuildingDetails, TechnicalDetails, ValuationAmenities, ValuationDetails, ValuationExtraItems, ValuationMiscellaneous, ValuationServices, PropertyPhotographs, InvoiceDetails, AssumptionsRemarks, UnitDetails, Marketability
 
+# FieldManager.objects.get(field_name="boundaries").delete()
+# FieldManager.objects.create(field_name="boundaries_east", display_name="Boundaries of property - [East]", field_type="textbox", section_name='site_details', coordinator_access_level="na", technical_engineer_access_level="edit", valuation_engineer_access_level="edit", principal_engineer_access_level="edit")
+# FieldManager.objects.create(field_name="boundaries_east", display_name="Boundaries of property - [East]", field_type="textbox", section_name='site_details', coordinator_access_level="na", technical_engineer_access_level="edit", valuation_engineer_access_level="edit", principal_engineer_access_level="edit")
 
-# FieldManager.objects.create(field_name="postal_address", display_name="Postal Address", field_type="textbox", coordinator_access_level="edit", technical_engineer_access_level="edit", valuation_engineer_access_level="edit", principal_engineer_access_level="edit")
+# FieldManager.objects.create(field_name="boundaries_west", display_name="Boundaries of property - [West]", field_type="textbox", section_name='site_details', coordinator_access_level="na", technical_engineer_access_level="edit", valuation_engineer_access_level="edit", principal_engineer_access_level="edit")
+
+# FieldManager.objects.create(field_name="boundaries_north", display_name="Boundaries of property - [North]", field_type="textbox", section_name='site_details', coordinator_access_level="na", technical_engineer_access_level="edit", valuation_engineer_access_level="edit", principal_engineer_access_level="edit")
+
+# FieldManager.objects.create(field_name="boundaries_south", display_name="Boundaries of property - [South]", field_type="textbox", section_name='site_details', coordinator_access_level="na", technical_engineer_access_level="edit", valuation_engineer_access_level="edit", principal_engineer_access_level="edit")
+
+# FieldManager.objects.create(field_name="boundaries_north_east", display_name="Boundaries of property - [North East]", field_type="textbox", section_name='site_details', coordinator_access_level="na", technical_engineer_access_level="edit", valuation_engineer_access_level="edit", principal_engineer_access_level="edit")
+
+# FieldManager.objects.create(field_name="boundaries_north_west", display_name="Boundaries of property - [North West]", field_type="textbox", section_name='site_details', coordinator_access_level="na", technical_engineer_access_level="edit", valuation_engineer_access_level="edit", principal_engineer_access_level="edit")
+
+# FieldManager.objects.create(field_name="boundaries_south_east", display_name="Boundaries of property - [South East]", field_type="textbox", section_name='site_details', coordinator_access_level="na", technical_engineer_access_level="edit", valuation_engineer_access_level="edit", principal_engineer_access_level="edit")
+
+# FieldManager.objects.create(field_name="boundaries_south_west", display_name="Boundaries of property - [South West]", field_type="textbox", section_name='site_details', coordinator_access_level="na", technical_engineer_access_level="edit", valuation_engineer_access_level="edit", principal_engineer_access_level="edit")
+
+# fe = FieldManager.objects.get(field_name="payment_status")
+# fe.formats.add(*list(ReportFormat.objects.all()))
+# fe.save()
 # print(FieldManager.objects.get(field_name="purpose_of_report").section_name)
-# d.formats.add(ReportFormat.objects.get(format_name="Land & Building"))
-# d.formats.add(ReportFormat.objects.get(format_name="Composite Method"))
-# d.formats.add(ReportFormat.objects.get(format_name="Land & Building 2"))
-# d.formats.add(ReportFormat.objects.get(format_name="Composite Method 2"))
+# for d in list(FieldManager.objects.filter(field_name__in=['boundaries_north_east', 'boundaries_north_west', 'boundaries_south_east', 'boundaries_south_west'])):
+#     print(d.field_name)
+    # d.formats.add(ReportFormat.objects.get(format_name="Land & Building"))
+    # d.formats.add(ReportFormat.objects.get(format_name="Composite Method"))
+    # d.formats.add(ReportFormat.objects.get(format_name="Land & Building 2.0"))
+    # d.formats.add(ReportFormat.objects.get(format_name="Composite Method 2.0"))
 # d.save()
 
 import json
 
 # Load JSON data from the file
-with open("formated_data.json", "r", encoding="utf-8") as file:
-    data = json.load(file)
+# with open("formated_data.json", "r", encoding="utf-8") as file:
+#     data = json.load(file)
 
 SITE_RELATED_NAMES = {
     "Application Details": "application_details",
@@ -285,7 +306,7 @@ SITE_RELATED_NAMES = {
 #         elem.field_type = mapper[j]
 #         elem.save()    
 
-site = Site.objects.first()
+# site = Site.objects.first()
 # property_details = PropertyDetails.objects.create(
 #     site=site,
 #     postal_address="123 Main Street, Jodhpur",
@@ -603,3 +624,181 @@ site = Site.objects.first()
 #     payment_mode="Bank Transfer"
 # )
 # PropertyPhotographs.objects.create(site=site)
+
+# Function generate_analytics(user_id):
+#     CHECK if user has active paid plan
+#     IF NOT:
+#         RETURN "Upgrade to access analytics"
+#     ELSE:
+#         FETCH visit logs, like counts, region data
+#         COUNT metrics by region and platform
+#         DISPLAY data using charts
+#         RETURN analytics_dashboard
+
+import pdfkit
+
+# pdfkit.from_url('http://google.com', 'out.pdf')
+# pdfkit.from_file('test.html', 'out.pdf')
+html = '''
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Valuation Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .main-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #000;
+        }
+        .main-table td {
+            border: 1px solid #000;
+            vertical-align: top;
+        }
+        .number-cell {
+            width: 30px;
+            text-align: center;
+            font-weight: bold;
+            padding: 8px;
+        }
+        .content-cell {
+            padding: 0;
+        }
+        .valuation-title {
+            font-weight: bold;
+            padding: 8px;
+            border-bottom: 1px solid #000;
+        }
+        .valuation-content {
+            padding: 15px;
+        }
+        .inner-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .inner-table th, .inner-table td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+        .inner-table th {
+            font-weight: bold;
+        }
+        .table-header {
+            text-align: center;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <table class="main-table">
+        <tr>
+            <td class="number-cell">9</td>
+            <td class="content-cell">
+                <div class="valuation-title">Valuation</div>
+                <div class="valuation-content">
+                    <p>
+                        We conducted an extensive local market inquiry to determine the prevailing market or composite rate of the
+                        property in the surrounding area. This included consultations with local real estate experts and engaging
+                        with community residents familiar with property values and market trends. By analyzing recent transactions
+                        and pricing dynamics, we've gained a comprehensive understanding of current market conditions. This
+                        information forms the basis for our informed estimation of the property's composite rate, ensuring accuracy
+                        and transparency in our valuation process.
+                    </p>
+                    
+                    <div class="table-header">Particulars</div>
+                    
+                    <table class="inner-table">
+                        <tr>
+                            <th>Particulars</th>
+                            <th>Range</th>
+                            <th>Source</th>
+                        </tr>
+                        <tr>
+                            <td>Exploring the market conditions in the surrounding area</td>
+                            <td>₹ 2700.00 - ₹ 3200.00<br>₹ / s. feet</td>
+                            <td>Online portal<br>(Copy attached)</td>
+                        </tr>
+                        <tr>
+                            <td>Exploring the market conditions in the surrounding area</td>
+                            <td>₹ 2700.00 - ₹ 3200.00<br>₹ / s. feet</td>
+                            <td>A local market inquiry was conducted, involving local real estate brokers and residents, among others.</td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+'''
+# from jinja2 import Environment, FileSystemLoader
+# # from weasyprint import HTML
+# import datetime
+# # pdfkit.from_string(html, 'out.pdf')
+# env = Environment(loader=FileSystemLoader('.'))
+# template = env.get_template('composite_2.html')
+# rendered_html = template.render()
+
+# # Step 3: Generate PDF using pdfkit
+# pdfkit.from_string(rendered_html, 'output.pdf')
+# from pdf2docx import Converter
+
+# # File paths
+# pdf_file = 'output.pdf'
+# docx_file = 'output.docx'
+
+# # Convert
+# cv = Converter(pdf_file)
+# cv.convert(docx_file, start=0, end=None)  # Convert all pages
+# cv.close()
+
+# print(f"✅ Successfully converted {pdf_file} to {docx_file}")
+
+# ---------------HTML TO DOCX-----------------
+
+# from spire.doc import *
+# from spire.doc.common import *
+
+# # Specify the input and output file paths
+# inputFile = "composite_2.html"
+# outputFile = "HtmlToWord.docx"
+
+# # Create an object of the Document class
+# document = Document()
+# # Load an HTML file 
+# document.LoadFromFile(inputFile, FileFormat.Html, XHTMLValidationType.none)
+
+# # Save the HTML file to a .docx file
+# document.SaveToFile(outputFile, FileFormat.Docx2016)
+# document.Close()
+
+# ------------------HTML TO PDF---------------------
+# import pdfkit
+# from jinja2 import Environment, FileSystemLoader
+# import datetime
+
+# # Step 1: Define context data
+# context = {
+#     'username': 'Krishnan',
+#     'date': datetime.date.today().strftime('%Y-%m-%d'),
+#     'items': ['ReachOut', 'Flutter App', 'Analytics']
+# }
+
+# # Step 2: Render HTML with Jinja2
+# env = Environment(loader=FileSystemLoader('.'))
+# template = env.get_template('composite_2.html')
+# rendered_html = template.render(context)
+
+# # Step 3: Generate PDF using pdfkit
+# pdfkit.from_string(rendered_html, 'output.pdf')
+
+# print("PDF generated successfully as output.pdf") 

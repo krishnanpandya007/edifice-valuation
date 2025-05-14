@@ -44,5 +44,5 @@ def create_profile(sender, instance, created, **kwargs):
 def notify_assignment(sender, instance, created, **kwargs):
 
     if hasattr(instance, "_notify") and hasattr(instance, "_assignee_email"):
-        send_mail("New site assigned", "", settings.EMAIL_HOST_USER, [instance._assignee_email], html_message=f'''You are assigned to,<br/> Site: <b>{instance.name}</b><br/>Visit due date: <b>{instance.visit_due_date}</b><br/><br/><a href="{"http" if settings.DEBUG else "https"}://{settings.ALLOWED_HOSTS[-1]}/">Click here</a> to know more.''')
+        send_mail("New site assigned", "", settings.EMAIL_HOST_USER, [instance._assignee_email], html_message=f'''You are assigned to,<br/> Site: <b>{instance.application_details.branch_name}</b><br/>Visit due date: <b>{instance.application_details.due_date_for_visit}</b><br/><br/><a href="{"http" if settings.DEBUG else "https"}://{settings.ALLOWED_HOSTS[-1]}/">Click here</a> to know more.''')
 
