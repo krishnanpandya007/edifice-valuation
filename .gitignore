@@ -4,6 +4,5 @@ db.sqlite3
 .env
 env/
 migrations/
-staticfiles/
 media/
 node_modules/
