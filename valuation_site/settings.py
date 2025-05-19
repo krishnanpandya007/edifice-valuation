@@ -179,19 +179,19 @@ PWA_APP_START_URL = '/'
 PWA_APP_STATUS_BAR_COLOR = 'default'
 PWA_APP_ICONS = [
     {
-        'src': 'https://media-hosting.imagekit.io//85437ecbfb914d28/icon-152x152.png?Expires=1836130769&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=YWJVHhnj5urZkHEesZbkUgh2lAPhmkzOyL4MuuQ-f4HSX3v7JZm2N31Q8U1B577uJCMxIMP3IenvxKWFya7SRlSB-49aBluLp~SLg8gUc7K9szGG6iqkaJekZihxtli~eXocAWDFC48KS-QGcptdC7QCBTTlpuYuL7c8cP~EUA9OuZV5E~PaUL9PaMVd0ksyVj1LFBGWaNK0ygjtXRW6bFwkF57968yxsp6mSAjRmhC26mAI2sGKCnYK3a2GdOCU1OU69~wexOb-UxiUVbF5u2uk6JNDErqQRaTS6me52loAPJkZCvbVIYN8njGfwc2Kggtc2FHqL~ZLb0LBioMTQA__',
+        'src': 'https://edifice-valuation.onrender.com/static/icons/icon-152x152.png',
         'sizes': '152x152'
     }
 ]
 PWA_APP_ICONS_APPLE = [
     {
-        'src': 'https://media-hosting.imagekit.io//85437ecbfb914d28/icon-152x152.png?Expires=1836130769&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=YWJVHhnj5urZkHEesZbkUgh2lAPhmkzOyL4MuuQ-f4HSX3v7JZm2N31Q8U1B577uJCMxIMP3IenvxKWFya7SRlSB-49aBluLp~SLg8gUc7K9szGG6iqkaJekZihxtli~eXocAWDFC48KS-QGcptdC7QCBTTlpuYuL7c8cP~EUA9OuZV5E~PaUL9PaMVd0ksyVj1LFBGWaNK0ygjtXRW6bFwkF57968yxsp6mSAjRmhC26mAI2sGKCnYK3a2GdOCU1OU69~wexOb-UxiUVbF5u2uk6JNDErqQRaTS6me52loAPJkZCvbVIYN8njGfwc2Kggtc2FHqL~ZLb0LBioMTQA__',
+        'src': 'https://edifice-valuation.onrender.com/static/icons/icon-152x152.png',
         'sizes': '152x152'
     }
 ]
 PWA_APP_SPLASH_SCREEN = [
     {
-        'src': 'https://media-hosting.imagekit.io//85437ecbfb914d28/icon-152x152.png?Expires=1836130769&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=YWJVHhnj5urZkHEesZbkUgh2lAPhmkzOyL4MuuQ-f4HSX3v7JZm2N31Q8U1B577uJCMxIMP3IenvxKWFya7SRlSB-49aBluLp~SLg8gUc7K9szGG6iqkaJekZihxtli~eXocAWDFC48KS-QGcptdC7QCBTTlpuYuL7c8cP~EUA9OuZV5E~PaUL9PaMVd0ksyVj1LFBGWaNK0ygjtXRW6bFwkF57968yxsp6mSAjRmhC26mAI2sGKCnYK3a2GdOCU1OU69~wexOb-UxiUVbF5u2uk6JNDErqQRaTS6me52loAPJkZCvbVIYN8njGfwc2Kggtc2FHqL~ZLb0LBioMTQA__',
+        'src': 'https://edifice-valuation.onrender.com/static/icons/icon-152x152.png',
         'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
     }
 ]
