@@ -49,6 +49,9 @@ self.addEventListener('fetch', event => {
             if (cachedResponse) {
                 console.log("CACHED RESPONSE");
                 console.log(cachedResponse);
+                // if(cachedResponse.redirected){
+                //     caches.open(staticCacheName).then(cache => {cache.delete('/');cache.addAll(assets)});
+                // }
                 return cachedResponse;
             }
 

@@ -4,12 +4,18 @@
 
 <!DOCTYPE html>
 <html lang="en" class="light">
-    {% load pwa %}
+    {% if user.is_authenticated %}
+        {% load pwa %}
+    {% endif %}
  
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    {% progressive_web_app_meta %}
+    {% if user.is_authenticated %}
+
+        {% progressive_web_app_meta %}
+    {% endif %}
+
     <link rel="manifest" href="/static/manifest.json">
     <meta name="viewport" content=
         "width=device-width, initial-scale=1.0">
