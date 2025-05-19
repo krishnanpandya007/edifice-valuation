@@ -47,11 +47,17 @@ self.addEventListener('fetch', event => {
             // Try to find a cached version
             const cachedResponse = await caches.match(event.request);
             if (cachedResponse) {
+                console.log("CACHED RESPONSE");
+                console.log(cachedResponse);
                 return cachedResponse;
             }
 
             // Not in cache, try to fetch from the network
             const networkResponse = await fetch(event.request);
+
+            console.log("NETWORK RESPONSE");
+            console.log(networkResponse);
+
             return networkResponse;
 
         } catch (error) {
