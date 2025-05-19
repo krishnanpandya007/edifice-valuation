@@ -42,10 +42,28 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('fetch', event => {
-    event.respondWith(
-    caches.match(event.request)
-        .then(response => {
-        return response || fetch(event.request);
-        })
-    );
+    event.respondWith(async function () {
+        try {
+            // Try to find a cached version
+            const cachedResponse = await caches.match(event.request);
+            if (cachedResponse) {
+                return cachedResponse;
+            }
+
+            // Not in cache, try to fetch from the network
+            const networkResponse = await fetch(event.request);
+            return networkResponse;
+
+        } catch (error) {
+            // Fetch failed — log the error and return fallback
+            console.error('Fetch failed for:', event.request.url, error);
+
+            // Return fallback response
+            return new Response('Offline or failed to fetch the requested resource.', {
+                status: 503,
+                statusText: 'Service Unavailable',
+                headers: { 'Content-Type': 'text/plain' }
+            });
+        }
+    }());
 });
