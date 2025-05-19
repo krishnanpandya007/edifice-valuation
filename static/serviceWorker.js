@@ -22,29 +22,30 @@
 // });
 // Base Service Worker implementation.  To use your own Service Worker, set the PWA_SERVICE_WORKER_PATH variable in settings.py
 
-var staticCacheName = "django-pwa-v" + new Date().getTime();
+// var staticCacheName = "django-pwa-v" + new Date().getTime();
 
-self.addEventListener('install', function(event) {
-  event.waitUntil(
-    caches.open(staticCacheName).then(function(cache) {
-      return cache.addAll([
-        '',
-      ]);
-    })
-  );
+const staticCacheName = 'edifice-pwa-v1';
+const assets = [
+    '/',
+    // '/static/css/style.css', // Add your CSS files
+    // '/static/js/main.js',   // Add your JS files
+    // '/static/images/icon.png' // Add your image files
+];
+
+self.addEventListener('install', event => {
+    event.waitUntil(
+    caches.open(staticCacheName)
+        .then(cache => {
+        return cache.addAll(assets);
+        })
+    );
 });
 
-self.addEventListener('fetch', function(event) {
-  var requestUrl = new URL(event.request.url);
-    if (requestUrl.origin === location.origin) {
-      if ((requestUrl.pathname === '/')) {
-        event.respondWith(caches.match(''));
-        return;
-      }
-    }
+self.addEventListener('fetch', event => {
     event.respondWith(
-      caches.match(event.request).then(function(response) {
+    caches.match(event.request)
+        .then(response => {
         return response || fetch(event.request);
-      })
+        })
     );
 });
