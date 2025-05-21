@@ -1,9 +1,142 @@
 {% extends "_base.html" %}
 
 {% block content %}
+<script>
+    
+    function save_offline_draft_handler (e) {
 
+        let draft_form_data = {};
+        // let site_id = e.getAttribute("data-site-id");
+
+        [...document.querySelectorAll("input:not(#attach_input), textarea, select")].map((val, idx) => {
+
+        draft_form_data[val.id] = val.value;
+        console.log("appending");
+        console.log(`${val.id}: ${val.value}`);
+
+        });
+
+        // draft_form_data["drafted_on"] = new Date(Date.now()).toLocaleString();
+
+        // localStorage.setItem()
+        let draft_forms = localStorage.getItem("draft_forms")
+        if(draft_forms){
+            // need to update it
+            draft_forms = JSON.parse(draft_forms);
+            draft_forms[`{{ site_id }}`] = draft_form_data
+            // draft_forms.push(draft_form_data)
+            localStorage.setItem("draft_forms", JSON.stringify(draft_forms))
+
+        }else {
+            localStorage.setItem("draft_forms", JSON.stringify({`{{ site_id }}`:draft_form_data}))
+        }
+
+        document.getElementById('toast-success').style.display = "flex";
+        setTimeout(() => {
+            document.getElementById('toast-success').style.display = "none";
+            // window.location.replace("{% url 'home' %}");
+        }, 3000)
+
+    }
+
+    function fill_from_local_draft(e) {
+
+        let draft_forms = localStorage.getItem("draft_forms")
+        draft_forms = JSON.parse(draft_forms)
+
+        if(!(`{{ site_id }}` in draft_forms)){
+            return;
+        }
+        let site_form = draft_forms[`{{ site_id }}`]
+        Object.keys(site_form).map((field_name) => {
+
+            let target_elem = document.getElementById(field_name)
+
+            if(target_elem){
+
+                target_elem.value = site_form[field_name]
+
+            }
+
+        })
+        
+
+    }
+
+    function save_all_sections(e) {
+
+        let forms = document.querySelectorAll(".section_form");
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== "") {
+                const cookies = document.cookie.split(";");
+                for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + "=")) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+                }
+            }
+            return cookieValue;
+            }
+
+        forms.map((form) => {
+            let form_data = new FormData(form);
+
+            $.ajax({
+                url: "{% url 'view_site' site_id %}",
+                method: "POST",
+                cache: false,
+                // contentType: false,
+                // processData: false,
+                data: form_data,
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                    "X-CSRFToken": getCookie("csrftoken"),  // don't forget to include the 'getCookie' function
+                },
+                type: 'POST',
+                success: function(response) {
+                    console.log("Success")
+                    // console.log("")
+                },
+                error: function(error) {
+                    console.log("Error")
+    
+                }
+            });
+        })
+
+
+    }
+        // document.querySelector('.offline_form_draft_btn').addEventListener(save_offline_draft_handler)
+
+    // document.addEventListener('DOMContentLoaded', (e) => {
+    //     console.log("loaded")
+    //     document.querySelector('.offline_form_draft_btn').addEventListener(save_offline_draft_handler)
+      
+    //       localStorage.getItem("draft_forms")
+
+    // })
+
+</script>
 <div class=" bg-gray-50 dark:bg-gray-900">
-
+<div id="toast-success" class="flex items-center mt-3 w-full p-4 mb-4 text-gray-500 bg-white rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800" role="alert" style="display: none;">
+                <div class="inline-flex items-center justify-center shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                    </svg>
+                    <span class="sr-only">Check icon</span>
+                </div>
+                <div class="ms-3 text-sm font-normal">Form saved successfully.</div>
+                <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close">
+                    <span class="sr-only">Close</span>
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                </button>
+            </div>
     <div class="pt-[10vh] mb-10 items-center w-full justify-center " style="padding: 40px 20px; padding-top: 5rem;">
         <!-- <li class="py-3 sm:py-4"> -->
             <div class="flex gap-4 mb-4 flex-wrap">
@@ -107,13 +240,12 @@
                             </div>
                         </div>
                         <div class="  lg:py-4">
-                            <form method="post" action="{% url 'view_site' site_id %}" enctype="multipart/form-data" style="margin-top: 5px;" >
+                            <form method="post" class="section_form" action="{% url 'view_site' site_id %}" enctype="multipart/form-data" style="margin-top: 5px;" >
                                 {% csrf_token %}
                                 <input type="text" name="section-name" value="{{ section_name }}" hidden>
                                 <div class="mb-8">
                                     
                                     {% for field in section_detail.fields %}
-                                        <div  >
                                             <label for="{{ field.name }}" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white" >{{ field.label }}</label>
                                             {% if 'edit' == field.access_level %}
                                                 {% if field.field_type == "textbox" %}
@@ -138,7 +270,7 @@
                                                     </ul>    
                                                 
                                                 {% elif field.field_type == "dropdown" %}
-                                                    <select id="countries" class="bg-gray-50 mb-5 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                    <select id="{{ field.name }}" name="{{ field.name }}" class="bg-gray-50 mb-5 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                                         {% if not field.value %}
                                                             <option disabled selected value>-- Select an option --</option>
                                                         {% endif %}
@@ -364,12 +496,58 @@
                                                     </span>
                                                 {% endif %}
                                             {% endif %}
-                                        </div>
                                     {% endfor %}
                                 </div>
                                 <div style="display: flex;gap: 1rem">
-                                    
                                     <button type="submit" class=" mb-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+
+                                    <button   type="button" onclick="
+    (function() {
+        let draft_form_data = {};
+        [...document.querySelectorAll('input:not(#attach_input), textarea, select')].forEach((val) => {
+            draft_form_data[val.id] = val.value;
+            console.log('appending');
+            console.log(`${val.id}: ${val.value}`);
+        });
+
+        let draft_forms = localStorage.getItem('draft_forms');
+        if (draft_forms) {
+            draft_forms = JSON.parse(draft_forms);
+            draft_forms['{{ site_id }}'] = draft_form_data;
+            localStorage.setItem('draft_forms', JSON.stringify(draft_forms));
+        } else {
+            localStorage.setItem('draft_forms', JSON.stringify({ '{{ site_id }}': draft_form_data }));
+        }
+
+        document.getElementById('toast-success').style.display = 'flex';
+        setTimeout(() => {
+            document.getElementById('toast-success').style.display = 'none';
+        }, 3000);
+    })()
+"  class=" relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+                                                    <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
+                                                        Save locally
+                                                    </span>
+                                                </button>
+                                    <button type="button" onclick="
+    (function() {
+        let draft_forms = localStorage.getItem('draft_forms');
+        draft_forms = JSON.parse(draft_forms);
+        if (!( '{{ site_id }}' in draft_forms )) return;
+
+        let site_form = draft_forms['{{ site_id }}'];
+        Object.keys(site_form).forEach((field_name) => {
+            let target_elem = document.getElementById(field_name);
+            if (target_elem) {
+                target_elem.value = site_form[field_name];
+            }
+        });
+    })()
+" data-site-id="{{ site_id }}" class=" relative none items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+                                                    <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
+                                                        Fill from local draft
+                                                    </span>
+                                                </button>
                                     {% if user.role in next_report_statuses.access_roles %}
                                         {% for next_status in next_report_statuses.next %}
                                             <form action="{% url 'change_status' site.id %}" method="post">
@@ -382,6 +560,7 @@
                                             </form>
                                         {% endfor %}
                                     {% endif %}
+                                    
                                 </div>
                             </form>
                         </div>
@@ -690,8 +869,8 @@ document.querySelectorAll("[data-modal-hide]").forEach(button => {
     }
 
     }
-
-</script>
+    </script>
+    
 
 
 {% endblock %}

@@ -384,10 +384,9 @@ def view_site(request, *args, **kwargs):
         if (request.method == "POST"):
 
             data = {**request.POST, **request.FILES}
-
+            print(data)
             for k, v in data.items():
                 data[k] = v[0]
-                print(type(data[k]))
 
             section_name = data.get('section-name')
 
@@ -406,7 +405,7 @@ def view_site(request, *args, **kwargs):
                     # remaining field types [auto-calculate, file-upload, image-upload, multiple-image-upload, blank]
 
                     if field_manager.field_type in ["textbox-percentage", "dropdown", "radio", "textbox", "textbox-number"]:
-
+                        print(field_manager.field_name)
                         setattr(target_section, field_manager.field_name, data.get(field_manager.field_name))
 
                     elif field_manager.field_type == "date":
@@ -415,6 +414,8 @@ def view_site(request, *args, **kwargs):
 
                     elif field_manager.field_type == "multiselect-checkbox":
 
+                        print(target_section)
+                        print(field_manager.field_name)
                         setattr(target_section, field_manager.field_name, ','.join(data.getlist(field_manager.field_name)))
 
                     elif field_manager.field_type == "file-upload" or field_manager.field_type == "image-upload":

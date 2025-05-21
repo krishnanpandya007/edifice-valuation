@@ -26,7 +26,18 @@
 
 const staticCacheName = 'edifice-pwa-v1';
 const assets = [
-    '/',
+    '/',  // Root (optional)
+    '/view/site/26/', // Cache the dynamic page itself
+    '/static/CACHE/css/output.7857b05c4f5e.css',
+    // '/static/flowbite.min.js',
+    '/static/utils/edifice_logo.jpg',
+    // '/static/images/icon-7797704_640.png',
+    // '/static/images/logo_choose.png',
+    // '/static/images/geo_confi_preview.png',
+    '/static/manifest.json',
+    '/static/icons/icon-144x144.png',
+    '/static/icons/icon-152x152.png',
+    // '/offline.html'
     // '/static/css/style.css', // Add your CSS files
     // '/static/js/main.js',   // Add your JS files
     // '/static/images/icon.png' // Add your image files
@@ -75,4 +86,12 @@ self.addEventListener('fetch', event => {
             });
         }
     }());
+});
+
+self.addEventListener('message', async (event) => {
+    if (event.data && event.data.action === 'delete-cache') {
+        const cache = await caches.open('edifice-pwa-v1'); // Use your actual cache name
+        const deleted = await cache.delete(event.data.url);
+        console.log(`Cache entry for ${event.data.url} deleted: ${deleted}`);
+    }
 });

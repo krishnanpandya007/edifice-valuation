@@ -35,7 +35,67 @@ from core.models import FieldManager, Site, ApplicationDetails, Documents, Custo
     # d.formats.add(ReportFormat.objects.get(format_name="Land & Building 2.0"))
     # d.formats.add(ReportFormat.objects.get(format_name="Composite Method 2.0"))
 # d.save()
+'''
 
+                                    <button type="button" onclick="
+    (async function() {
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        const forms = document.querySelectorAll('.section_form');
+        for (const form of forms) {
+            const formData = new FormData(form);
+            try {
+                const response = await fetch('{% url 'view_site' site_id %}', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network error');
+                }
+
+                console.log('Form submitted successfully');
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                break; // stop further execution on error
+            }
+        }
+
+        // You can now continue here once all fetches are complete
+        alert('All sections Updated!');
+        // window.location.reload()
+        if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+    navigator.serviceWorker.controller.postMessage({
+        action: 'delete-cache',
+        url: '/view/site/{{ site_id }}/'  // Replace dynamically if needed
+    });
+}
+    })()
+" data-site-id="{{ site_id }}" class=" relative none items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+                                                    <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
+                                                        Save all
+                                                    </span>
+                                                </button>            
+
+
+'''
 import json
 
 # Load JSON data from the file
