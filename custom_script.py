@@ -862,3 +862,80 @@ html = '''
 # pdfkit.from_string(rendered_html, 'output.pdf')
 
 # print("PDF generated successfully as output.pdf") 
+# def inr_format( number: int) -> str:
+#     """
+#     Convert a number to Indian currency words format (crore, lakh, thousand...).
+#     E.g., 12345678 -> 'One Crore Twenty Three Lakh Forty Five Thousand Six Hundred Seventy Eight'
+#     """
+
+#     if number == 0:
+#         return "Zero"
+
+#     ones = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine",
+#             "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen",
+#             "Sixteen", "Seventeen", "Eighteen", "Nineteen"]
+
+#     tens = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"]
+
+#     def num_to_words(n):
+#         if n < 20:
+#             return ones[n]
+#         elif n < 100:
+#             return tens[n // 10] + (" " + ones[n % 10] if (n % 10 != 0) else "")
+#         elif n < 1000:
+#             return ones[n // 100] + " Hundred" + (" " + num_to_words(n % 100) if (n % 100 != 0) else "")
+
+#     def segment(number, divisor, name):
+#         part = number // divisor
+#         return (num_to_words(part) + " " + name if part > 0 else ""), number % divisor
+
+#     parts = []
+#     for divisor, name in [(10**7, "Crore"), (10**5, "Lakh"), (1000, "Thousand")]:
+#         word, number = segment(number, divisor, name)
+#         if word:
+#             parts.append(word)
+
+#     if number > 0:
+#         parts.append(num_to_words(number))
+
+#     return ' '.join(parts).strip()
+
+# print(inr_format(499))
+'''
+FieldManager.objects.create(field_name="carpet_area_text", display_name="Carpet Area Text", field_type="auto-calculate", section_name='calculated_fields', coordinator_access_level="view", technical_engineer_access_level="na", valuation_engineer_access_level="view", principal_engineer_access_level="view")
+
+FieldManager.objects.create(field_name="built_up_area_text", display_name="Built Up Area Text", field_type="auto-calculate", section_name='calculated_fields', coordinator_access_level="view", technical_engineer_access_level="na", valuation_engineer_access_level="view", principal_engineer_access_level="view")
+
+FieldManager.objects.create(field_name="super_built_up_area_text", display_name="Super Built Up Area Text", field_type="auto-calculate", section_name='calculated_fields', coordinator_access_level="view", technical_engineer_access_level="na", valuation_engineer_access_level="view", principal_engineer_access_level="view")
+
+FieldManager.objects.create(field_name="dimension_of_the_site", display_name="Dimension of the Site", field_type="auto-calculate", section_name='calculated_fields', coordinator_access_level="view", technical_engineer_access_level="na", valuation_engineer_access_level="view", principal_engineer_access_level="view")
+
+FieldManager.objects.create(field_name="built_up_area_combined_text", display_name="Built Up Area Combined Text", field_type="auto-calculate", section_name='calculated_fields', coordinator_access_level="view", technical_engineer_access_level="na", valuation_engineer_access_level="view", principal_engineer_access_level="view")
+
+FieldManager.objects.create(field_name="guideline_rate_unit", display_name="Guideline Rate Unit", field_type="auto-calculate", section_name='calculated_fields', coordinator_access_level="view", technical_engineer_access_level="na", valuation_engineer_access_level="view", principal_engineer_access_level="view")
+
+FieldManager.objects.create(field_name="area_for_guideline_rate", display_name="Area for Guideline Rate", field_type="auto-calculate", section_name='calculated_fields', coordinator_access_level="view", technical_engineer_access_level="na", valuation_engineer_access_level="view", principal_engineer_access_level="view")
+
+FieldManager.objects.create(field_name="guideline_rate_per_unit", display_name="Guideline Rate (Square Meter)", field_type="auto-calculate", section_name='calculated_fields', coordinator_access_level="view", technical_engineer_access_level="na", valuation_engineer_access_level="view", principal_engineer_access_level="view")
+
+FieldManager.objects.create(field_name="guideline_rate", display_name="Guideline Rate", field_type="auto-calculate", section_name='calculated_fields', coordinator_access_level="view", technical_engineer_access_level="na", valuation_engineer_access_level="view", principal_engineer_access_level="view")
+
+FieldManager.objects.create(field_name="guideline_construction_rate", display_name="Guideline Construction Rate (Square Meter)", field_type="auto-calculate", section_name='calculated_fields', coordinator_access_level="view", technical_engineer_access_level="na", valuation_engineer_access_level="view", principal_engineer_access_level="view")
+
+FieldManager.objects.create(field_name="guideline_construction_cost", display_name="Guideline Construction Cost", field_type="auto-calculate", section_name='calculated_fields', coordinator_access_level="view", technical_engineer_access_level="na", valuation_engineer_access_level="view", principal_engineer_access_level="view")
+
+FieldManager.objects.create(field_name="depreciation_on_construction", display_name="Depreciation on Construction", field_type="auto-calculate", section_name='calculated_fields', coordinator_access_level="view", technical_engineer_access_level="na", valuation_engineer_access_level="view", principal_engineer_access_level="view")
+
+FieldManager.objects.create(field_name="depreciated_guideline_rate", display_name="Depreciated Guideline Rate", field_type="auto-calculate", section_name='calculated_fields', coordinator_access_level="view", technical_engineer_access_level="na", valuation_engineer_access_level="view", principal_engineer_access_level="view")
+
+FieldManager.objects.create(field_name="guideline_rate_rounded", display_name="Guideline Rate (Rounded)", field_type="auto-calculate", section_name='calculated_fields', coordinator_access_level="view", technical_engineer_access_level="na", valuation_engineer_access_level="view", principal_engineer_access_level="view")
+
+FieldManager.objects.create(field_name="guideline_rate_in_words", display_name="Guideline Rate (in Words)", field_type="auto-calculate", section_name='calculated_fields', coordinator_access_level="view", technical_engineer_access_level="na", valuation_engineer_access_level="view", principal_engineer_access_level="view")
+
+FieldManager.objects.create(field_name="guideline_rate_final", display_name="Guideline Rate Final", field_type="auto-calculate", section_name='calculated_fields', coordinator_access_level="view", technical_engineer_access_level="na", valuation_engineer_access_level="view", principal_engineer_access_level="view")
+
+FieldManager.objects.create(field_name="fmv_unit", display_name="FMV Unit", field_type="auto-calculate", section_name='calculated_fields', coordinator_access_level="view", technical_engineer_access_level="na", valuation_engineer_access_level="view", principal_engineer_access_level="view")
+
+FieldManager.objects.create(field_name="area_for_fmv", display_name="Area for FMV", field_type="auto-calculate", section_name='calculated_fields', coordinator_access_level="view", technical_engineer_access_level="na", valuation_engineer_access_level="view", principal_engineer_access_level="view")
+
+'''

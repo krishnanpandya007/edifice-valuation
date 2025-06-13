@@ -284,7 +284,7 @@ def edit_assignees(request, *args, **kwargs):
 SECTIONS = {
     'application_details': "Application Details",
     'documents': "Documents",
-    'property_details': "Property Details",
+    'property_details': "Property Location",
     'site_details': "Site Details",
     'ndma_parameters': "NDMA Parameters",
     'no_approved_plan_details': "NO Approved Plan Details",
@@ -573,8 +573,11 @@ def export_file(request, format_type, site_id):
 
     # Step 2: Render HTML with Jinja2
     site = None
+    template_name = 'composite_2.html'
     try:
         site = Site.objects.get(pk=int(site_id))
+        if(site.application_details.report_format == "Land & Building 2.0"):
+            template_name = "land_and_building_2.html"
         assert site, "Site does not exist"
     except AssertionError as ae:
         print(ae)
@@ -584,7 +587,7 @@ def export_file(request, format_type, site_id):
     application_details = site.application_details
     
     env = Environment(loader=FileSystemLoader(os.path.join(settings.BASE_DIR)))
-    template = env.get_template('composite_2.html')
+    template = env.get_template(template_name)
 
     rendered_html = template.render(
         site=site,
@@ -599,7 +602,7 @@ def export_file(request, format_type, site_id):
         return response
 
     elif format_type == 'docx':
-        html_path = os.path.join(settings.BASE_DIR, 'composite_2.html')
+        html_path = os.path.join(settings.BASE_DIR, template_name)
         with open(html_path, 'w', encoding='utf-8') as f:
             f.write(rendered_html)
 

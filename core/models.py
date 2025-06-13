@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.utils import timezone
+from num2words import num2words
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None):
@@ -568,7 +569,7 @@ class ValuationDetails(models.Model):
     carpet_area_square_meter = models.CharField(max_length=255)
     carpet_area_square_yard = models.CharField(max_length=255)
     carpet_area_square_feet = models.CharField(max_length=255)
-    built_up_area_square_meter = models.CharField(max_length=255)
+    built_up_area_square_meter = models.CharField(max_length=255) #229
     built_up_area_square_yard = models.CharField(max_length=255)
     built_up_area_square_feet = models.CharField(max_length=255)
     super_built_up_area_square_meter = models.CharField(max_length=255)
@@ -658,6 +659,7 @@ class PropertyPhotographs(models.Model):
     property_photographs = models.ManyToManyField(ImageAttachment)
 
 class InvoiceDetails(models.Model):
+
     site = models.OneToOneField('Site', on_delete=models.CASCADE, related_name='invoice_details')
     date_of_invoice = models.DateField(null=True)
     charges_amount = models.CharField(max_length=255)
@@ -681,3 +683,1198 @@ class InvoiceDetails(models.Model):
                 "Received": "green"
             }
             return payment_status_colors[self.payment_status]
+    
+def float_or_zero(value):
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return 0.0
+
+def round_to_nearest(value, base=10000):
+    return int(base * round(float_or_zero(value) / base))
+
+def inr_format(value):
+    value = round(float_or_zero(value))
+    if value == 0:
+        return "zero"
+    words = num2words(value, lang='en_IN').replace(",", "")
+    return words.replace(" and ", " ")
+
+class CalculatedFields(models.Model):
+    site = models.OneToOneField('Site', on_delete=models.CASCADE, related_name='calculated_fields')
+
+    @property
+    def carpet_area_text(self):
+
+        """
+        Returns a formatted string representing the carpet area in available units.
+        If all inputs are empty or None, returns 'Not Provided'.
+        """
+        
+        valuation_details = self.site.valuation_details
+        area_sqft = valuation_details.carpet_area_square_feet
+        area_sqyd = valuation_details.carpet_area_square_yard
+        area_sqm = valuation_details.carpet_area_square_meter
+
+        if not area_sqft and not area_sqyd and not area_sqm:
+            return "Not Provided"
+
+        result = ""
+        parts = []
+
+        if area_sqft:
+            parts.append(f"{area_sqft} square feet")
+        if area_sqyd:
+            parts.append(f"{area_sqyd} square yard")
+        if area_sqm:
+            parts.append(f"{area_sqm} square meter")
+
+        result = " / ".join(parts)
+        return result
+    
+    @property
+    def built_up_area_text(self):
+        """
+        Returns a formatted string representing the built-up area in available units.
+        If all inputs are empty or None, returns 'Not Provided'.
+        """
+        valuation_details = self.site.valuation_details
+        area_sqft = valuation_details.built_up_area_square_feet  # [231]
+        area_sqyd = valuation_details.built_up_area_square_yard  # [230]
+        area_sqm = valuation_details.built_up_area_square_meter  # [229]
+
+        if not area_sqft and not area_sqyd and not area_sqm:
+            return "Not Provided"
+
+        result = ""
+
+        if area_sqft:
+            result += f"{area_sqft} square feet"
+
+        if area_sqyd:
+            if result:
+                result += f" / {area_sqyd} square yard"
+            else:
+                result += f"{area_sqyd} square yard"
+
+        if area_sqm:
+            if result:
+                result += f" / {area_sqm} square meter"
+            else:
+                result += f"{area_sqm} square meter"
+
+        return result
+    
+    @property
+    def super_built_up_area_text(self):
+        """
+        Returns a formatted string representing the super built-up area in available units.
+        If all inputs are empty or None, returns 'Not Provided'.
+        """
+        valuation_details = self.site.valuation_details
+        area_sqm = valuation_details.super_built_up_area_square_meter  # [232]
+        area_sqyd = valuation_details.super_built_up_area_square_yard  # [233]
+        area_sqft = valuation_details.super_built_up_area_square_feet  # [234]
+
+        if not area_sqm and not area_sqyd and not area_sqft:
+            return "Not Provided"
+
+        result = ""
+
+        if area_sqm:
+            result += f"{area_sqm} square meter"
+
+        if area_sqyd:
+            if result:
+                result += f" / {area_sqyd} square yard"
+            else:
+                result += f"{area_sqyd} square yard"
+
+        if area_sqft:
+            if result:
+                result += f" / {area_sqft} square feet"
+            else:
+                result += f"{area_sqft} square feet"
+
+        return result
+
+    @property
+    def dimension_of_the_site(self):
+        """
+        Returns a multi-line string combining Carpet Area, Built-up Area,
+        and Super Built-up Area if available. If all are 'Not Provided',
+        returns an empty string.
+        """
+        output = ""
+
+        carpet = self.carpet_area_text  # [297]
+        built_up = self.build_up_area_text  # [298]
+        super_built_up = self.super_build_up_area_text  # [299]
+
+        if carpet != "Not Provided":
+            output += f"Carpet Area : {carpet}\n"
+
+        if built_up != "Not Provided":
+            output += f"Built-up Area : {built_up}\n"
+
+        if super_built_up != "Not Provided":
+            output += f"Super Built-up Area : {super_built_up}"
+
+        return output.strip()  # removes trailing newline if any
+
+    @property
+    def built_up_area_combined_text(self):
+        """
+        Returns a combined string of Built-up Area and Super Built-up Area if available.
+        If both are 'Not Provided', returns an empty string.
+        """
+        output = ""
+
+        built_up = self.build_up_area_text  # [298]
+        super_built_up = self.super_build_up_area_text  # [299]
+
+        if built_up != "Not Provided":
+            output += f"Built-up Area : {built_up}\n"
+
+        if super_built_up != "Not Provided":
+            output += f"Super Built-up Area : {super_built_up}"
+
+        return output.strip()  # ensures no trailing newline
+    
+    @property
+    def guideline_rate_unit(self):
+
+        return "square meter"
+    #571
+    @property
+    def area_for_guideline_rate(self) -> float:
+        val_for = self.site.valuation_details.guideline_rate_provided_for  # [242]
+
+        if val_for == "Built Up":
+            if float(self.site.valuation_details.built_up_area_square_meter or 0) > 0:  # [229]
+                return float(self.site.valuation_details.built_up_area_square_meter)
+            elif float(self.site.valuation_details.built_up_area_square_feet or 0) > 0:  # [231]
+                return float(self.site.valuation_details.built_up_area_square_feet) / 10.76
+            elif float(self.site.valuation_details.built_up_area_square_yard or 0) > 0:  # [230]
+                return float(self.site.valuation_details.built_up_area_square_yard) / 1.196
+
+        elif val_for == "Carpet":
+            if float(self.site.valuation_details.carpet_area_square_meter or 0) > 0:  # [226]
+                return float(self.site.valuation_details.carpet_area_square_meter)
+            elif float(self.site.valuation_details.carpet_area_square_feet or 0) > 0:  # [228]
+                return float(self.site.valuation_details.carpet_area_square_feet) / 10.76
+            elif float(self.site.valuation_details.carpet_area_square_yard or 0) > 0:  # [227]
+                return float(self.site.valuation_details.carpet_area_square_yard) / 1.196
+
+        elif val_for == "Super Built Up":
+            if float(self.site.valuation_details.super_built_up_area_square_feet or 0) > 0:  # [234]
+                return float(self.site.valuation_details.super_built_up_area_square_feet)
+            elif float(self.site.valuation_details.super_built_up_area_square_meter or 0) > 0:  # [232]
+                return float(self.site.valuation_details.super_built_up_area_square_meter) / 10.76
+            elif float(self.site.valuation_details.super_built_up_area_square_yard or 0) > 0:  # [233]
+                return float(self.site.valuation_details.super_built_up_area_square_yard) / 1.196
+
+        return 0.0
+
+    
+    @property
+    def guideline_rate_per_unit(self):
+
+        return self.site.valuation_details.guideline_rate_square_meter
+    
+    @property
+    def guideline_rate(self):
+        if(self.site.application_details.report_format == "Land & Building 2.0"):
+            return self.land_guideline_rate + self.building_depreciated_guideline_rate
+        return self.area_for_guideline_rate * self.guideline_rate_per_unit
+    @property
+    def guideline_rate_per_unit(self):  # [243]
+        return float_or_zero(self.site.valuation_details.guideline_rate_square_meter)
+
+    @property
+    def guideline_construction_rate(self):  # [241]
+        return float_or_zero(self.site.valuation_details.guideline_construction_rate_square_meter)
+
+    @property
+    def guideline_construction_cost(self):  # [307]
+        return self.area_for_guideline_rate * self.guideline_construction_rate
+
+    @property
+    def depreciation_on_construction(self):  # [308]
+        try:
+            return (self.guideline_construction_cost * float_or_zero(self.site.valuation_details.depreciation_value_percentage)) / 100
+        except Exception:
+            return 0
+
+    @property
+    def depreciated_guideline_rate(self):  # [309]
+        return self.guideline_rate - self.depreciation_on_construction
+
+    @property
+    def guideline_rate_rounded(self):  # [310]
+        if(self.site.application_details.report_format == "Land & Building 2.0"):
+            return round(self.guideline_rate / 10000) * 10000
+        return round_to_nearest(self.depreciated_guideline_rate)
+
+    @property
+    def guideline_rate_in_words(self):  # [311]
+        return inr_format(self.guideline_rate_rounded)
+
+    @property
+    def guideline_rate_final(self):  # [312]
+        return f"{self.guideline_rate_rounded}  ( {self.guideline_rate_in_words} )"
+
+    @property
+    def additional_value(self):  # [255]
+        return float_or_zero(self.site.valuation_details.combined_additional_value)
+
+    @property
+    def fmv_unit(self):  # [313]
+        v = self.site.valuation_details
+        if float_or_zero(v.composite_rate_square_meter) > 0:
+            return "square meter"
+        elif float_or_zero(v.composite_rate_square_yard) > 0:
+            return "square yard"
+        elif float_or_zero(v.composite_rate_square_feet) > 0:
+            return "square feet"
+        return ""
+
+    @property
+    def fmv_per_unit(self):  # [315]
+        v = self.site.valuation_details
+        return (
+            float_or_zero(v.composite_rate_square_meter) or
+            float_or_zero(v.composite_rate_square_yard) or
+            float_or_zero(v.composite_rate_square_feet)
+        )
+
+    @property
+    def fmv(self):  # [316]
+        return self.area_for_fmv * self.fmv_per_unit
+
+    @property
+    def fmv_total(self):  # [318]
+        if(self.site.application_details.report_format == "Land & Building 2.0"):
+
+            return self.land_fmv + self.building_fmv + self.total_additional_value
+        return self.fmv + self.additional_value
+
+    @property
+    def fmv_rounded(self):  # [319]
+        return round_to_nearest(self.fmv_total)
+
+    @property
+    def fmv_in_words(self):  # [320]
+        return inr_format(self.fmv_rounded)
+
+    @property
+    def fmv_final(self):  # [321]
+        return f"{self.fmv_rounded}  ( {self.fmv_in_words} )"
+
+    @property
+    def realizable_value_discount(self):  # [322]
+        return 100 - float_or_zero(self.site.valuation_details.realizable_value_percentage)
+
+    @property
+    def realizable_value(self):  # [323]
+        return (self.fmv_total * float_or_zero(self.site.valuation_details.realizable_value_percentage)) / 100
+
+    @property
+    def realizable_value_rounded(self):  # [324]
+        return round_to_nearest(self.realizable_value)
+
+    @property
+    def realizable_value_in_words(self):  # [325]
+        return inr_format(self.realizable_value_rounded)
+
+    @property
+    def realizable_value_final(self):  # [326]
+        return f"{self.realizable_value_rounded}  ( {self.realizable_value_in_words} )"
+
+    @property
+    def distress_value(self):  # [327]
+        return (self.fmv_total * float_or_zero(self.site.valuation_details.distress_value_percentage)) / 100
+
+    @property
+    def distress_value_rounded(self):  # [328]
+        return round_to_nearest(self.distress_value)
+
+    @property
+    def distress_value_in_words(self):  # [329]
+        return inr_format(self.distress_value_rounded)
+
+    @property
+    def distress_value_final(self):  # [330]
+        return f"{self.distress_value_rounded}  ( {self.distress_value_in_words} )"
+
+    @property
+    def insurable_value(self):  # [331]
+        if(self.site.application_details.report_format == "Land & Building 2.0"):
+
+            return self.building_fmv_rounded
+        return self.area_for_guideline_rate * 10.76 * 1500
+
+    @property
+    def insurable_value_rounded(self):  # [332]
+        return round_to_nearest(self.insurable_value)
+
+    @property
+    def insurable_value_in_words(self):  # [333]
+        return inr_format(self.insurable_value_rounded)
+
+    @property
+    def insurable_value_final(self):  # [334]
+        return f"{self.insurable_value_rounded}  ( {self.insurable_value_in_words} )"
+
+    @property
+    def book_value_in_words(self):  # [256]
+        return inr_format(float_or_zero(self.site.valuation_details.book_value))
+
+    @property
+    def guideline_rate_per_unit_old(self):  # [243]
+        return float_or_zero(self.site.valuation_details.guideline_rate_square_meter) / 1.8
+    @property
+    def area_for_fmv(self):
+
+        
+
+        vd = self.site.valuation_details  # avoid repeated DB hits
+        unit = self.fmv_unit
+        val_for = vd.composite_rate_provided_for
+
+        def get_value(*values):
+            for v in values:
+                try:
+                    val = float(v)
+                    if val > 0:
+                        return val
+                except (ValueError, TypeError):
+                    continue
+            return 0
+
+        if val_for == "Carpet":
+            if unit == "square_yard":
+                return get_value(
+                    vd.carpet_area_square_yard,
+                    float_or_zero(vd.carpet_area_square_meter) * 1.196,
+                    float_or_zero(vd.carpet_area_square_feet) / 9
+                )
+            elif unit == "square_meter":
+                return get_value(
+                    vd.carpet_area_square_meter,
+                    float_or_zero(vd.carpet_area_square_yard) / 1.196,
+                    float_or_zero(vd.carpet_area_square_feet) / 10.76
+                )
+            elif unit == "square_feet":
+                return get_value(
+                    vd.carpet_area_square_feet,
+                    float_or_zero(vd.carpet_area_square_meter) * 10.76,
+                    float_or_zero(vd.carpet_area_square_yard) * 9
+                )
+
+        elif val_for == "Built Up":
+            if unit == "square_yard":
+                return get_value(
+                    vd.built_up_area_square_yard,
+                    float_or_zero(vd.built_up_area_square_meter) * 1.196,
+                    float_or_zero(vd.built_up_area_square_feet) / 9
+                )
+            elif unit == "square_meter":
+                return get_value(
+                    vd.built_up_area_square_meter,
+                    float_or_zero(vd.built_up_area_square_yard) / 1.196,
+                    float_or_zero(vd.built_up_area_square_feet) / 10.76
+                )
+            elif unit == "square_feet":
+                return get_value(
+                    vd.built_up_area_square_feet,
+                    float_or_zero(vd.built_up_area_square_meter) * 10.76,
+                    float_or_zero(vd.built_up_area_square_yard) * 9
+                )
+
+        elif val_for == "Super Built Up":
+            if unit == "square_yard":
+                return get_value(
+                    vd.super_built_up_area_square_yard,
+                    float_or_zero(vd.super_built_up_area_square_feet) * 1.196,
+                    float_or_zero(vd.super_built_up_area_square_meter) / 9
+                )
+            elif unit == "square_meter":
+                return get_value(
+                    vd.super_built_up_area_square_feet,
+                    float_or_zero(vd.super_built_up_area_square_yard) / 1.196,
+                    float_or_zero(vd.super_built_up_area_square_meter) / 10.76
+                )
+            elif unit == "square_feet":
+                return get_value(
+                    vd.super_built_up_area_square_feet,
+                    float_or_zero(vd.super_built_up_area_square_meter) * 10.76,
+                    float_or_zero(vd.super_built_up_area_square_yard) * 9
+                )
+
+        return 0 
+    
+
+
+    # LAND AND BUILDING SPECIFICS
+    @property
+    def land_area_text(self):
+        """
+        Returns a formatted string representing the land area in available units.
+        If all inputs are empty or None, returns 'Not Provided'.
+        """
+        valuation_details = self.site.valuation_details
+        area_sqft = valuation_details.land_square_feet
+        area_sqyd = valuation_details.land_square_yard
+        area_sqm = valuation_details.land_square_meter
+
+        if not area_sqft and not area_sqyd and not area_sqm:
+            return "Not Provided"
+
+        result = ""
+        parts = []
+
+        if area_sqft:
+            parts.append(f"{area_sqft} square feet")
+        if area_sqyd:
+            parts.append(f"{area_sqyd} square yard")
+        if area_sqm:
+            parts.append(f"{area_sqm} square meter")
+
+        result = " / ".join(parts)
+        return result
+
+    @property
+    def super_land_area_text(self):
+        """
+        Returns a formatted string representing the super land area in available units.
+        If all inputs are empty or None, returns 'Not Provided'.
+        """
+        valuation_details = self.site.valuation_details
+        area_sqft = valuation_details.super_land_square_feet
+        area_sqyd = valuation_details.super_land_square_yard
+        area_sqm = valuation_details.super_land_square_meter
+
+        if not area_sqft and not area_sqyd and not area_sqm:
+            return "Not Provided"
+
+        result = ""
+        parts = []
+
+        if area_sqft:
+            parts.append(f"{area_sqft} square feet")
+        if area_sqyd:
+            parts.append(f"{area_sqyd} square yard")
+        if area_sqm:
+            parts.append(f"{area_sqm} square meter")
+
+        result = " / ".join(parts)
+        return result
+
+    @property
+    def total_land_text(self):
+        """
+        Returns combined land area text with proper formatting.
+        """
+        result = ""
+        
+        if self.land_area_text != "Not Provided":
+            result += f"Land Area : {self.land_area_text}\n"
+        
+        if self.super_land_area_text != "Not Provided":
+            result += f"Super Land Area : {self.super_land_area_text}\n"
+        
+        return result.rstrip('\n')
+
+    @property
+    def land_guideline_rate_unit(self):
+        """
+        Returns the unit for land guideline rate.
+        """
+        return "square meter"
+
+    @property
+    def land_area_for_guideline_rate(self):
+        """
+        Returns the area to be used for guideline rate calculation.
+        """
+        valuation_details = self.site.valuation_details
+        
+        if valuation_details.guideline_land_rate_provided_for == "Land":
+            # Return first positive value among land areas
+            if valuation_details.land_square_meter and float(valuation_details.land_square_meter or 0) > 0:
+                return float(valuation_details.land_square_meter)
+            elif valuation_details.land_square_yard and float(valuation_details.land_square_yard or 0) > 0:
+                return float(valuation_details.land_square_yard) / 10.76
+            elif valuation_details.land_square_feet and float(valuation_details.land_square_feet or 0) > 0:
+                return float(valuation_details.land_square_feet) / 1.196
+        
+        elif valuation_details.guideline_land_rate_provided_for == "Super Land":
+            # Return first positive value among super land areas
+            if valuation_details.super_land_square_meter and float(valuation_details.super_land_square_meter or 0) > 0:
+                return float(valuation_details.super_land_square_meter)
+            elif valuation_details.super_land_square_yard and float(valuation_details.super_land_square_yard or 0) > 0:
+                return float(valuation_details.super_land_square_yard) / 10.76
+            elif valuation_details.super_land_square_feet and float(valuation_details.super_land_square_feet or 0) > 0:
+                return float(valuation_details.super_land_square_feet) / 1.196
+        
+        return 0
+
+    @property
+    def land_guideline_rate_per_unit(self):
+        """
+        Returns the guideline rate per unit for land.
+        """
+        valuation_details = self.site.valuation_details
+        return float(valuation_details.guideline_rate_land_square_meter or 0)
+
+    @property
+    def land_guideline_rate(self):
+        """
+        Calculates the total land guideline rate.
+        """
+        return self.land_area_for_guideline_rate * self.land_guideline_rate_per_unit
+
+    @property
+    def land_guideline_rate_rounded(self):
+        """
+        Returns the land guideline rate rounded to nearest 10,000.
+        """
+        return round(self.land_guideline_rate / 10000) * 10000
+
+    @property
+    def land_guideline_rate_in_words(self):
+        """
+        Converts the rounded land guideline rate to Indian Rupees words.
+        """
+        # You'll need to implement INR conversion function
+        return inr_format(self.land_guideline_rate_rounded)
+
+    @property
+    def land_guideline_rate_final(self):
+        """
+        Returns the final formatted land guideline rate with amount in words.
+        """
+        return f"{self.land_guideline_rate_rounded} ( {self.land_guideline_rate_in_words} )"
+
+    @property
+    def building_guideline_rate_unit(self):
+        """
+        Returns the unit for building guideline rate.
+        """
+        return "square meter"
+
+    @property
+    def building_area_for_guideline_rate(self):
+        """
+        Returns the building area to be used for guideline rate calculation.
+        """
+        valuation_details = self.site.valuation_details
+        rate_provided_for = valuation_details.guideline_rate_provided_for
+        
+        if rate_provided_for == "Built Up":
+            if valuation_details.built_up_area_square_meter and float(valuation_details.built_up_area_square_meter or 0) > 0:
+                return float(valuation_details.built_up_area_square_meter)
+            elif valuation_details.built_up_area_square_feet and float(valuation_details.built_up_area_square_feet or 0) > 0:
+                return float(valuation_details.built_up_area_square_feet) / 1.196
+            elif valuation_details.built_up_area_square_yard and float(valuation_details.built_up_area_square_yard or 0) > 0:
+                return float(valuation_details.built_up_area_square_yard) / 10.76
+        
+        elif rate_provided_for == "Carpet":
+            if valuation_details.carpet_area_square_meter and float(valuation_details.carpet_area_square_meter or 0) > 0:
+                return float(valuation_details.carpet_area_square_meter)
+            elif valuation_details.carpet_area_square_feet and float(valuation_details.carpet_area_square_feet or 0) > 0:
+                return float(valuation_details.carpet_area_square_feet) / 1.196
+            elif valuation_details.carpet_area_square_yard and float(valuation_details.carpet_area_square_yard or 0) > 0:
+                return float(valuation_details.carpet_area_square_yard) / 10.76
+        
+        elif rate_provided_for == "Super Built Up":
+            if valuation_details.super_built_up_area_square_meter and float(valuation_details.super_built_up_area_square_meter or 0) > 0:
+                return float(valuation_details.super_built_up_area_square_meter)
+            elif valuation_details.super_built_up_area_square_feet and float(valuation_details.super_built_up_area_square_feet or 0) > 0:
+                return float(valuation_details.super_built_up_area_square_feet) / 1.196
+            elif valuation_details.super_built_up_area_square_yard and float(valuation_details.super_built_up_area_square_yard or 0) > 0:
+                return float(valuation_details.super_built_up_area_square_yard) / 10.76
+        
+        return 0
+
+    @property
+    def building_guideline_construction_rate(self):
+        """
+        Returns the guideline construction rate.
+        """
+        valuation_details = self.site.valuation_details
+        return float(valuation_details.guideline_construction_rate_square_meter or 0)
+
+    @property
+    def building_guideline_construction_cost(self):
+        """
+        Calculates the building guideline construction cost.
+        """
+        return self.building_guideline_construction_rate * self.building_area_for_guideline_rate
+
+    @property
+    def building_depreciation_on_construction(self):
+        """
+        Calculates depreciation on construction.
+        """
+        try:
+            valuation_details = self.site.valuation_details
+            depreciation_percent = float(valuation_details.depreciation_value_percentage or 0)
+            return (self.building_guideline_construction_cost * depreciation_percent) / 100
+        except:
+            return 0
+
+    @property
+    def building_depreciated_guideline_rate(self):
+        """
+        Calculates the depreciated guideline rate for building.
+        """
+        return self.building_guideline_construction_cost - self.building_depreciation_on_construction
+    
+    @property
+    def land_fmv_unit(self):
+        """
+        Returns the unit for land FMV calculation.
+        """
+        valuation_details = self.site.valuation_details
+        
+        if valuation_details.market_rate_land_square_meter and float(valuation_details.market_rate_land_square_meter or 0) > 0:
+            return "square meter"
+        elif valuation_details.market_rate_land_square_yard and float(valuation_details.market_rate_land_square_yard or 0) > 0:
+            return "square yard"
+        elif valuation_details.market_rate_land_square_feet and float(valuation_details.market_rate_land_square_feet or 0) > 0:
+            return "square feet"
+        
+        return "square meter"
+
+    @property
+    def land_area_for_fmv(self):
+        """
+        Returns the land area to be used for FMV calculation.
+        """
+        valuation_details = self.site.valuation_details
+        market_rate_for = valuation_details.market_land_rate_provided_for
+        unit = self.land_fmv_unit
+        
+        if market_rate_for == "Land":
+            if unit == "square yard":
+                if valuation_details.land_square_yard and float(valuation_details.land_square_yard or 0) > 0:
+                    return float(valuation_details.land_square_yard)
+                elif valuation_details.land_square_meter and float(valuation_details.land_square_meter or 0) > 0:
+                    return float(valuation_details.land_square_meter) * 1.196
+                elif valuation_details.land_square_feet and float(valuation_details.land_square_feet or 0) > 0:
+                    return float(valuation_details.land_square_feet) / 9
+            elif unit == "square meter":
+                if valuation_details.land_square_meter and float(valuation_details.land_square_meter or 0) > 0:
+                    return float(valuation_details.land_square_meter)
+                elif valuation_details.land_square_yard and float(valuation_details.land_square_yard or 0) > 0:
+                    return float(valuation_details.land_square_yard) / 1.196
+                elif valuation_details.land_square_feet and float(valuation_details.land_square_feet or 0) > 0:
+                    return float(valuation_details.land_square_feet) / 10.76
+            elif unit == "square feet":
+                if valuation_details.land_square_feet and float(valuation_details.land_square_feet or 0) > 0:
+                    return float(valuation_details.land_square_feet)
+                elif valuation_details.land_square_meter and float(valuation_details.land_square_meter or 0) > 0:
+                    return float(valuation_details.land_square_meter) * 10.76
+                elif valuation_details.land_square_yard and float(valuation_details.land_square_yard or 0) > 0:
+                    return float(valuation_details.land_square_yard) * 9
+        
+        elif market_rate_for == "Super Land":
+            if unit == "square yard":
+                if valuation_details.super_land_square_yard and float(valuation_details.super_land_square_yard or 0) > 0:
+                    return float(valuation_details.super_land_square_yard)
+                elif valuation_details.super_land_square_meter and float(valuation_details.super_land_square_meter or 0) > 0:
+                    return float(valuation_details.super_land_square_meter) * 1.196
+                elif valuation_details.super_land_square_feet and float(valuation_details.super_land_square_feet or 0) > 0:
+                    return float(valuation_details.super_land_square_feet) / 9
+            elif unit == "square meter":
+                if valuation_details.super_land_square_meter and float(valuation_details.super_land_square_meter or 0) > 0:
+                    return float(valuation_details.super_land_square_meter)
+                elif valuation_details.super_land_square_yard and float(valuation_details.super_land_square_yard or 0) > 0:
+                    return float(valuation_details.super_land_square_yard) / 1.196
+                elif valuation_details.super_land_square_feet and float(valuation_details.super_land_square_feet or 0) > 0:
+                    return float(valuation_details.super_land_square_feet) / 10.76
+            elif unit == "square feet":
+                if valuation_details.super_land_square_feet and float(valuation_details.super_land_square_feet or 0) > 0:
+                    return float(valuation_details.super_land_square_feet)
+                elif valuation_details.super_land_square_meter and float(valuation_details.super_land_square_meter or 0) > 0:
+                    return float(valuation_details.super_land_square_meter) * 10.76
+                elif valuation_details.super_land_square_yard and float(valuation_details.super_land_square_yard or 0) > 0:
+                    return float(valuation_details.super_land_square_yard) * 9
+        
+        return 0
+
+    @property
+    def land_fmv_per_unit(self):
+        """
+        Returns the land FMV rate per unit.
+        """
+        valuation_details = self.site.valuation_details
+        unit = self.land_fmv_unit
+        
+        if unit == "square meter":
+            return float(valuation_details.market_rate_land_square_meter or 0)
+        elif unit == "square yard":
+            return float(valuation_details.market_rate_land_square_yard or 0)
+        elif unit == "square feet":
+            return float(valuation_details.market_rate_land_square_feet or 0)
+        
+        return 0
+
+    @property
+    def land_fmv(self):
+        """
+        Calculates the land FMV.
+        """
+        return self.land_area_for_fmv * self.land_fmv_per_unit
+
+    @property
+    def land_fmv_rounded(self):
+        """
+        Returns the land FMV rounded to nearest 10,000.
+        """
+        return round(self.land_fmv / 10000) * 10000
+
+    @property
+    def land_fmv_in_words(self):
+        """
+        Converts the rounded land FMV to Indian Rupees words.
+        """
+        return inr_format(self.land_fmv_rounded)
+
+    @property
+    def land_fmv_final(self):
+        """
+        Returns the final formatted land FMV with amount in words.
+        """
+        return f"{self.land_fmv_rounded} ( {self.land_fmv_in_words} )"
+
+    @property
+    def building_carpet_area_text(self):
+        """
+        Returns a formatted string representing the carpet area in available units.
+        If all inputs are empty or None, returns 'Not Provided'.
+        """
+        valuation_details = self.site.valuation_details
+        area_sqft = valuation_details.carpet_area_square_feet
+        area_sqyd = valuation_details.carpet_area_square_yard
+        area_sqm = valuation_details.carpet_area_square_meter
+
+        if not area_sqft and not area_sqyd and not area_sqm:
+            return "Not Provided"
+
+        parts = []
+
+        if area_sqft:
+            parts.append(f"{area_sqft} square feet")
+        if area_sqyd:
+            parts.append(f"{area_sqyd} square yard")
+        if area_sqm:
+            parts.append(f"{area_sqm} square meter")
+
+        return " / ".join(parts)
+
+    @property
+    def building_built_up_area_text(self):
+        """
+        Returns a formatted string representing the built-up area in available units.
+        If all inputs are empty or None, returns 'Not Provided'.
+        """
+        valuation_details = self.site.valuation_details
+        area_sqft = valuation_details.built_up_area_square_feet
+        area_sqyd = valuation_details.built_up_area_square_yard
+        area_sqm = valuation_details.built_up_area_square_meter
+
+        if not area_sqft and not area_sqyd and not area_sqm:
+            return "Not Provided"
+
+        parts = []
+
+        if area_sqft:
+            parts.append(f"{area_sqft} square feet")
+        if area_sqyd:
+            parts.append(f"{area_sqyd} square yard")
+        if area_sqm:
+            parts.append(f"{area_sqm} square meter")
+
+        return " / ".join(parts)
+
+    @property
+    def building_super_built_up_area_text(self):
+        """
+        Returns a formatted string representing the super built-up area in available units.
+        If all inputs are empty or None, returns 'Not Provided'.
+        """
+        valuation_details = self.site.valuation_details
+        area_sqft = valuation_details.super_built_up_area_square_feet
+        area_sqyd = valuation_details.super_built_up_area_square_yard
+        area_sqm = valuation_details.super_built_up_area_square_meter
+
+        if not area_sqft and not area_sqyd and not area_sqm:
+            return "Not Provided"
+
+        parts = []
+
+        if area_sqft:
+            parts.append(f"{area_sqft} square feet")
+        if area_sqyd:
+            parts.append(f"{area_sqyd} square yard")
+        if area_sqm:
+            parts.append(f"{area_sqm} square meter")
+
+        return " / ".join(parts)
+
+    @property
+    def total_building_area_text(self):
+        """
+        Returns combined building area text with proper formatting.
+        """
+        result = ""
+        
+        if self.building_carpet_area_text != "Not Provided":
+            result += f"Carpet Area : {self.building_carpet_area_text}\n"
+        
+        if self.building_built_up_area_text != "Not Provided":
+            result += f"Built-up Area : {self.building_built_up_area_text}\n"
+        
+        if self.building_super_built_up_area_text != "Not Provided":
+            result += f"Super Built-up Area : {self.building_super_built_up_area_text}"
+        
+        return result.rstrip('\n')
+
+    @property
+    def building_fmv_unit(self):
+        """
+        Returns the unit for building FMV calculation.
+        """
+        valuation_details = self.site.valuation_details
+        
+        if valuation_details.construction_rate_square_meter and float(valuation_details.construction_rate_square_meter or 0) > 0:
+            return "square meter"
+        elif valuation_details.construction_rate_square_yard and float(valuation_details.construction_rate_square_yard or 0) > 0:
+            return "square yard"
+        elif valuation_details.construction_rate_square_feet and float(valuation_details.construction_rate_square_feet or 0) > 0:
+            return "square feet"
+        
+        return "square meter"
+
+    @property
+    def building_area_for_fmv(self):
+        """
+        Returns the building area to be used for FMV calculation.
+        """
+        valuation_details = self.site.valuation_details
+        rate_provided_for = valuation_details.market_construction_rate_provided_for
+        unit = self.building_fmv_unit
+        
+        if rate_provided_for == "Carpet":
+            if unit == "square yard":
+                if valuation_details.carpet_area_square_yard and float(valuation_details.carpet_area_square_yard or 0) > 0:
+                    return float(valuation_details.carpet_area_square_yard)
+                elif valuation_details.carpet_area_square_meter and float(valuation_details.carpet_area_square_meter or 0) > 0:
+                    return float(valuation_details.carpet_area_square_meter) * 1.196
+                elif valuation_details.carpet_area_square_feet and float(valuation_details.carpet_area_square_feet or 0) > 0:
+                    return float(valuation_details.carpet_area_square_feet) / 9
+            elif unit == "square meter":
+                if valuation_details.carpet_area_square_meter and float(valuation_details.carpet_area_square_meter or 0) > 0:
+                    return float(valuation_details.carpet_area_square_meter)
+                elif valuation_details.carpet_area_square_yard and float(valuation_details.carpet_area_square_yard or 0) > 0:
+                    return float(valuation_details.carpet_area_square_yard) / 1.196
+                elif valuation_details.carpet_area_square_feet and float(valuation_details.carpet_area_square_feet or 0) > 0:
+                    return float(valuation_details.carpet_area_square_feet) / 10.76
+            elif unit == "square feet":
+                if valuation_details.carpet_area_square_feet and float(valuation_details.carpet_area_square_feet or 0) > 0:
+                    return float(valuation_details.carpet_area_square_feet)
+                elif valuation_details.carpet_area_square_meter and float(valuation_details.carpet_area_square_meter or 0) > 0:
+                    return float(valuation_details.carpet_area_square_meter) * 10.76
+                elif valuation_details.carpet_area_square_yard and float(valuation_details.carpet_area_square_yard or 0) > 0:
+                    return float(valuation_details.carpet_area_square_yard) * 9
+        
+        elif rate_provided_for == "Built Up":
+            if unit == "square yard":
+                if valuation_details.built_up_area_square_yard and float(valuation_details.built_up_area_square_yard or 0) > 0:
+                    return float(valuation_details.built_up_area_square_yard)
+                elif valuation_details.built_up_area_square_meter and float(valuation_details.built_up_area_square_meter or 0) > 0:
+                    return float(valuation_details.built_up_area_square_meter) * 1.196
+                elif valuation_details.built_up_area_square_feet and float(valuation_details.built_up_area_square_feet or 0) > 0:
+                    return float(valuation_details.built_up_area_square_feet) / 9
+            elif unit == "square meter":
+                if valuation_details.built_up_area_square_meter and float(valuation_details.built_up_area_square_meter or 0) > 0:
+                    return float(valuation_details.built_up_area_square_meter)
+                elif valuation_details.built_up_area_square_yard and float(valuation_details.built_up_area_square_yard or 0) > 0:
+                    return float(valuation_details.built_up_area_square_yard) / 1.196
+                elif valuation_details.built_up_area_square_feet and float(valuation_details.built_up_area_square_feet or 0) > 0:
+                    return float(valuation_details.built_up_area_square_feet) / 10.76
+            elif unit == "square feet":
+                if valuation_details.built_up_area_square_feet and float(valuation_details.built_up_area_square_feet or 0) > 0:
+                    return float(valuation_details.built_up_area_square_feet)
+                elif valuation_details.built_up_area_square_meter and float(valuation_details.built_up_area_square_meter or 0) > 0:
+                    return float(valuation_details.built_up_area_square_meter) * 10.76
+                elif valuation_details.built_up_area_square_yard and float(valuation_details.built_up_area_square_yard or 0) > 0:
+                    return float(valuation_details.built_up_area_square_yard) * 9
+        
+        elif rate_provided_for == "Super Built Up":
+            if unit == "square yard":
+                if valuation_details.super_built_up_area_square_yard and float(valuation_details.super_built_up_area_square_yard or 0) > 0:
+                    return float(valuation_details.super_built_up_area_square_yard)
+                elif valuation_details.super_built_up_area_square_meter and float(valuation_details.super_built_up_area_square_meter or 0) > 0:
+                    return float(valuation_details.super_built_up_area_square_meter) * 1.196
+                elif valuation_details.super_built_up_area_square_feet and float(valuation_details.super_built_up_area_square_feet or 0) > 0:
+                    return float(valuation_details.super_built_up_area_square_feet) / 9
+            elif unit == "square meter":
+                if valuation_details.super_built_up_area_square_meter and float(valuation_details.super_built_up_area_square_meter or 0) > 0:
+                    return float(valuation_details.super_built_up_area_square_meter)
+                elif valuation_details.super_built_up_area_square_yard and float(valuation_details.super_built_up_area_square_yard or 0) > 0:
+                    return float(valuation_details.super_built_up_area_square_yard) / 1.196
+                elif valuation_details.super_built_up_area_square_feet and float(valuation_details.super_built_up_area_square_feet or 0) > 0:
+                    return float(valuation_details.super_built_up_area_square_feet) / 10.76
+            elif unit == "square feet":
+                if valuation_details.super_built_up_area_square_feet and float(valuation_details.super_built_up_area_square_feet or 0) > 0:
+                    return float(valuation_details.super_built_up_area_square_feet)
+                elif valuation_details.super_built_up_area_square_meter and float(valuation_details.super_built_up_area_square_meter or 0) > 0:
+                    return float(valuation_details.super_built_up_area_square_meter) * 10.76
+                elif valuation_details.super_built_up_area_square_yard and float(valuation_details.super_built_up_area_square_yard or 0) > 0:
+                    return float(valuation_details.super_built_up_area_square_yard) * 9
+        
+        return 0
+
+    @property
+    def building_fmv_per_unit(self):
+        """
+        Returns the building FMV rate per unit.
+        """
+        valuation_details = self.site.valuation_details
+        
+        if valuation_details.construction_rate_square_meter and float(valuation_details.construction_rate_square_meter or 0) > 0:
+            return float(valuation_details.construction_rate_square_meter)
+        elif valuation_details.construction_rate_square_yard and float(valuation_details.construction_rate_square_yard or 0) > 0:
+            return float(valuation_details.construction_rate_square_yard)
+        elif valuation_details.construction_rate_square_feet and float(valuation_details.construction_rate_square_feet or 0) > 0:
+            return float(valuation_details.construction_rate_square_feet)
+        
+        return 0
+
+    @property
+    def building_estimated_fmv(self):
+        """
+        Calculates the estimated building FMV.
+        """
+        return self.building_area_for_fmv * self.building_fmv_per_unit
+
+    @property
+    def building_depreciation_percentage(self):
+        """
+        Returns the depreciation percentage as decimal.
+        """
+        valuation_details = self.site.valuation_details
+        return float(valuation_details.depreciation_value_percentage or 0) / 100
+    
+    @property
+    def building_depreciation(self):
+        """
+        Calculates the building depreciation amount.
+        """
+        return self.building_estimated_fmv * self.building_depreciation_percentage
+
+    @property
+    def building_fmv(self):
+        """
+        Calculates the building FMV after depreciation.
+        """
+        return self.building_estimated_fmv - self.building_depreciation
+
+    @property
+    def building_fmv_rounded(self):
+        """
+        Returns the building FMV rounded to nearest 10,000.
+        """
+        return round(self.building_fmv / 10000) * 10000
+
+    @property
+    def building_fmv_in_words(self):
+        """
+        Converts the rounded building FMV to Indian Rupees words.
+        """
+        return inr_format(self.building_fmv_rounded)
+
+    @property
+    def building_fmv_final(self):
+        """
+        Returns the final formatted building FMV with amount in words.
+        """
+        return f"{self.building_fmv_rounded} ( {self.building_fmv_in_words} )"
+
+    @property
+    def total_additional_value(self):
+        """
+        Returns the additional value.
+        """
+        valuation_details = self.site.valuation_details
+        return float(valuation_details.combined_additional_value or 0)
+
+    @property
+    def fmv_total(self):
+        """
+        Calculates the total FMV (Land + Building + Additional Value).
+        """
+        return self.land_fmv + self.building_fmv + self.total_additional_value
+
+    @property
+    def fmv_rounded(self):
+        """
+        Returns the total FMV rounded to nearest 10,000.
+        """
+        return round(self.fmv_total / 10000) * 10000
+
+    @property
+    def fmv_in_words(self):
+        """
+        Converts the rounded total FMV to Indian Rupees words.
+        """
+        return inr_format(self.fmv_rounded)
+
+    @property
+    def fmv_final(self):
+        """
+        Returns the final formatted total FMV with amount in words.
+        """
+        return f"{self.fmv_rounded} ( {self.fmv_in_words} )"
+
+    @property
+    def realizable_value_discount(self):
+        """
+        Calculates the realizable value discount percentage.
+        """
+        valuation_details = self.site.valuation_details
+        realizable_percentage = float(valuation_details.realizable_value_percentage or 90)
+        return 100 - realizable_percentage
+
+    @property
+    def realizable_value(self):
+        """
+        Calculates the realizable value.
+        """
+        valuation_details = self.site.valuation_details
+        realizable_percentage = float(valuation_details.realizable_value_percentage or 90)
+        return self.fmv_total * realizable_percentage / 100
+
+    @property
+    def realizable_value_rounded(self):
+        """
+        Returns the realizable value rounded to nearest 10,000.
+        """
+        return round(self.realizable_value / 10000) * 10000
+
+    @property
+    def realizable_value_in_words(self):
+        """
+        Converts the rounded realizable value to Indian Rupees words.
+        """
+        return inr_format(self.realizable_value_rounded)
+
+    @property
+    def realizable_value_final(self):
+        """
+        Returns the final formatted realizable value with amount in words.
+        """
+        return f"{self.realizable_value_rounded} ( {self.realizable_value_in_words} )"
+
+    @property
+    def distress_value(self):
+        """
+        Calculates the distress value.
+        """
+        valuation_details = self.site.valuation_details
+        distress_percentage = float(valuation_details.distress_value_percentage or 75)
+        return self.fmv_total * distress_percentage / 100
+
+    @property
+    def distress_value_rounded(self):
+        """
+        Returns the distress value rounded to nearest 10,000.
+        """
+        return round(self.distress_value / 10000) * 10000
+
+    @property
+    def distress_value_in_words(self):
+        """
+        Converts the rounded distress value to Indian Rupees words.
+        """
+        return inr_format(self.distress_value_rounded)
+
+    @property
+    def distress_value_final(self):
+        """
+        Returns the final formatted distress value with amount in words.
+        """
+        return f"{self.distress_value_rounded} ( {self.distress_value_in_words} )"
+
+    @property
+    def insurable_value(self):
+        """
+        Returns the insurable value (equal to building FMV rounded).
+        """
+        return self.building_fmv_rounded
+
+    @property
+    def insurable_value_rounded(self):
+        """
+        Returns the insurable value rounded to nearest 10,000.
+        """
+        return round(self.insurable_value / 10000) * 10000
+
+    @property
+    def insurable_value_in_words(self):
+        """
+        Converts the rounded insurable value to Indian Rupees words.
+        """
+        return inr_format(self.insurable_value_rounded)
+
+    @property
+    def insurable_value_final(self):
+        """
+        Returns the final formatted insurable value with amount in words.
+        """
+        return f"{self.insurable_value_rounded} ( {self.insurable_value_in_words} )"
+
+    @property
+    def book_value_in_words(self):
+        """
+        Converts the book value to Indian Rupees words.
+        """
+        valuation_details = self.site.valuation_details
+        book_value = float(valuation_details.book_value or 0)
+        return inr_format(book_value)
+
+    @property
+    def land_guideline_rate_per_unit_old(self):
+        """
+        Returns half of the guideline rate per unit for land (old calculation).
+        """
+        return self.land_guideline_rate_per_unit / 2
+'''
+
+from django.db import models
+from num2words import num2words
+
+def float_or_zero(value):
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return 0.0
+
+def round_to_nearest(value, base=10000):
+    return int(base * round(float_or_zero(value) / base))
+
+def inr_format(value):
+    value = round(float_or_zero(value))
+    if value == 0:
+        return "zero"
+    words = num2words(value, lang='en_IN').replace(",", "")
+    return words.replace(" and ", " ")
+
+class ComputedValuationMixin:
+
+
+'''

@@ -81,36 +81,55 @@
     <!-- Header Information -->
     <table>
         <tr>
-            <td class="normal-title">Name of Proposed Owner</td>
-            <td>KRISHNAN ARUNBHAI PANDYA</td>
+            <td class="normal-title">{{ site.application_details.name_field_title }}</td>
+            <td>{{ site.application_details.name_of_applicant }}</td>
         </tr>
         <tr>
             <td class="normal-title">Name of Intended Purchaser</td>
-            <td>RAJ SHAH</td>
+            <td>{{ site.application_details.owner_proposed_seller }}</td>
         </tr>
         <tr>
             <td class="normal-title">Location of the Property</td>
-            <td>AHMEDABAD</td>
+            <td>{{ site.property_details.postal_address }}</td>
         </tr>
         <tr>
             <td class="normal-title">Fair Market Value </td>
-            <td>-</td>
+            <td>
+                {{ site.calculated_fields.fmv_rounded }}
+                {{ site.calculated_fields.fmv_in_words }}
+            </td>
         </tr>
         <tr>
             <td class="normal-title">Realizable Sale Value </td>
-            <td>-</td>
+            <td>
+                {{ site.calculated_fields.realizable_value_rounded }}
+                {{ site.calculated_fields.realizable_value_in_words }}
+
+            </td>
         </tr>
         <tr>
             <td class="normal-title">Distress Sale Value </td>
-            <td>-</td>
+            <td>
+                {{ site.calculated_fields.distress_value_rounded }}
+                {{ site.calculated_fields.distress_value_in_words }}
+
+            </td>
         </tr>
         <tr>
             <td class="normal-title">DLC / Registration Value </td>
-            <td>-</td>
+            <td>
+                {{ site.calculated_fields.guideline_rate_rounded }}
+                {{ site.calculated_fields.guideline_rate_in_words }}
+
+            </td>
         </tr>
         <tr>
             <td class="normal-title">Insurable Value</td>
-            <td>-</td>
+            <td>
+                {{ site.calculated_fields.insurable_value_rounded }}
+                {{ site.calculated_fields.insurable_value_in_words }}
+
+            </td>
         </tr>
         <tr>
             <td colspan="2" class="fb">Property Front View</td>
@@ -122,11 +141,11 @@
         </tr>
         <tr>
             <td class="normal-title">Name and Address of Branch</td>
-            <td>-</td>
+            <td>{{ site.application_details.bank_name }} <br/> {{ site.application_details.branch_name }}</td>
         </tr>
         <tr>
             <td class="normal-title">Name of Customer (s)/ Borrowal unit </td>
-            <td>-</td>
+            <td>{{ site.application_details.name_of_applicant }}</td>
         </tr>
     </table>
 
@@ -142,11 +161,11 @@
                 <table class="border-none">
                     <tr>
                         <td class="normal-title">Name</td>
-                        <td>-</td>
+                        <td>{{ site.application_details.name_of_applicant }}</td>
                     </tr>
                     <tr>
                         <td class="normal-title">Application No.</td>
-                        <td>-</td>
+                        <td></td>
                     </tr>
                 </table>
             </td>
@@ -165,15 +184,15 @@
                 <table class="border-none">
                     <tr>
                         <td class="normal-title">Address</td>
-                        <td>-</td>
+                        <td>{{ site.property_details.postal_address }}</td>
                     </tr>
                     <tr>
                         <td class="normal-title">Legal Address</td>
-                        <td>-</td>
+                        <td>{{ site.property_details.legal_address }}</td>
                     </tr>
                     <tr>
                         <td class="normal-title">Nearby Landmark/Google Map</td>
-                        <td>-</td>
+                        <td>LAT {{ site.property_details.latitude }}, LON {{ site.property_details.longitude }}</td>
                     </tr>
                     <tr>
                         <td class="normal-title">Independent access to the property</td>
@@ -202,33 +221,33 @@
                     </tr>
                     <tr>
                         <td class="normal-title">Layout Plan</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
+                        <td>{% if site.documents.layout_plan_approval_no %} Yes {% else %} No {% endif %}</td>
+                        <td>{{ site.documents.layout_plan_approving_authority }}</td>
+                        <td>{{ site.documents.layout_plan_approval_no }}</td>
                     </tr>
                     <tr>
                         <td class="normal-title">Building Plan</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
+                        <td>{% if site.documents.building_plan_approving_authority %} Yes {% else %} No {% endif %}</td>
+                        <td>{{ site.documents.building_plan_approving_authority }}</td>
+                        <td>{{ site.documents.building_plan_approval_no }}</td>
                     </tr>
                     <tr>
                         <td class="normal-title">Construction Permission</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
+                        <td>{% if site.documents.construction_permission_approving_authority %} Yes {% else %} No {% endif %}</td>
+                        <td>{{ site.documents.construction_permission_approving_authority }}</td>
+                        <td>{{ site.documents.construction_permission_approval_no }}</td>
                     </tr>
                     <tr>
                         <td class="normal-title">BU Permission</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
+                        <td>{% if site.documents.bu_permission_approving_authority %} Yes {% else %} No {% endif %}</td>
+                        <td>{{ site.documents.bu_permission_approving_authority }}</td>
+                        <td>{{ site.documents.bu_permission_approval_no }}</td>
                     </tr>
                     <tr>
                         <td class="normal-title">Legal Documents</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
+                        <td>{% if site.documents.legal_documents_approving_authority %} Yes {% else %} No {% endif %}</td>
+                        <td>{{ site.documents.legal_documents_approving_authority }}</td>
+                        <td>{{ site.documents.legal_documents_approval_no }}</td>
                     </tr>
                 </table>
             </td>
@@ -251,35 +270,35 @@
                             <table class="border-none">
                                 <tr>
                                     <td class="normal-title">East</td>
-                                    <td>-</td>
+                                    <td>{{ site.site_details.boundaries_east }}</td>
                                 </tr>
                                 <tr>
                                     <td class="normal-title">West</td>
-                                    <td>-</td>
+                                    <td>{{ site.site_details.boundaries_west }}</td>
                                 </tr>
                                 <tr>
                                     <td class="normal-title">North</td>
-                                    <td>-</td>
+                                    <td>{{ site.site_details.boundaries_north }}</td>
                                 </tr>
                                 <tr>
                                     <td class="normal-title">South</td>
-                                    <td>-</td>
+                                    <td>{{ site.site_details.boundaries_south }}</td>
                                 </tr>
                                 <tr>
                                     <td class="normal-title">North East</td>
-                                    <td>-</td>
+                                    <td>{{ site.site_details.boundaries_north_east }}</td>
                                 </tr>
                                 <tr>
                                     <td class="normal-title">North West</td>
-                                    <td>-</td>
+                                    <td>{{ site.site_details.boundaries_north_west }}</td>
                                 </tr>
                                 <tr>
                                     <td class="normal-title">South West</td>
-                                    <td>-</td>
+                                    <td>{{ site.site_details.boundaries_south_west }}</td>
                                 </tr>
                                 <tr>
                                     <td class="normal-title">South East</td>
-                                    <td>-</td>
+                                    <td>{{ site.site_details.boundaries_south_east }}</td>
                                 </tr>
                             </table>
                         </td>
@@ -288,19 +307,19 @@
                     
                     <tr>
                         <td class="normal-title">Matching of Boundaries</td>
-                        <td>-</td>
+                        <td>{{ site.site_details.matching_boundaries }}</td>
                     </tr>
                     <tr>
                         <td class="normal-title">Plot demarcated</td>
-                        <td>-</td>
+                        <td>{{ site.site_details.plot_demarcated }}</td>
                     </tr>
                     <tr>
                         <td class="normal-title">Approved land use</td>
-                        <td>-</td>
+                        <td>{{ site.site_details.land_use_type }}</td>
                     </tr>
                     <tr>
                         <td class="normal-title">Type of property</td>
-                        <td>-</td>
+                        <td>{{ site.application_details.property_type }}</td>
                     </tr>
                     <tr>
                         <td class="fb">No. of Rooms</td>
@@ -308,19 +327,19 @@
                             <table class="border-none">
                                 <tr>
                                     <td class="normal-title">Living/ Dining</td>
-                                    <td>-</td>
+                                    <td>{{ site.site_details.number_of_rooms_living_dining }}</td>
                                 </tr>
                                 <tr>
                                     <td class="normal-title">Bed rooms</td>
-                                    <td>-</td>
+                                    <td>{{ site.site_details.number_of_rooms_bedrooms }}</td>
                                 </tr>
                                 <tr>
                                     <td class="normal-title">Toilets</td>
-                                    <td>-</td>
+                                    <td>{{ site.site_details.number_of_rooms_toilets }}</td>
                                 </tr>
                                 <tr>
                                     <td class="normal-title">Kitchen</td>
-                                    <td>-</td>
+                                    <td>{{ site.site_details.number_of_rooms_kitchen }}</td>
                                 </tr>
 
                             </table>
@@ -329,23 +348,23 @@
                     
                     <tr>
                         <td class="normal-title">Total No of Floors</td>
-                        <td>-</td>
+                        <td>{{ site.site_details.building_number_of_floors }}</td>
                     </tr>
                     <tr>
                         <td class="normal-title">Floor on which the property is located</td>
-                        <td>-</td>
+                        <td>{{ site.site_details.floor_of_unit }}</td>
                     </tr>
                     <tr>
                         <td class="normal-title">Approx age of the Property</td>
-                        <td>-</td>
+                        <td>{{ site.site_details.age_of_building }}</td>
                     </tr>
                     <tr>
                         <td class="normal-title">Residual age of the Property</td>
-                        <td>-</td>
+                        <td>{{ site.site_details.residual_age_of_building }}</td>
                     </tr>
                     <tr>
                         <td class="normal-title">Type of structure</td>
-                        <td>-</td>
+                        <td>{{ site.site_details.type_of_structure }}</td>
                     </tr>
                 </table>
             </td>
@@ -364,15 +383,15 @@
                 <table class="border-none">
                     <tr>
                         <td class="normal-title">Status of Tenure</td>
-                        <td>-</td>
+                        <td>{{ site.site_details.property_occupied_by }}</td>
                     </tr>
                     <tr>
                         <td class="normal-title">No. of years of occupancy</td>
-                        <td>-</td>
+                        <td>{{ site.site_details.years_of_occupancy }}</td>
                     </tr>
                     <tr>
                         <td class="normal-title">Relationship of tenant or owner</td>
-                        <td>-</td>
+                        <td>{{ site.site_details.tenant_owner_relationship }}</td>
                     </tr>
                 </table>
             </td>
@@ -391,11 +410,11 @@
                 <table class="border-none">
                     <tr>
                         <td class="normal-title">Stage of construction</td>
-                        <td>-</td>
+                        <td>{{ site.building_details.stage_of_construction }}</td>
                     </tr>
                     <tr>
                         <td class="normal-title">If under construction, extent of completion</td>
-                        <td>-</td>
+                        <td>{{ site.building_details.extent_of_completion }}</td>
                     </tr>
                 </table>
             </td>
@@ -414,7 +433,7 @@
                 <table class="border-none">
                     <tr>
                         <td class="normal-title">Nature and extent of violations</td>
-                        <td>-</td>
+                        <td>{{ site.building_details.nature_and_extent_of_violations }}</td>
                     </tr>
                 </table>
             </td>
@@ -433,16 +452,11 @@
                 <table class="border-none">
                     <tr>
                         <td class="normal-title">Site Area / Land Area</td>
-                        <td>Land Area : 222 square feet / 221 square yard / 220 square meter
-                            Super Land Area : 225 square feet / 224 square yard / 223 square
-                            meter</td>
+                        <td>{{ site.calculated_fields.total_land_text }}</td>
                     </tr>
                     <tr>
                         <td class="normal-title">Plinth Area / Built up area</td>
-                        <td>Carpet Area : 228 square feet / 2227 square yard / 226 square meter
-                            Built Up Area : 231 square feet / 230 square yard / 229 square meter
-                            Super Built Up Area : 234 square feet / 233 square yard / 232 square
-                            meter</td>
+                        <td>{{ site.calculated_fields.total_building_area_text }}</td>
                     </tr>
                     
                     <tr>
@@ -473,10 +487,7 @@
                             <table class="border-none">
                                 <tr>
                                     <td class="normal-title">Plinth Area / Built up area</td>
-                                    <td>Carpet Area : 228 square feet / 2227 square yard / 226 square meter
-                                        Built Up Area : 231 square feet / 230 square yard / 229 square meter
-                                        Super Built Up Area : 234 square feet / 233 square yard / 232 square
-                                        meter</td>
+                                    <td>{{ site.calculated_fields.total_land_text }}</td>
                                 </tr>
                                 
                                 <tr>
@@ -536,21 +547,18 @@
                                         registrar's office (an evidence
                                         thereof to be enclosed)
                                         </td>
-                                    <td>Carpet Area : 228 square feet / 2227 square yard / 226 square meter
-                                        Built Up Area : 231 square feet / 230 square yard / 229 square meter
-                                        Super Built Up Area : 234 square feet / 233 square yard / 232 square
-                                        meter</td>
+                                    <td>{{ site.calculated_fields.land_guideline_rate_per_unit }} per {{ site.calculated_fields.land_guideline_rate_unit }}</td>
                                 </tr>
                                 
                                 <tr>
                                     <td class="normal-title">Assessed / adapted rate of
                                         valuation
                                         </td>
-                                    <td>-</td>
+                                    <td>{{ site.calculated_fields.land_fmv_per_unit }} per {{ site.calculated_fields.land_fmv_unit }}</td>
                                 </tr>
                                 <tr>
                                     <td class="normal-title">Estimated value of land</td>
-                                    <td>-</td>
+                                    <td>{{ site.calculated_fields.land_area_for_fmv }} {{ site.calculated_fields.land_fmv_unit }}*{{ site.calculated_fields.land_fmv_per_unit }}={{ site.calculated_fields.land_fmv }}</td>
                                 </tr>
                             </table>
                         </td>
@@ -572,11 +580,11 @@
                                 </tr>
                                 <tr>
                                     <td>Construction</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ site.calculated_fields.building_area_for_fmv }} {{ site.calculated_fields.building_fmv_unit }}</td>
+                                    <td>{{ site.calculated_fields.building_fmv_per_unit }} per {{ site.calculated_fields.building_fmv_unit }}</td>
+                                    <td>{{ site.calculated_fields.building_estimated_fmv }}</td>
+                                    <td>{{ site.calculated_fields.building_depreciation }}</td>
+                                    <td>{{ site.calculated_fields.building_fmv }}</td>
                                 </tr>
                             </table>
                         </td>
@@ -593,23 +601,23 @@
                                 </tr>
                                 <tr>
                                     <td >Land</td>
-                                    <td></td>
+                                    <td>{{ site.calculated_fields.land_fmv }}</td>
                                 </tr>
                                 <tr>
                                     <td >Building</td>
-                                    <td></td>
+                                    <td>{{ site.calculated_fields.building_fmv }}</td>
                                 </tr>
                                 <tr>
                                     <td >Additional Amenities / Furniture</td>
-                                    <td></td>
+                                    <td>{{ site.calculated_fields.total_additional_value }}</td>
                                 </tr>
                                 <tr>
                                     <td class="normal-title">Total</td>
-                                    <td></td>
+                                    <td>{{ site.calculated_fields.fmv_total }}</td>
                                 </tr>
                                 <tr>
                                     <td class="normal-title">Say</td>
-                                    <td></td>
+                                    <td>{{ site.calculated_fields.fmv_final }}</td>
                                 </tr>
                             </table>
                         </td>
@@ -618,9 +626,9 @@
                     <tr>
                         <td colspan="2" class="valuation-text">
                             As a result of our appraisal and analysis, it is our considered opinion that the present fair market value of the 
-                            above property in the prevailing condition with aforesaid specifications is {{FMV final}}. The book value of the 
-                            above property is {{Book Value}} {{Book Value (in words)}} ( As per sale deed ). And the distress sale value 
-                            {{Distress value final}}.
+                            above property in the prevailing condition with aforesaid specifications is {{ site.calculated_fields.fmv_final }}. The book value of the 
+                            above property is {{ site.valuation_details.book_value }} {{ site.calculated_fields.book_value_in_words }} ( As per sale deed ). And the distress sale value 
+                            {{ site.calculated_fields.distress_value_final }}.
                         </td>
                     </tr>
 
@@ -640,7 +648,7 @@
                 
                 Given the existing state of usability and the specific attributes of the property under consideration, and drawing on 
                 my professional judgement, I propose considering the rounded-up value as the final figure, which I denote as 
-                {{FMV final}}.
+                {{ site.calculated_fields.fmv_final }}.
             </td>
         </tr>
         <tr>
@@ -651,9 +659,8 @@
                 Realizable value pertains to the inherent worth of an asset that can be achieved through its successful sale, 
                 factoring in a prudent assessment of the associated costs.<br><br>
                 
-                In light of a {{Realizable value discount}}% discount, we assert our view that the Realizable value of the 
-                aforementioned property, in its current condition and with the specified attributes, stands at {{Realizable value 
-                final}}. This assessment considers the potential financial impact of the discount, ensuring a comprehensive 
+                In light of a {{ site.calculated_fields.realizable_value_discount }}% discount, we assert our view that the Realizable value of the 
+                aforementioned property, in its current condition and with the specified attributes, stands at {{ site.calculated_fields.realizable_value_final }}. This assessment considers the potential financial impact of the discount, ensuring a comprehensive 
                 understanding of the property's market value in relation to the costs involved.
             </td>
         </tr>
@@ -680,7 +687,7 @@
                 discount of approximately 25% is prudent for the purpose of this valuation.<br><br>
                 
                 Thus, based on our assessment, the estimated forced sale or distress value of the subject property amounts to 
-                {{Distress value final}}. This value encapsulates a careful synthesis of market realities, borrower behaviour, and 
+                {{ site.calculated_fields.distress_value_final }}. This value encapsulates a careful synthesis of market realities, borrower behaviour, and 
                 the unique circumstances surrounding the sale.
             </td>
         </tr>
@@ -689,7 +696,7 @@
         </tr>
         <tr>
             <td colspan="2" class="valuation-text">
-                Prevailing Govt. GuideLine/ Jantri rate derives to be {{guideline rate per unit (old)}} per square meter for 
+                Prevailing Govt. GuideLine/ Jantri rate derives to be {{ site.calculated_fields.land_guideline_rate_per_unit_old }} per square meter for 
                 reasonably identical property, based on inquiry from the local revenue practitioners / registration - jantri value 
                 derived by the State Government represents guideline value fixed for stamp duty / registration purpose.<br><br>
                 
@@ -703,13 +710,13 @@
                 <table class="border-none">
                     <tr>
                         <td class="sec-title" style="width: 50%;" >Jantri rate for residential flat premises - year 2011</td>
-                        <td></td>
-                        <td></td>
+                        <td>{{ site.calculated_fields.land_guideline_rate_per_unit_old }}</td>
+                        <td>Square meter</td>
                     </tr>
                     <tr>
                         <td class="sec-title" style="width: 50%;">Revised Jantri rate as per Govt. notification</td>
-                        <td></td>
-                        <td></td>
+                        <td>{{ site.calculated_fields.land_guideline_rate_per_unit }}</td>
+                        <td>Square meter</td>
                     </tr>
                 </table>
             </td>
@@ -727,46 +734,46 @@
                     <tr>
                         <td class="center-text">i</td>
                         <td>Land</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>{{ site.calculated_fields.land_area_for_guideline_rate }}</td>
+                        <td>{{ site.valuation_details.guideline_construction_rate_square_meter }}</td>
+                        <td>{{ site.calculated_fields.land_guideline_rate }}</td>
                     </tr>
                     <tr>
                         <td class="center-text">ii</td>
                         <td>Construction Cost ( RCC ) </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>{{ site.calculated_fields.building_area_for_guideline_rate }}</td>
+                        <td>{{ site.valuation_details.guideline_rate_square_meter }}</td>
+                        <td>{{ site.calculated_fields.building_guideline_construction_cost }}</td>
                     </tr>
                     <tr>
                         <td class="center-text">iii</td>
                         <td>Depreciation on Construction ( - )</td>
-                        <td colspan="2"></td>
-                        <td></td>
+                        <td colspan="2">@ {{ site.valuation_details.depreciation_value_percentage }} %</td>
+                        <td>{{ site.calculated_fields.building_depreciation_on_construction }}</td>
                     </tr>
                     <tr>
                         <td class="center-text">iv</td>
                         <td>Depreciated construction cost</td>
                         <td colspan="2"></td>
-                        <td></td>
+                        <td>{{ site.calculated_fields.building_depreciated_guideline_rate }}</td>
                     </tr>
                     <tr>
                         <td class="center-text">v</td>
                         <td>Total Jantri Value ( i + iv )</td>
                         <td colspan="2"></td>
-                        <td></td>
+                        <td>{{ site.calculated_fields.guideline_rate }}</td>
                     </tr>
                     
                     <tr>
                         <td colspan="4" class="fb">Total Fair Jantri Value (Rounded off)</td>
-                        <td></td>
+                        <td>{{ site.calculated_fields.guideline_rate_rounded }}</td>
                     </tr>
                 </table>
             </td>
         </tr>
         <tr>
             <td colspan="2" class="valuation-text">
-                The guideline value of the property as below is {{guideline rate final}}.
+                The guideline value of the property as below is {{ site.calculated_fields.guideline_rate_final }}.
             </td>
         </tr>
         <tr>
@@ -786,17 +793,17 @@
         <tr>
             <td colspan="2" class="valuation-text">
                 After conducting a comprehensive appraisal and analysis, we hold the view that the current fair value of the 
-                property situated at {{Postal Address}} as of {{Date of Valuation}} is {{FMV final}}, which we consider to be 
+                property situated at {{ site.property_details.postal_address }} as of {{ site.application_details.date_of_valuation }} is {{ site.calculated_fields.fmv_final }}, which we consider to be 
                 equitable and rational.<br><br>
                 
                 Following our thorough assessment, we assert that the Realizable value of the property, considering the existing 
-                condition and specified attributes, amounts to {{Realizable value final}}.<br><br>
+                condition and specified attributes, amounts to {{ site.application_details.realizable_value_final }}.<br><br>
                 
-                For the property's distress value, our perspective, as of the valuation date, is {{Distress value final}}.<br><br>
+                For the property's distress value, our perspective, as of the valuation date, is {{ site.application_details.distress_value_final }}.<br><br>
                 
-                Regarding the guideline value, our assessment, as of the valuation date, is {{guideline rate final}}.<br><br>
+                Regarding the guideline value, our assessment, as of the valuation date, is {{ site.application_details.realizable_value_final }}.<br><br>
                 
-                As for the insurable value, our judgement, as of the valuation date, is {{Insurable value final}}.<br><br>
+                As for the insurable value, our judgement, as of the valuation date, is {{ site.application_details.insurable_value_final }}.<br><br>
                 
                 It's important to note that the information provided in this report is based on the data furnished by the property's 
                 owner and the associated society, coupled with our review of pertinent documents.<br><br>
@@ -819,27 +826,27 @@
                 <table class="border-none">
                     <tr>
                         <td class="normal-title">Qualifications in TIR/Mitigation suggested, if any</td>
-                        <td>-</td>
+                        <td>{{ site.assumptions_remarks.qualifications_tir_mitigation }}</td>
                     </tr>
                     <tr>
                         <td class="normal-title">Property is SARFAESI compliant</td>
-                        <td>-</td>
+                        <td>{{ site.assumptions_remarks.property_sarfaesi_compliant }}</td>
                     </tr>
                     <tr>
                         <td class="normal-title">Whether property belongs to social infrastructure like hospital, school, old age home etc.</td>
-                        <td>-</td>
+                        <td>{{ site.assumptions_remarks.belongs_to_social_infrastructure }}</td>
                     </tr>
                     <tr>
                         <td class="normal-title">Whether the entire piece of land on which the unit is set up / property is situated has been mortgaged or to be mortgaged.</td>
-                        <td>-</td>
+                        <td>{{ site.assumptions_remarks.land_mortgaged_status }}</td>
                     </tr>
                     <tr>
                         <td class="normal-title">Details of last two transactions in the locality/area to be provided, if available.</td>
-                        <td>-</td>
+                        <td>{{ site.assumptions_remarks.last_two_transactions }}</td>
                     </tr>
                     <tr>
                         <td class="normal-title">Any other aspect which has relevance on the value or marketability of the property</td>
-                        <td>-</td>
+                        <td>{{ site.assumptions_remarks.relevant_aspects_on_value }}</td>
                     </tr>
                 </table>
             </td>
@@ -861,7 +868,7 @@
                     <tr>
                         <td>
 
-                            i) The property was inspected by the undersigned on 22.<br>
+                            i) The property was inspected by the undersigned on {{ site.application_details.date_of_visit }}.<br>
                         </td>
                     </tr>
                     <tr>
@@ -903,7 +910,7 @@
                     </tr>
                     <tr>
                         <td>Date of Valuation</td>
-                        <td>-</td>
+                        <td>{{ site.application_details.date_of_valuation }}</td>
                     </tr>
                     <tr>
                         <td>IBBI Reg. No. </td>
@@ -991,8 +998,8 @@
                 
                 A. I am a citizen of india.<br>
                 B. I will not undertake valuation of any assets in which I have a direct or indirect interest or become so interested at any time during a period of three years prior to my appointment as valuer or three years after the valuation of assets was conducted by me.<br>
-                C. The information furnished in my valuation report dated {{Date of Valuation}} is true and correct to the best of my knowledge and belief and I have made an impartial and true valuation of the property.<br>
-                D. I have personally inspected the property on {{Date of Visit}}. The work is not subcontracted to any other valuer and carried out by myself.<br>
+                C. The information furnished in my valuation report dated {{ site.application_details.date_of_valuation }} is true and correct to the best of my knowledge and belief and I have made an impartial and true valuation of the property.<br>
+                D. I have personally inspected the property on {{ site.application_details.date_of_visit }}. The work is not subcontracted to any other valuer and carried out by myself.<br>
                 E. Valuation report is submitted in the format as prescribed by the Bank.<br>
                 F. I have not been depanelled/ delisted by any other bank and in case of any such depanelment by other banks during my empanelment with you, I will inform you within 3 days of such depanelment.<br>
                 G. I have not been removed/dismissed from service/employment earlier.<br>
@@ -1019,7 +1026,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <p>Date: {{Date of Valuation}}</p>
+                <p>Date: {{ site.application_details.date_of_valuation }}</p>
                 <p>Place: Ahmedabad</p>
                 <p>Signature:</p>
                 <div style="height: 50px;"></div>
@@ -1039,7 +1046,7 @@
         </tr>
         <tr>
             <td class="normal-title">Appointing authority</td>
-            <td>{{Bank Name}}</td>
+            <td>{{ site.application_details.bank_name }}</td>
         </tr>
         <tr>
             <td class="normal-title">Identity of the valuer and any other experts involved in the valuation</td>
@@ -1082,7 +1089,11 @@
             <td>Not Applicable</td>
         </tr>
     </table>
-
+    Date : {{ site.application_details.date_of_valuation }} 
+    Place : Ahmedabad 
+    Signature : 
+    <br/>
+    <br/>
     <!-- Model Code of Conduct -->
     <table>
         <tr>
@@ -1149,15 +1160,15 @@
         </tr>
         <tr>
             <td colspan="2">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                    <img src="placeholder.jpg" alt="Property Photo 1">
-                    <img src="placeholder.jpg" alt="Property Photo 2">
-                    <img src="placeholder.jpg" alt="Property Photo 3">
-                    <img src="placeholder.jpg" alt="Property Photo 4">
-                    <img src="placeholder.jpg" alt="Property Photo 5">
-                    <img src="placeholder.jpg" alt="Property Photo 6">
-                    <img src="placeholder.jpg" alt="Property Photo 7">
-                    <img src="placeholder.jpg" alt="Property Photo 8">
+                <!-- <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;"> -->
+                    <div style="display: flex;border: 1px solid red;">
+                    {% for pic in site.property_photographs.property_photographs.all() %}
+                    <!-- <div style="border: 1px solid black;width: 350px;"> -->
+                        <img src="{{ image_host }}{{ pic.attachment.url }}" style="width: 350px;margin-right: 15px;aspect-ratio: 1/2;"  alt="Property Photo">
+                        <!-- <br/>
+                        <b>{{ pic.name }}</b> -->
+                    <!-- </div> -->
+                    {% endfor %}
                 </div>
             </td>
         </tr>
@@ -1167,8 +1178,10 @@
     <table>
         <tr>
             <td colspan="2" class="center-text">
-                <img src="placeholder.jpg" alt="Google Map Location">
-                <p>LATITUDE: - LONGITUDE: -</p>
+                {% if site.property_photographs.google_earth_photograph %}
+                    <img src="{{ image_host }}{{ site.property_photographs.google_earth_photograph.url }}" alt="Google Map Location">
+                {% endif %}
+                <p>LATITUDE: {{ site.property_details.latitude }} LONGITUDE: {{ site.property_details.longitude }}</p>
             </td>
         </tr>
     </table>

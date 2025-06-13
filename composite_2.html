@@ -94,23 +94,42 @@
         </tr>
         <tr>
             <td class="normal-title">Fair Market Value </td>
-            <td>-</td>
+            <td>
+                {{ site.calculated_fields.fmv_rounded }}
+                {{ site.calculated_fields.fmv_in_words }}
+            </td>
         </tr>
         <tr>
             <td class="normal-title">Realizable Sale Value </td>
-            <td>-</td>
+            <td>
+                {{ site.calculated_fields.realizable_value_rounded }}
+                {{ site.calculated_fields.realizable_value_in_words }}
+
+            </td>
         </tr>
         <tr>
             <td class="normal-title">Distress Sale Value </td>
-            <td>-</td>
+            <td>
+                {{ site.calculated_fields.distress_value_rounded }}
+                {{ site.calculated_fields.distress_value_in_words }}
+
+            </td>
         </tr>
         <tr>
             <td class="normal-title">DLC / Registration Value </td>
-            <td>-</td>
+            <td>
+                {{ site.calculated_fields.guideline_rate_rounded }}
+                {{ site.calculated_fields.guideline_rate_in_words }}
+
+            </td>
         </tr>
         <tr>
             <td class="normal-title">Insurable Value</td>
-            <td>-</td>
+            <td>
+                {{ site.calculated_fields.insurable_value_rounded }}
+                {{ site.calculated_fields.insurable_value_in_words }}
+
+            </td>
         </tr>
         <tr>
             <td colspan="2" class="fb">Property Front View</td>
@@ -148,7 +167,7 @@
                     </tr>
                     <tr>
                         <td class="normal-title">Application No.</td>
-                        <td>-</td>
+                        <td></td>
                     </tr>
                 </table>
             </td>
@@ -435,19 +454,29 @@
                 <table class="border-none">
                     <tr>
                         <td class="normal-title">Site Area</td>
-                        <td>{{ site.valuation_details.carpet_area_square_feet }} square feet / {{ site.valuation_details.carpet_area_square_yard }} square yard / {{ site.valuation_details.carpet_area_square_meter }} square meter</td>
+                        <td>
+                            {{ site.calculated_fields.carpet_area_text }}
+                        </td>
                     </tr>
                     <tr>
                         <td class="normal-title">Plinth Area</td>
-                        <td>{{ site.valuation_details.built_up_area_square_feet }} square feet / {{ site.valuation_details.built_up_area_square_yard }} square yard / {{ site.valuation_details.built_up_area_square_meter }} square meter</td>
+                        <td>
+                            {{ site.calculated_fields.built_up_area_text }}
+
+                        </td>
                     </tr>
                     <tr>
                         <td class="normal-title">Carpet Area</td>
-                        <td>{{ site.valuation_details.carpet_area_square_feet }} square feet / {{ site.valuation_details.carpet_area_square_yard }} square yard / {{ site.valuation_details.carpet_area_square_meter }} square meter</td>
+                        <td>
+                            {{ site.calculated_fields.carpet_area_text }}
+                        </td>
                     </tr>
                     <tr>
                         <td class="normal-title">Saleable Area</td>
-                        <td>{{ site.valuation_details.super_built_up_area_square_feet }} square feet / {{ site.valuation_details.super_built_up_area_square_yard }} square yard / {{ site.valuation_details.super_built_up_area_square_meter }} square meter</td>
+                        <td>
+                            {{ site.calculated_fields.super_built_up_area_text }}
+
+                        </td>
                     </tr>
                     <tr>
                         <td class="normal-title">Remarks</td>
@@ -520,22 +549,22 @@
                                 </tr>
                                 <tr>
                                     <td>Present value of the building (incl. car parking, if provided)</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td> {{ site.calculated_fields.area_for_fmv }} {{ site.calculated_fields.fmv_unit }} </td>
+                                    <td>{{ site.calculated_fields.fmv_per_unit }} per {{ site.calculated_fields.fmv_unit }}</td>
+                                    <td>{{ site.calculated_fields.fmv }}</td>
                                 </tr>
                                 <tr>
                                     <td>Additional Value</td>
                                     <td colspan="2" class="center-text">Combined</td>
-                                    <td></td>
+                                    <td>{{ site.calculated_fields.additional_value }}</td>
                                 </tr>
                                 <tr>
                                     <td colspan="3">Total Fair Value</td>
-                                    <td></td>
+                                    <td>{{ site.calculated_fields.fmv_total }}</td>
                                 </tr>
                                 <tr>
                                     <td>Total Fair Value<br>(Rounded off & in words)</td>
-                                    <td colspan="3"></td>
+                                    <td colspan="3">{{ site.calculated_fields.fmv_final }}</td>
                                 </tr>
                             </table>
                         </td>
@@ -543,9 +572,9 @@
                     <tr>
                         <td colspan="2" class="valuation-text">
                             As a result of our appraisal and analysis, it is our considered opinion that the present fair market value of the 
-                            above property in the prevailing condition with aforesaid specifications is <<FMV final>>. The book value of the 
-                            above property is <<Book Value>> <<Book Value (in words)>> ( As per sale deed ). And the distress sale value 
-                            <<Distress value final>>.
+                            above property in the prevailing condition with aforesaid specifications is {{ site.calculated_fields.fmv_final }}. The book value of the 
+                            above property is {{ site.valuation_details.book_value }} {{ site.calculated_fields.book_value_in_words }} ( As per sale deed ). And the distress sale value 
+                            {{ site.calculated_fields.distress_value_final }}.
                         </td>
                     </tr>
 
@@ -565,7 +594,7 @@
                 
                 Given the existing state of usability and the specific attributes of the property under consideration, and drawing on 
                 my professional judgement, I propose considering the rounded-up value as the final figure, which I denote as 
-                <<FMV final>>.
+                {{ site.calculated_fields.fmv_final }}.
             </td>
         </tr>
         <tr>
@@ -576,9 +605,8 @@
                 Realizable value pertains to the inherent worth of an asset that can be achieved through its successful sale, 
                 factoring in a prudent assessment of the associated costs.<br><br>
                 
-                In light of a <<Realizable value discount>>% discount, we assert our view that the Realizable value of the 
-                aforementioned property, in its current condition and with the specified attributes, stands at <<Realizable value 
-                final>>. This assessment considers the potential financial impact of the discount, ensuring a comprehensive 
+                In light of a {{ site.calculated_fields.realizable_value_discount }}% discount, we assert our view that the Realizable value of the 
+                aforementioned property, in its current condition and with the specified attributes, stands at {{ site.calculated_fields.realizable_value_final }}. This assessment considers the potential financial impact of the discount, ensuring a comprehensive 
                 understanding of the property's market value in relation to the costs involved.
             </td>
         </tr>
@@ -605,7 +633,7 @@
                 discount of approximately 25% is prudent for the purpose of this valuation.<br><br>
                 
                 Thus, based on our assessment, the estimated forced sale or distress value of the subject property amounts to 
-                <<Distress value final>>. This value encapsulates a careful synthesis of market realities, borrower behaviour, and 
+                {{ site.calculated_fields.distress_value_final }}. This value encapsulates a careful synthesis of market realities, borrower behaviour, and 
                 the unique circumstances surrounding the sale.
             </td>
         </tr>
@@ -614,7 +642,7 @@
         </tr>
         <tr>
             <td colspan="2" class="valuation-text">
-                Prevailing Govt. GuideLine/ Jantri rate derives to be <<guideline rate per unit (old)>> per square meter for 
+                Prevailing Govt. GuideLine/ Jantri rate derives to be {{ site.calculated_fields.guideline_rate_per_unit_old }} per square meter for 
                 reasonably identical property, based on inquiry from the local revenue practitioners / registration - jantri value 
                 derived by the State Government represents guideline value fixed for stamp duty / registration purpose.<br><br>
                 
@@ -651,39 +679,39 @@
                     </tr>
                     <tr>
                         <td class="center-text">i</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>3 ( Built Up Area ) </td>
+                        <td>{{ site.calculated_fields.area_for_guideline_rate }}</td>
+                        <td>{{ site.calculated_fields.guideline_rate_per_unit }}</td>
+                        <td>{{ site.calculated_fields.guideline_rate }}</td>
                     </tr>
                     <tr>
                         <td class="center-text">ii</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>Construction Cost ( Built Up Area )</td>
+                        <td>{{ site.calculated_fields.area_for_guideline_rate }}</td>
+                        <td>{{ site.calculated_fields.guideline_construction_rate }}</td>
+                        <td>{{ site.calculated_fields.guideline_construction_cost }}</td>
                     </tr>
                     <tr>
                         <td class="center-text">iii</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>Depreciation on Construction ( - ) </td>
+                        <td colspan="2">@ {{ site.valuation_details.depreciation_value_percentage }} %</td>
+                        <td>{{ site.calculated_fields.depreciation_on_construction }}</td>
+                        <!-- <td>{{ site.calculated_fields.area_for_guideline_rate }}</td> -->
                     </tr>
                     <tr>
                         <td colspan="4" class="fb">Total ( i-iii )</td>
-                        <td></td>
+                        <td>{{ site.calculated_fields.depreciated_guideline_rate }}</td>
                     </tr>
                     <tr>
                         <td colspan="4" class="fb">Total Fair Value (Rounded off & in words)</td>
-                        <td></td>
+                        <td>{{ site.calculated_fields.guideline_rate_rounded }}</td>
                     </tr>
                 </table>
             </td>
         </tr>
         <tr>
             <td colspan="2" class="valuation-text">
-                The guideline value of the property as below is <<guideline rate final>>.
+                The guideline value of the property as below is {{ site.calculated_fields.guideline_rate_final }}.
             </td>
         </tr>
         <tr>
@@ -703,17 +731,17 @@
         <tr>
             <td colspan="2" class="valuation-text">
                 After conducting a comprehensive appraisal and analysis, we hold the view that the current fair value of the 
-                property situated at <<Postal Address>> as of {{ site.application_details.date_of_valuation }} is <<FMV final>>, which we consider to be 
+                property situated at {{ site.property_details.postal_address }} as of {{ site.application_details.date_of_valuation }} is {{ site.calculated_fields.fmv_final }}, which we consider to be 
                 equitable and rational.<br><br>
                 
                 Following our thorough assessment, we assert that the Realizable value of the property, considering the existing 
-                condition and specified attributes, amounts to <<Realizable value final>>.<br><br>
+                condition and specified attributes, amounts to {{ site.application_details.realizable_value_final }}.<br><br>
                 
-                For the property's distress value, our perspective, as of the valuation date, is <<Distress value final>>.<br><br>
+                For the property's distress value, our perspective, as of the valuation date, is {{ site.application_details.distress_value_final }}.<br><br>
                 
-                Regarding the guideline value, our assessment, as of the valuation date, is <<guideline rate final>>.<br><br>
+                Regarding the guideline value, our assessment, as of the valuation date, is {{ site.application_details.realizable_value_final }}.<br><br>
                 
-                As for the insurable value, our judgement, as of the valuation date, is <<Insurable value final>>.<br><br>
+                As for the insurable value, our judgement, as of the valuation date, is {{ site.application_details.insurable_value_final }}.<br><br>
                 
                 It's important to note that the information provided in this report is based on the data furnished by the property's 
                 owner and the associated society, coupled with our review of pertinent documents.<br><br>
@@ -778,7 +806,7 @@
                     <tr>
                         <td>
 
-                            i) The property was inspected by the undersigned on 22.<br>
+                            i) The property was inspected by the undersigned on {{ site.application_details.date_of_visit }}.<br>
                         </td>
                     </tr>
                     <tr>
@@ -999,7 +1027,11 @@
             <td>Not Applicable</td>
         </tr>
     </table>
-
+    Date : {{ site.application_details.date_of_valuation }} 
+    Place : Ahmedabad 
+    Signature : 
+    <br/>
+    <br/>
     <!-- Model Code of Conduct -->
     <table>
         <tr>
