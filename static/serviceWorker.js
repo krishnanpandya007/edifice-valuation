@@ -26,7 +26,7 @@
 
 const staticCacheName = 'edifice-pwa-v1';
 const assets = [
-    '/',  // Root (optional)
+     // Root (optional)
     '/view/site/26/', // Cache the dynamic page itself
     '/static/CACHE/css/output.7857b05c4f5e.css',
     // '/static/flowbite.min.js',
