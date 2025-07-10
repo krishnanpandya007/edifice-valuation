@@ -24,7 +24,6 @@ This platform is designed to streamline and digitize traditional property valuat
 
 ## ⚙️ Getting Started (Local Setup)
 
-1. **Clone the repository:**
 
 ```bash
 git clone https://github.com/krishnanpandya007/edifice-valuation.git
